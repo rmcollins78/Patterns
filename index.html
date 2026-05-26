@@ -1,0 +1,868 @@
+cat > /mnt/user-data/outputs/index.html << 'ENDOFFILE'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Patterns">
+<title>Patterns</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #f5f0eb;
+    --surface: #faf7f4;
+    --surface2: #f0ebe4;
+    --border: #e0d8cf;
+    --border2: #cfc5b8;
+    --text: #2c2520;
+    --text2: #6b5f56;
+    --text3: #9c8f85;
+    --brown: #7c5c45;
+    --brown-light: #a67c5b;
+    --brown-dark: #4a3728;
+    --cream: #ede5d8;
+    --red-q: #c17f74;
+    --yellow-q: #c9a84c;
+    --blue-q: #7a9db5;
+    --green-q: #7a9e7e;
+    --red-soft: #f5ebe9;
+    --yellow-soft: #f5f0e0;
+    --blue-soft: #e8eff4;
+    --green-soft: #e8f0e9;
+    --nav-h: 64px;
+    --radius: 14px;
+    --radius-sm: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body { height: 100%; overflow: hidden; background: var(--bg); }
+  body { font-family: 'DM Sans', sans-serif; color: var(--text); font-size: 15px; }
+
+  #app { height: 100vh; display: flex; flex-direction: column; }
+
+  .screen { flex: 1; overflow-y: auto; overflow-x: hidden; padding: 20px 16px 24px; display: none; -webkit-overflow-scrolling: touch; }
+  .screen.active { display: block; }
+
+  nav { height: var(--nav-h); background: var(--surface); border-top: 1px solid var(--border); display: flex; flex-shrink: 0; }
+  .nav-btn { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; background: none; border: none; cursor: pointer; color: var(--text3); font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 400; transition: color 0.15s; padding: 0; }
+  .nav-btn svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .nav-btn.active { color: var(--brown); }
+
+  h1 { font-family: 'Lora', serif; font-size: 26px; font-weight: 400; color: var(--text); margin-bottom: 4px; }
+  h2 { font-family: 'Lora', serif; font-size: 18px; font-weight: 400; color: var(--text); margin-bottom: 12px; }
+  .section-label { font-size: 11px; font-weight: 500; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin: 24px 0 10px; }
+  .section-label:first-child { margin-top: 0; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 10px; }
+
+  .pill-row { display: flex; flex-wrap: wrap; gap: 7px; }
+  .pill { padding: 8px 14px; border-radius: 20px; border: 1px solid var(--border); background: var(--surface2); font-size: 13px; color: var(--text2); cursor: pointer; transition: all 0.15s; font-family: 'DM Sans', sans-serif; }
+  .pill:active { transform: scale(0.97); }
+  .pill.sel { background: var(--brown); border-color: var(--brown); color: #fff; font-weight: 500; }
+
+  .scale-row { display: flex; align-items: center; gap: 8px; }
+  .scale-label { font-size: 12px; color: var(--text3); min-width: 36px; }
+  .scale-label.right { text-align: right; }
+  .scale-btns { display: flex; gap: 5px; flex: 1; justify-content: center; }
+  .scale-btn { width: 38px; height: 38px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface2); font-size: 13px; color: var(--text2); cursor: pointer; transition: all 0.15s; font-family: 'DM Sans', sans-serif; display: flex; align-items: center; justify-content: center; }
+  .scale-btn.sel { background: var(--brown); border-color: var(--brown); color: #fff; font-weight: 500; }
+
+  .field-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .field-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .field-row:first-child { padding-top: 0; }
+  .field-name { font-size: 14px; color: var(--text); }
+  .field-sub { font-size: 12px; color: var(--text3); margin-top: 2px; }
+  input[type=number] { width: 72px; padding: 8px 10px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface2); font-size: 14px; color: var(--text); font-family: 'DM Sans', sans-serif; text-align: center; }
+  input[type=number]:focus { outline: none; border-color: var(--brown-light); }
+  input[type=date] { padding: 8px 10px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface2); font-size: 14px; color: var(--text); font-family: 'DM Sans', sans-serif; }
+  input[type=date]:focus { outline: none; border-color: var(--brown-light); }
+  select { padding: 8px 10px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface2); font-size: 14px; color: var(--text); font-family: 'DM Sans', sans-serif; }
+
+  textarea { width: 100%; padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface2); font-size: 14px; color: var(--text); font-family: 'DM Sans', sans-serif; resize: none; line-height: 1.5; }
+  textarea:focus { outline: none; border-color: var(--brown-light); }
+  textarea::placeholder { color: var(--text3); }
+
+  .btn-primary { width: 100%; padding: 15px; border-radius: var(--radius); border: none; background: var(--brown); color: #fff; font-size: 15px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: opacity 0.15s; margin-top: 16px; }
+  .btn-primary:active { opacity: 0.85; }
+  .btn-secondary { width: 100%; padding: 14px; border-radius: var(--radius); border: 1px solid var(--border2); background: var(--surface); color: var(--text2); font-size: 15px; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s; margin-top: 8px; }
+  .btn-secondary:active { background: var(--surface2); }
+  .btn-danger { border-color: #c17f74; color: #c17f74; }
+
+  /* Mood Meter */
+  .mood-meter-wrap { position: relative; width: 100%; padding-bottom: 100%; border-radius: var(--radius-sm); overflow: hidden; cursor: crosshair; touch-action: none; }
+  #moodCanvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .mood-dot { position: absolute; width: 16px; height: 16px; border-radius: 50%; background: var(--brown-dark); border: 2px solid #fff; transform: translate(-50%, -50%); pointer-events: none; display: none; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
+  .axis-labels-x { display: flex; justify-content: space-between; font-size: 11px; color: var(--text3); margin-top: 6px; padding: 0 2px; }
+  .meter-outer { display: flex; gap: 8px; align-items: stretch; }
+  .axis-label-y { display: flex; flex-direction: column; justify-content: space-between; font-size: 11px; color: var(--text3); padding: 2px 0; text-align: right; flex-shrink: 0; width: 52px; line-height: 1.2; }
+  .mood-selected { text-align: center; font-size: 14px; color: var(--brown); font-weight: 500; min-height: 20px; margin-top: 8px; font-family: 'Lora', serif; font-style: italic; }
+
+  /* Toast */
+  .toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); background: var(--brown-dark); color: #fff; padding: 10px 20px; border-radius: 20px; font-size: 13px; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999; white-space: nowrap; }
+  .toast.show { opacity: 1; }
+
+  /* Happy modal */
+  .modal-bg { position: fixed; inset: 0; background: rgba(44,37,32,0.5); z-index: 200; display: none; align-items: flex-end; justify-content: center; }
+  .modal-bg.open { display: flex; }
+  .modal { background: var(--surface); border-radius: var(--radius) var(--radius) 0 0; padding: 24px 20px 36px; width: 100%; max-width: 480px; }
+  .modal h2 { margin-bottom: 14px; }
+
+  /* Dashboard */
+  .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+  .metric-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; }
+  .metric-val { font-family: 'Lora', serif; font-size: 28px; font-weight: 400; color: var(--brown); }
+  .metric-lbl { font-size: 12px; color: var(--text3); margin-top: 3px; }
+
+  .insight { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 10px; border-left: 3px solid var(--brown-light); }
+  .insight-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 5px; }
+  .insight-text { font-size: 13px; color: var(--text2); line-height: 1.5; }
+
+  .phase-card { border-radius: var(--radius); padding: 16px; margin-bottom: 10px; }
+  .phase-name { font-family: 'Lora', serif; font-size: 20px; font-weight: 400; margin-bottom: 4px; }
+  .phase-desc { font-size: 13px; line-height: 1.5; opacity: 0.85; }
+
+  .chart-wrap { position: relative; width: 100%; }
+
+  /* History */
+  .day-group { margin-bottom: 20px; }
+  .day-label { font-size: 12px; font-weight: 500; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+  .entry-row { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px; margin-bottom: 6px; }
+  .entry-time { font-size: 12px; color: var(--text3); margin-bottom: 6px; }
+  .entry-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .etag { padding: 3px 9px; border-radius: 10px; font-size: 12px; background: var(--surface2); color: var(--text2); border: 1px solid var(--border); }
+  .etag.red { background: var(--red-soft); border-color: #d4a09a; color: #7a3d36; }
+  .etag.yellow { background: var(--yellow-soft); border-color: #d4bc7a; color: #6b5010; }
+  .etag.blue { background: var(--blue-soft); border-color: #9ab5c9; color: #2d5570; }
+  .etag.green { background: var(--green-soft); border-color: #96b89a; color: #2d5e33; }
+  .etag.brown { background: var(--cream); border-color: var(--border2); color: var(--brown-dark); }
+  .entry-note { font-size: 13px; color: var(--text2); font-style: italic; margin-top: 6px; line-height: 1.4; }
+  .happy-entry { border-left: 3px solid var(--yellow-q); }
+
+  /* Loading */
+  #loading { position: fixed; inset: 0; background: var(--bg); display: flex; align-items: center; justify-content: center; z-index: 500; flex-direction: column; gap: 12px; }
+  .spinner { width: 32px; height: 32px; border: 2px solid var(--border); border-top-color: var(--brown); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .empty { text-align: center; padding: 48px 20px; color: var(--text3); font-size: 14px; line-height: 1.6; }
+  .empty .big { font-family: 'Lora', serif; font-size: 32px; margin-bottom: 8px; color: var(--border2); }
+</style>
+</head>
+<body>
+
+<div id="loading">
+  <div class="spinner"></div>
+  <div style="font-size:13px;color:var(--text3)">loading patterns...</div>
+</div>
+
+<div id="app" style="display:none">
+  <div id="screen-log" class="screen active">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px">
+      <h1>patterns</h1>
+      <span id="phaseChip" style="font-size:12px;color:var(--text3);font-style:italic"></span>
+    </div>
+
+    <div class="section-label">How are you feeling?</div>
+    <div class="card" style="padding:14px">
+      <div class="meter-outer">
+        <div class="axis-label-y">
+          <span>high energy</span>
+          <span>low energy</span>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div class="mood-meter-wrap" id="moodMeterWrap">
+            <canvas id="moodCanvas"></canvas>
+            <div class="mood-dot" id="moodDot"></div>
+          </div>
+          <div class="axis-labels-x">
+            <span>unpleasant</span>
+            <span>pleasant</span>
+          </div>
+        </div>
+      </div>
+      <div class="mood-selected" id="moodSelected">tap to name your feeling</div>
+    </div>
+
+    <div class="section-label">Irritability</div>
+    <div class="card">
+      <div class="pill-row" id="irritPills">
+        <div class="pill" data-val="0" onclick="selPill('irrit',this)">nothing bothers me</div>
+        <div class="pill" data-val="1" onclick="selPill('irrit',this)">small things are annoying</div>
+        <div class="pill" data-val="2" onclick="selPill('irrit',this)">I snapped or almost snapped</div>
+        <div class="pill" data-val="3" onclick="selPill('irrit',this)">I feel like I'll explode</div>
+      </div>
+    </div>
+
+    <div class="section-label">Self-harm thoughts</div>
+    <div class="card">
+      <div class="pill-row" id="shPills">
+        <div class="pill" data-val="0" onclick="selPill('sh',this)">none</div>
+        <div class="pill" data-val="1" onclick="selPill('sh',this)">quiet</div>
+        <div class="pill" data-val="2" onclick="selPill('sh',this)">loud</div>
+        <div class="pill" data-val="3" onclick="selPill('sh',this)">specific method</div>
+      </div>
+    </div>
+
+    <div class="section-label">Energy, anxiety & social</div>
+    <div class="card" style="display:flex;flex-direction:column;gap:14px">
+      <div>
+        <div style="font-size:12px;color:var(--text3);margin-bottom:7px">Energy</div>
+        <div class="scale-row">
+          <span class="scale-label">drained</span>
+          <div class="scale-btns" id="energyScale">
+            <div class="scale-btn" data-val="1" onclick="selScale('energy',this)">1</div>
+            <div class="scale-btn" data-val="2" onclick="selScale('energy',this)">2</div>
+            <div class="scale-btn" data-val="3" onclick="selScale('energy',this)">3</div>
+            <div class="scale-btn" data-val="4" onclick="selScale('energy',this)">4</div>
+            <div class="scale-btn" data-val="5" onclick="selScale('energy',this)">5</div>
+          </div>
+          <span class="scale-label right">wired</span>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;color:var(--text3);margin-bottom:7px">Anxiety</div>
+        <div class="scale-row">
+          <span class="scale-label">calm</span>
+          <div class="scale-btns" id="anxietyScale">
+            <div class="scale-btn" data-val="1" onclick="selScale('anxiety',this)">1</div>
+            <div class="scale-btn" data-val="2" onclick="selScale('anxiety',this)">2</div>
+            <div class="scale-btn" data-val="3" onclick="selScale('anxiety',this)">3</div>
+            <div class="scale-btn" data-val="4" onclick="selScale('anxiety',this)">4</div>
+            <div class="scale-btn" data-val="5" onclick="selScale('anxiety',this)">5</div>
+          </div>
+          <span class="scale-label right">spiral</span>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;color:var(--text3);margin-bottom:7px">Social battery</div>
+        <div class="scale-row">
+          <span class="scale-label">hide away</span>
+          <div class="scale-btns" id="socialScale">
+            <div class="scale-btn" data-val="1" onclick="selScale('social',this)">1</div>
+            <div class="scale-btn" data-val="2" onclick="selScale('social',this)">2</div>
+            <div class="scale-btn" data-val="3" onclick="selScale('social',this)">3</div>
+            <div class="scale-btn" data-val="4" onclick="selScale('social',this)">4</div>
+            <div class="scale-btn" data-val="5" onclick="selScale('social',this)">5</div>
+          </div>
+          <span class="scale-label right">connect</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">Sleep</div>
+    <div class="card">
+      <div class="field-row">
+        <div><div class="field-name">Hours last night</div></div>
+        <input type="number" id="sleepHours" min="0" max="24" step="0.5" placeholder="—">
+      </div>
+    </div>
+
+    <div class="section-label">Marijuana</div>
+    <div class="card" style="display:flex;flex-direction:column;gap:14px">
+      <div>
+        <div style="font-size:12px;color:var(--text3);margin-bottom:7px">Time of use</div>
+        <div class="pill-row" id="weedTimePills">
+          <div class="pill" data-val="morning" onclick="selPill('weedTime',this)">morning</div>
+          <div class="pill" data-val="afternoon" onclick="selPill('weedTime',this)">afternoon</div>
+          <div class="pill" data-val="evening" onclick="selPill('weedTime',this)">evening</div>
+          <div class="pill" data-val="night" onclick="selPill('weedTime',this)">night</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;color:var(--text3);margin-bottom:7px">Why I used</div>
+        <div class="pill-row" id="weedWhyPills">
+          <div class="pill" data-val="anxiety" onclick="selPill('weedWhy',this)">anxiety</div>
+          <div class="pill" data-val="sleep" onclick="selPill('weedWhy',this)">sleep</div>
+          <div class="pill" data-val="pain" onclick="selPill('weedWhy',this)">pain</div>
+          <div class="pill" data-val="social" onclick="selPill('weedWhy',this)">social</div>
+          <div class="pill" data-val="habit" onclick="selPill('weedWhy',this)">habit</div>
+          <div class="pill" data-val="enjoyment" onclick="selPill('weedWhy',this)">enjoyment</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;color:var(--text3);margin-bottom:7px">Amount</div>
+        <div class="pill-row" id="weedAmtPills">
+          <div class="pill" data-val="none" onclick="selPill('weedAmt',this)">none</div>
+          <div class="pill" data-val="little" onclick="selPill('weedAmt',this)">a little</div>
+          <div class="pill" data-val="moderate" onclick="selPill('weedAmt',this)">moderate</div>
+          <div class="pill" data-val="a lot" onclick="selPill('weedAmt',this)">a lot</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">Alcohol</div>
+    <div class="card">
+      <div class="field-row">
+        <div class="field-name">Number of drinks</div>
+        <input type="number" id="alcoholNum" min="0" max="30" step="1" placeholder="0">
+      </div>
+    </div>
+
+    <div class="section-label">What's weighing on me</div>
+    <div class="card">
+      <textarea id="weighingText" rows="3" placeholder="What's on your mind..."></textarea>
+    </div>
+
+    <button class="btn-primary" onclick="saveEntry()">save entry</button>
+    <button class="btn-secondary" onclick="openHappy()">✦ something made me happy</button>
+    <div style="height:20px"></div>
+  </div>
+
+  <div id="screen-dashboard" class="screen">
+    <h1 style="margin-bottom:20px">patterns</h1>
+    <div id="dashContent"><div class="empty"><div class="big">◦</div>log a few entries<br>to see your patterns</div></div>
+  </div>
+
+  <div id="screen-history" class="screen">
+    <h1 style="margin-bottom:20px">history</h1>
+    <div id="histContent"><div class="empty"><div class="big">◦</div>no entries yet</div></div>
+  </div>
+
+  <div id="screen-settings" class="screen">
+    <h1 style="margin-bottom:20px">settings</h1>
+
+    <div class="section-label">Cycle tracking</div>
+    <div class="card">
+      <div class="field-row">
+        <div class="field-name">Last period start</div>
+        <input type="date" id="cycleStart">
+      </div>
+      <div class="field-row">
+        <div class="field-name">Cycle length</div>
+        <input type="number" id="cycleLength" min="21" max="45" value="28" style="width:72px">
+      </div>
+    </div>
+    <button class="btn-primary" onclick="saveCycle()">save cycle settings</button>
+
+    <div class="section-label" style="margin-top:28px">Data</div>
+    <div class="card">
+      <p style="font-size:13px;color:var(--text2);line-height:1.6">Your data is stored in Supabase and syncs across any device where you open this app. It persists indefinitely.</p>
+    </div>
+    <button class="btn-secondary btn-danger" onclick="confirmClear()" style="margin-top:8px">clear all data</button>
+    <div style="height:20px"></div>
+  </div>
+
+  <nav>
+    <button class="nav-btn active" onclick="goTo('log',this)">
+      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+      log
+    </button>
+    <button class="nav-btn" onclick="goTo('dashboard',this)">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      patterns
+    </button>
+    <button class="nav-btn" onclick="goTo('history',this)">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+      history
+    </button>
+    <button class="nav-btn" onclick="goTo('settings',this)">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      settings
+    </button>
+  </nav>
+</div>
+
+<div class="modal-bg" id="happyModal">
+  <div class="modal">
+    <h2>something made me happy</h2>
+    <textarea id="happyText" rows="4" placeholder="what happened?"></textarea>
+    <button class="btn-primary" onclick="saveHappy()">save</button>
+    <button class="btn-secondary" onclick="closeHappy()">cancel</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── CONFIG ── replace these two values ──────────────────────────────
+const SUPABASE_URL = 'REPLACE_WITH_YOUR_PROJECT_URL';
+const SUPABASE_KEY = 'REPLACE_WITH_YOUR_ANON_KEY';
+// ───────────────────────────────────────────────────────────────────
+
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// 100-word mood meter grid (10x10, row0=top=high energy, col0=left=unpleasant)
+const MOOD_GRID = [
+  ['enraged','hostile','unfriendly','unkind','shocked','surprised','upbeat','festive','exhilarated','ecstatic'],
+  ['livid','furious','panicked','stressed','jittery','restless','energized','enthusiastic','elated','thrilled'],
+  ['fuming','frightened','angry','tense','distressed','alarmed','motivated','inspired','pumped up','overjoyed'],
+  ['mad','afraid','anxious','apprehensive','worried','annoyed','pleased','cheerful','happy','amused'],
+  ['bitter','troubled','irritable','frustrated','displeased','uneasy','content','optimistic','hopeful','playful'],
+  ['heavy','gloomy','sullen','sad','bored','indifferent','relieved','satisfied','at ease','comfortable'],
+  ['dejected','down','despondent','withdrawn','dull','foggy','calm','easygoing','restful','blessed'],
+  ['depressed','dismayed','disheartened','lonely','alienated','fatigued','serene','carefree','grateful','thoughtful'],
+  ['miserable','despair','hopeless','mournful','drained','lethargic','tranquil','relaxed','peaceful','nurturing'],
+  ['helpless','defeated','exhausted','apathetic','sleepy','sluggish','balanced','pensive','loving','fulfilled']
+];
+
+const QUAD_COLORS = {
+  red:    { fill:'#e8c4bf', label:'#7a3d36' },
+  yellow: { fill:'#e8d8a0', label:'#6b5010' },
+  blue:   { fill:'#b8cfe0', label:'#2d5570' },
+  green:  { fill:'#b8d4bb', label:'#2d5e33' }
+};
+
+let appState = {
+  irrit: null, sh: null, energy: null, anxiety: null, social: null,
+  weedTime: null, weedWhy: null, weedAmt: null,
+  moodX: null, moodY: null, moodWord: null, moodQuadrant: null
+};
+let cycleSettings = { start: null, length: 28 };
+let chartInst = {};
+let entries = [];
+let happyEntries = [];
+
+// ── INIT ────────────────────────────────────────────────────────────
+async function init() {
+  await loadCycle();
+  await loadEntries();
+  initMoodMeter();
+  updatePhaseChip();
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('app').style.display = 'flex';
+}
+
+// ── SUPABASE ────────────────────────────────────────────────────────
+async function loadEntries() {
+  const { data: logs } = await sb.from('entries').select('*').order('created_at', { ascending: false }).limit(200);
+  const { data: happy } = await sb.from('happy_moments').select('*').order('created_at', { ascending: false }).limit(100);
+  entries = logs || [];
+  happyEntries = happy || [];
+}
+
+async function loadCycle() {
+  const { data } = await sb.from('cycle_settings').select('*').eq('id', 1).single();
+  if (data) {
+    cycleSettings = { start: data.cycle_start, length: data.cycle_length || 28 };
+    if (data.cycle_start) document.getElementById('cycleStart').value = data.cycle_start;
+    document.getElementById('cycleLength').value = cycleSettings.length;
+  }
+}
+
+async function saveCycle() {
+  const start = document.getElementById('cycleStart').value || null;
+  const length = parseInt(document.getElementById('cycleLength').value) || 28;
+  cycleSettings = { start, length };
+  await sb.from('cycle_settings').upsert({ id: 1, cycle_start: start, cycle_length: length });
+  updatePhaseChip();
+  toast('Cycle saved');
+}
+
+async function saveEntry() {
+  const entry = {
+    mood_x: appState.moodX,
+    mood_y: appState.moodY,
+    mood_word: appState.moodWord,
+    mood_quadrant: appState.moodQuadrant,
+    irritability: appState.irrit,
+    self_harm: appState.sh,
+    energy: appState.energy,
+    anxiety: appState.anxiety,
+    social_battery: appState.social,
+    sleep_hours: parseFloat(document.getElementById('sleepHours').value) || null,
+    weed_time: appState.weedTime,
+    weed_why: appState.weedWhy,
+    weed_amount: appState.weedAmt,
+    alcohol_drinks: parseInt(document.getElementById('alcoholNum').value) || 0,
+    weighing_on_me: document.getElementById('weighingText').value.trim() || null,
+    cycle_phase: getPhase()?.name || null,
+    entry_type: 'log'
+  };
+  const { data, error } = await sb.from('entries').insert(entry).select().single();
+  if (!error && data) {
+    entries.unshift(data);
+    resetForm();
+    toast('Entry saved');
+  } else {
+    toast('Error saving — check connection');
+  }
+}
+
+async function saveHappy() {
+  const text = document.getElementById('happyText').value.trim();
+  if (!text) return;
+  const { data, error } = await sb.from('happy_moments').insert({ content: text }).select().single();
+  if (!error && data) {
+    happyEntries.unshift(data);
+    closeHappy();
+    toast('Saved ✦');
+  }
+}
+
+// ── MOOD METER ──────────────────────────────────────────────────────
+function initMoodMeter() {
+  const wrap = document.getElementById('moodMeterWrap');
+  const canvas = document.getElementById('moodCanvas');
+  const size = wrap.offsetWidth;
+  canvas.width = size;
+  canvas.height = size;
+  drawMeter(canvas, size);
+
+  function handleInput(e) {
+    e.preventDefault();
+    const rect = canvas.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    const x = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+    const y = Math.max(0, Math.min(1, (clientY - rect.top) / rect.height));
+    appState.moodX = parseFloat(x.toFixed(3));
+    appState.moodY = parseFloat(y.toFixed(3));
+
+    const col = Math.min(9, Math.floor(x * 10));
+    const row = Math.min(9, Math.floor(y * 10));
+    const word = MOOD_GRID[row][col];
+    const quad = y < 0.5 ? (x < 0.5 ? 'red' : 'yellow') : (x < 0.5 ? 'blue' : 'green');
+    appState.moodWord = word;
+    appState.moodQuadrant = quad;
+
+    const dot = document.getElementById('moodDot');
+    dot.style.display = 'block';
+    dot.style.left = (x * 100) + '%';
+    dot.style.top = (y * 100) + '%';
+    document.getElementById('moodSelected').textContent = word;
+    document.getElementById('moodSelected').style.color = QUAD_COLORS[quad].label;
+  }
+
+  canvas.addEventListener('click', handleInput);
+  canvas.addEventListener('touchstart', handleInput, { passive: false });
+  canvas.addEventListener('touchmove', handleInput, { passive: false });
+}
+
+function drawMeter(canvas, size) {
+  const ctx = canvas.getContext('2d');
+  const h = size / 2;
+
+  // quadrant fills — soft, desaturated
+  const fills = [
+    { x: 0,   y: 0,   color: '#e8c4bf' }, // red TL
+    { x: h,   y: 0,   color: '#e8d8a0' }, // yellow TR
+    { x: 0,   y: h,   color: '#b8cfe0' }, // blue BL
+    { x: h,   y: h,   color: '#b8d4bb' }  // green BR
+  ];
+  fills.forEach(q => {
+    ctx.fillStyle = q.color;
+    ctx.fillRect(q.x, q.y, h, h);
+  });
+
+  // subtle grid lines at word boundaries
+  ctx.strokeStyle = 'rgba(255,255,255,0.35)';
+  ctx.lineWidth = 0.5;
+  for (let i = 1; i < 10; i++) {
+    const pos = (size / 10) * i;
+    ctx.beginPath(); ctx.moveTo(pos, 0); ctx.lineTo(pos, size); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0, pos); ctx.lineTo(size, pos); ctx.stroke();
+  }
+
+  // axis lines
+  ctx.strokeStyle = 'rgba(255,255,255,0.7)';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(h, 0); ctx.lineTo(h, size); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(0, h); ctx.lineTo(size, h); ctx.stroke();
+
+  // quadrant word labels
+  ctx.font = `${Math.round(size * 0.055)}px 'DM Sans', sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  const qLabels = [
+    { text: 'red', x: h*0.5, y: h*0.5, color: 'rgba(122,61,54,0.5)' },
+    { text: 'yellow', x: h*1.5, y: h*0.5, color: 'rgba(107,80,16,0.5)' },
+    { text: 'blue', x: h*0.5, y: h*1.5, color: 'rgba(45,85,112,0.5)' },
+    { text: 'green', x: h*1.5, y: h*1.5, color: 'rgba(45,94,51,0.5)' }
+  ];
+  qLabels.forEach(l => {
+    ctx.fillStyle = l.color;
+    ctx.fillText(l.text, l.x, l.y);
+  });
+}
+
+// ── CYCLE ───────────────────────────────────────────────────────────
+function getPhase() {
+  if (!cycleSettings.start) return null;
+  const start = new Date(cycleSettings.start);
+  const today = new Date();
+  const diff = Math.floor((today - start) / 86400000);
+  const len = cycleSettings.length;
+  const day = ((diff % len) + len) % len + 1;
+  if (day <= 5)  return { name:'menstrual',  day, color:'#c17f74', bg:'#f5ebe9', text:'#7a3d36', desc:'Estrogen and progesterone are at their lowest. Energy often dips and emotions can feel raw.' };
+  if (day <= 13) return { name:'follicular', day, color:'#7a9db5', bg:'#e8eff4', text:'#2d5570', desc:'Rising estrogen. Many people feel more energetic, social, and mentally sharp.' };
+  if (day <= 16) return { name:'ovulation',  day, color:'#7a9e7e', bg:'#e8f0e9', text:'#2d5e33', desc:'Estrogen peaks. Often the highest energy, mood, and social drive of the cycle.' };
+  return          { name:'luteal',     day, color:'#a07ab5', bg:'#f0eaf5', text:'#4a2d5e', desc:'Progesterone rises then falls. Irritability, anxiety, and fatigue are more common. Your feelings are valid and cyclical.' };
+}
+
+function updatePhaseChip() {
+  const phase = getPhase();
+  const chip = document.getElementById('phaseChip');
+  if (phase) chip.textContent = phase.name + ' · day ' + phase.day;
+  else chip.textContent = '';
+}
+
+// ── UI HELPERS ──────────────────────────────────────────────────────
+function selPill(key, el) {
+  el.closest('.pill-row').querySelectorAll('.pill').forEach(p => p.classList.remove('sel'));
+  el.classList.add('sel');
+  appState[key] = el.dataset.val;
+}
+
+function selScale(key, el) {
+  el.closest('.scale-btns').querySelectorAll('.scale-btn').forEach(b => b.classList.remove('sel'));
+  el.classList.add('sel');
+  appState[key] = parseInt(el.dataset.val);
+}
+
+function resetForm() {
+  document.querySelectorAll('.pill.sel,.scale-btn.sel').forEach(el => el.classList.remove('sel'));
+  appState = { irrit:null,sh:null,energy:null,anxiety:null,social:null,weedTime:null,weedWhy:null,weedAmt:null,moodX:null,moodY:null,moodWord:null,moodQuadrant:null };
+  document.getElementById('sleepHours').value = '';
+  document.getElementById('alcoholNum').value = '';
+  document.getElementById('weighingText').value = '';
+  document.getElementById('moodDot').style.display = 'none';
+  document.getElementById('moodSelected').textContent = 'tap to name your feeling';
+  document.getElementById('moodSelected').style.color = 'var(--brown)';
+}
+
+function goTo(name, btn) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+  btn.classList.add('active');
+  if (name === 'dashboard') renderDashboard();
+  if (name === 'history') renderHistory();
+}
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+function openHappy() { document.getElementById('happyModal').classList.add('open'); }
+function closeHappy() {
+  document.getElementById('happyModal').classList.remove('open');
+  document.getElementById('happyText').value = '';
+}
+
+async function confirmClear() {
+  if (!confirm('Delete all entries permanently? This cannot be undone.')) return;
+  await sb.from('entries').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+  await sb.from('happy_moments').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+  entries = []; happyEntries = [];
+  toast('Data cleared');
+}
+
+// ── DASHBOARD ───────────────────────────────────────────────────────
+function avg(arr) { return arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : 0; }
+function tod(ts) {
+  const h = new Date(ts).getHours();
+  if (h>=5&&h<12) return 'morning';
+  if (h>=12&&h<17) return 'afternoon';
+  if (h>=17&&h<21) return 'evening';
+  return 'night';
+}
+function irritNum(v) { return v === null || v === undefined ? null : parseInt(v); }
+
+function renderDashboard() {
+  const el = document.getElementById('dashContent');
+  const real = entries.filter(e => e.entry_type !== 'happy');
+  if (real.length === 0) {
+    el.innerHTML = '<div class="empty"><div class="big">◦</div>log a few entries<br>to see your patterns</div>';
+    return;
+  }
+
+  const now = Date.now();
+  const week = real.filter(e => new Date(e.created_at).getTime() > now - 7*86400000);
+  const phase = getPhase();
+  let html = '';
+
+  // Phase card
+  if (phase) {
+    html += `<div class="phase-card" style="background:${phase.bg};border:1px solid ${phase.color}40;margin-bottom:10px">
+      <div class="phase-name" style="color:${phase.color}">${phase.name}</div>
+      <div style="font-size:12px;color:${phase.text};opacity:0.7;margin-bottom:6px">day ${phase.day} of your cycle</div>
+      <div class="phase-desc" style="color:${phase.text}">${phase.desc}</div>`;
+    const phaseData = real.filter(e => e.cycle_phase === phase.name);
+    if (phaseData.length >= 3) {
+      const ai = phaseData.map(e=>irritNum(e.irritability)).filter(v=>v!==null);
+      const aa = phaseData.map(e=>e.anxiety).filter(Boolean);
+      html += `<div style="margin-top:8px;font-size:12px;color:${phase.text};opacity:0.7">${phaseData.length} entries in past ${phase.name} phases · avg irritability ${ai.length?avg(ai).toFixed(1):'—'}/3 · avg anxiety ${aa.length?avg(aa).toFixed(1):'—'}/5</div>`;
+    }
+    html += '</div>';
+  }
+
+  // Metrics
+  html += '<div class="metric-grid">';
+  html += `<div class="metric-card"><div class="metric-val">${week.length}</div><div class="metric-lbl">entries this week</div></div>`;
+  const ia = week.map(e=>irritNum(e.irritability)).filter(v=>v!==null);
+  html += `<div class="metric-card"><div class="metric-val">${ia.length?avg(ia).toFixed(1):'—'}</div><div class="metric-lbl">avg irritability /3</div></div>`;
+  const aa = week.map(e=>e.anxiety).filter(Boolean);
+  html += `<div class="metric-card"><div class="metric-val">${aa.length?avg(aa).toFixed(1):'—'}</div><div class="metric-lbl">avg anxiety /5</div></div>`;
+  const sa = week.map(e=>e.sleep_hours).filter(Boolean);
+  html += `<div class="metric-card"><div class="metric-val">${sa.length?avg(sa).toFixed(1)+'h':'—'}</div><div class="metric-lbl">avg sleep</div></div>`;
+  html += '</div>';
+
+  // Insights
+  const insights = buildInsights(week, real);
+  if (insights.length) {
+    insights.forEach(i => {
+      html += `<div class="insight"><div class="insight-title">${i.title}</div><div class="insight-text">${i.text}</div></div>`;
+    });
+  }
+
+  // Recent happy moments
+  if (happyEntries.length) {
+    html += '<div class="section-label">recent happy moments</div><div class="card">';
+    happyEntries.slice(0,4).forEach(e => {
+      html += `<div style="padding:8px 0;border-bottom:1px solid var(--border)"><div style="font-size:12px;color:var(--text3);margin-bottom:3px">${fmtDate(e.created_at)}</div><div style="font-size:14px;color:var(--text2)">${e.content}</div></div>`;
+    });
+    html = html.replace(/border-bottom:1px solid var\(--border\)"><\/div>$/, 'border:none"></div>');
+    html += '</div>';
+  }
+
+  // Charts
+  html += '<div class="section-label">irritability by time of day</div>';
+  html += '<div class="card"><div class="chart-wrap" style="height:110px"><canvas id="irritChart" role="img" aria-label="Irritability by time of day bar chart"></canvas></div></div>';
+
+  html += '<div class="section-label">self-harm thoughts over time</div>';
+  html += '<div class="card"><div class="chart-wrap" style="height:110px"><canvas id="shChart" role="img" aria-label="Self-harm thought intensity line chart"></canvas></div></div>';
+
+  html += '<div class="section-label">mood quadrant distribution</div>';
+  html += '<div class="card"><div class="chart-wrap" style="height:140px"><canvas id="quadChart" role="img" aria-label="Mood quadrant distribution pie chart"></canvas></div></div>';
+
+  el.innerHTML = html;
+
+  setTimeout(() => {
+    Object.values(chartInst).forEach(c => c.destroy());
+    chartInst = {};
+    drawIrritChart(real);
+    drawSHChart(real);
+    drawQuadChart(real);
+  }, 60);
+}
+
+function buildInsights(week, all) {
+  const out = [];
+  if (week.length < 2) return out;
+
+  const byTod = { morning:[], afternoon:[], evening:[], night:[] };
+  week.forEach(e => {
+    const t = tod(new Date(e.created_at).getTime());
+    const v = irritNum(e.irritability);
+    if (v !== null) byTod[t].push(v);
+  });
+  let maxI = -1, maxT = null;
+  Object.entries(byTod).forEach(([t,arr]) => {
+    if (arr.length >= 2 && avg(arr) > maxI) { maxI = avg(arr); maxT = t; }
+  });
+  if (maxT && maxI >= 1.5) out.push({ title:'Irritability pattern', text:`You tend to be most irritable in the ${maxT}s this week (avg ${maxI.toFixed(1)}/3).` });
+
+  const highAnx = week.filter(e=>e.anxiety>=4);
+  if (highAnx.length >= 2) {
+    const withWeed = highAnx.filter(e=>e.weed_amount && e.weed_amount!=='none').length;
+    if (withWeed >= 2) out.push({ title:'Anxiety & marijuana', text:`${highAnx.length} high-anxiety entries this week. ${withWeed} also logged marijuana use. Worth exploring the relationship with your therapist.` });
+    else out.push({ title:'High anxiety days', text:`High anxiety logged ${highAnx.length} times this week.` });
+  }
+
+  const highSH = week.filter(e=>parseInt(e.self_harm)>=2);
+  if (highSH.length) out.push({ title:'Self-harm thoughts', text:`${highSH.length} ${highSH.length===1?'entry':'entries'} this week with loud or specific thoughts. Note the times to share with your therapist.` });
+
+  const sa = week.map(e=>e.sleep_hours).filter(Boolean);
+  if (sa.length>=3 && avg(sa)<6.5) out.push({ title:'Sleep', text:`Average sleep this week: ${avg(sa).toFixed(1)} hours. Low sleep strongly affects mood and irritability.` });
+
+  const lowSoc = week.filter(e=>e.social_battery<=2 && e.social_battery);
+  if (lowSoc.length>=3) out.push({ title:'Social withdrawal', text:`Low social battery ${lowSoc.length} times this week. Withdrawal can be an early sign of a depressive dip.` });
+
+  return out;
+}
+
+function drawIrritChart(data) {
+  const ctx = document.getElementById('irritChart'); if(!ctx) return;
+  const slots = {morning:[],afternoon:[],evening:[],night:[]};
+  data.forEach(e => {
+    const v = irritNum(e.irritability);
+    if(v!==null) slots[tod(new Date(e.created_at).getTime())].push(v);
+  });
+  chartInst.irrit = new Chart(ctx, {
+    type:'bar',
+    data:{ labels:['Morning','Afternoon','Evening','Night'], datasets:[{ data:Object.values(slots).map(a=>a.length?parseFloat(avg(a).toFixed(2)):0), backgroundColor:['rgba(193,127,116,0.5)','rgba(201,168,76,0.5)','rgba(160,122,181,0.5)','rgba(122,157,181,0.5)'], borderColor:['#c17f74','#c9a84c','#a07ab5','#7a9db5'], borderWidth:1.5, borderRadius:4 }] },
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{ y:{min:0,max:3,ticks:{font:{size:10},color:'#9c8f85',stepSize:1},grid:{color:'rgba(224,216,207,0.5)'}}, x:{ticks:{font:{size:10},color:'#9c8f85'},grid:{display:false}} } }
+  });
+}
+
+function drawSHChart(data) {
+  const ctx = document.getElementById('shChart'); if(!ctx) return;
+  const recent = data.filter(e=>e.self_harm!==null).slice(0,14).reverse();
+  chartInst.sh = new Chart(ctx, {
+    type:'line',
+    data:{ labels:recent.map(e=>{ const d=new Date(e.created_at); return (d.getMonth()+1)+'/'+d.getDate(); }), datasets:[{ data:recent.map(e=>parseInt(e.self_harm)||0), borderColor:'#c17f74', backgroundColor:'rgba(193,127,116,0.1)', borderWidth:2, pointRadius:4, pointBackgroundColor:'#c17f74', fill:true, tension:0.3 }] },
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{ y:{min:0,max:3,ticks:{font:{size:10},color:'#9c8f85',stepSize:1,callback:v=>['none','quiet','loud','specific'][v]||v},grid:{color:'rgba(224,216,207,0.5)'}}, x:{ticks:{font:{size:9},color:'#9c8f85',maxRotation:0,autoSkip:true,maxTicksLimit:7},grid:{display:false}} } }
+  });
+}
+
+function drawQuadChart(data) {
+  const ctx = document.getElementById('quadChart'); if(!ctx) return;
+  const counts = {red:0,yellow:0,blue:0,green:0};
+  data.forEach(e=>{ if(e.mood_quadrant && counts[e.mood_quadrant]!==undefined) counts[e.mood_quadrant]++; });
+  const total = Object.values(counts).reduce((a,b)=>a+b,0);
+  if(!total) return;
+  chartInst.quad = new Chart(ctx, {
+    type:'doughnut',
+    data:{ labels:['Red (high energy, unpleasant)','Yellow (high energy, pleasant)','Blue (low energy, unpleasant)','Green (low energy, pleasant)'], datasets:[{ data:Object.values(counts), backgroundColor:['#e8c4bf','#e8d8a0','#b8cfe0','#b8d4bb'], borderColor:['#c17f74','#c9a84c','#7a9db5','#7a9e7e'], borderWidth:2 }] },
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ position:'bottom', labels:{ font:{size:11}, color:'#6b5f56', padding:10, boxWidth:12 } } }, cutout:'55%' }
+  });
+}
+
+// ── HISTORY ─────────────────────────────────────────────────────────
+function renderHistory() {
+  const el = document.getElementById('histContent');
+  const all = [...entries.map(e=>({...e,_type:'log'})), ...happyEntries.map(e=>({...e,_type:'happy'}))];
+  all.sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+
+  if (!all.length) { el.innerHTML = '<div class="empty"><div class="big">◦</div>no entries yet</div>'; return; }
+
+  const groups = {};
+  all.forEach(e => {
+    const d = new Date(e.created_at);
+    const key = d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+    if (!groups[key]) groups[key] = [];
+    groups[key].push(e);
+  });
+
+  let html = '';
+  Object.entries(groups).forEach(([date, items]) => {
+    html += `<div class="day-group"><div class="day-label">${date}</div>`;
+    items.forEach(e => {
+      const time = new Date(e.created_at).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+      if (e._type === 'happy') {
+        html += `<div class="entry-row happy-entry"><div class="entry-time">${time} · happy moment</div><div style="font-size:14px;color:var(--text2);line-height:1.4">${e.content}</div></div>`;
+      } else {
+        const tags = [];
+        if (e.mood_word) tags.push(`<span class="etag ${e.mood_quadrant||''}">${e.mood_word}</span>`);
+        const iLabels = ['nothing bothers me','small things annoying','snapped or almost','feel explosive'];
+        if (e.irritability!==null) tags.push(`<span class="etag">${iLabels[parseInt(e.irritability)]||e.irritability}</span>`);
+        const shLabels = ['no sh thoughts','quiet thoughts','loud thoughts','specific method'];
+        if (e.self_harm!==null && parseInt(e.self_harm)>0) tags.push(`<span class="etag red">${shLabels[parseInt(e.self_harm)]}</span>`);
+        if (e.anxiety) tags.push(`<span class="etag">anxiety ${e.anxiety}/5</span>`);
+        if (e.energy) tags.push(`<span class="etag">energy ${e.energy}/5</span>`);
+        if (e.sleep_hours) tags.push(`<span class="etag brown">${e.sleep_hours}h sleep</span>`);
+        if (e.weed_amount && e.weed_amount!=='none') tags.push(`<span class="etag">${e.weed_amount} weed${e.weed_time?' ('+e.weed_time+')':''}</span>`);
+        if (e.alcohol_drinks>0) tags.push(`<span class="etag">${e.alcohol_drinks} drink${e.alcohol_drinks!==1?'s':''}</span>`);
+        if (e.cycle_phase) tags.push(`<span class="etag" style="background:var(--cream)">${e.cycle_phase}</span>`);
+        html += `<div class="entry-row"><div class="entry-time">${time}</div><div class="entry-tags">${tags.join('')}</div>${e.weighing_on_me?`<div class="entry-note">"${e.weighing_on_me}"</div>`:''}</div>`;
+      }
+    });
+    html += '</div>';
+  });
+  el.innerHTML = html;
+}
+
+function fmtDate(ts) {
+  return new Date(ts).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
+}
+
+init();
+</script>
+</body>
+</html>
