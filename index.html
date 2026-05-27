@@ -599,8 +599,14 @@ function openSheet(key) {
 
 async function saveSheet() {
   if (!currentSheet) return;
-  const ok = await SHEET_DEFS[currentSheet].save();
-  if (ok) { closeSheet(); toast('Saved'); renderDashboard(); }
+  try {
+    const ok = await SHEET_DEFS[currentSheet].save();
+    if (ok) { closeSheet(); toast('Saved'); renderDashboard(); }
+    else { toast('Save returned false'); }
+  } catch(e) {
+    toast('Error: ' + e.message);
+    console.error(e);
+  }
 }
 
 function closeSheet() {
