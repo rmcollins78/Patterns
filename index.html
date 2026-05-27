@@ -148,17 +148,13 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
   <div id="screen-settings" class="screen">
     <h1 style="margin-bottom:20px">settings</h1>
     <div class="section-label">Cycle</div>
-    <div class="card">
-      <div class="field-row">
-        <div class="field-name">Last period start</div>
-        <input type="date" id="cycleStart">
-      </div>
-      <div class="field-row">
-        <div class="field-name">Cycle length (days)</div>
-        <input type="number" id="cycleLength" min="21" max="45" value="28" style="width:72px">
-      </div>
-    </div>
-    <button class="btn-primary" onclick="saveCycle()">save cycle settings</button>
+<div class="card">
+  <div class="field-row">
+    <div class="field-name">Cycle length (days)</div>
+    <input type="number" id="cycleLength" min="21" max="45" value="28" style="width:72px">
+  </div>
+</div>
+<button class="btn-primary" onclick="saveCycleLength()">save</button>
     <div class="section-label" style="margin-top:24px">AI insights</div>
     <div class="card">
       <div class="field-row" style="flex-direction:column;align-items:stretch;gap:8px">
@@ -198,6 +194,7 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
     <div class="fab-action" onclick="openSheet('weed')"><span class="fab-action-label">marijuana</span><span class="fab-action-icon">🌿</span></div>
     <div class="fab-action" onclick="openSheet('alcohol')"><span class="fab-action-label">alcohol</span><span class="fab-action-icon">🥃</span></div>
     <div class="fab-action" onclick="openSheet('weighing')"><span class="fab-action-label">what's weighing on me</span><span class="fab-action-icon">💭</span></div>
+    <div class="fab-action" onclick="openSheet('period')"><span class="fab-action-label">start of period</span><span class="fab-action-icon">🌸</span></div>
     <div class="fab-action" onclick="openSheet('happy')"><span class="fab-action-label">something made me happy</span><span class="fab-action-icon">✦</span></div>
   </div>
   <button class="fab" id="fab" onclick="toggleFab()">+</button>
@@ -317,14 +314,12 @@ async function loadCycle() {
   }
 }
 
-async function saveCycle() {
-  const start = document.getElementById('cycleStart').value || null;
+async function saveCycleLength() {
   const length = parseInt(document.getElementById('cycleLength').value) || 28;
-  cycleSettings = {start, length};
-  await sb.from('cycle_settings').upsert({id:1, cycle_start:start, cycle_length:length});
+  cycleSettings.length = length;
+  await sb.from('cycle_settings').upsert({id:1, cycle_start:cycleSettings.start||null, cycle_length:length});
   updatePhaseChip();
-  renderDashboard();
-  toast('Cycle saved');
+  toast('Saved');
 }
 
 function saveApiKey() {
@@ -468,6 +463,9 @@ function openSheet(key) {
       ${whenPicker()}
       <textarea id="weighingInput" rows="5" placeholder="What's on your mind..."></textarea>`),
 
+    period: () => sheetHTML('Log period start', `
+      ${whenPicker()}
+      <p style="font-size:14px;color:var(--text2);line-height:1.6;margin-top:8px">This will mark today as day 1 of your cycle and update your cycle tracking automatically.</p>`),
     happy: () => sheetHTML('Something made me happy ✦', `
       <textarea id="happyInput" rows="5" placeholder="What happened?"></textarea>`)
   };
@@ -515,6 +513,21 @@ async function saveSheet() {
     const text = document.getElementById('weighingInput').value.trim();
     if (!text) { toast('Write something first'); return; }
     payload.weighing_on_me = text;
+  } else if (currentSheet === 'period') {
+    payload.is_period_start = true;
+    const la2 = buildLoggedAt();
+    const dateOnly = la2.slice(0,10);
+    cycleSettings.start = dateOnly;
+    await sb.from('cycle_settings').upsert({id:1, cycle_start:dateOnly, cycle_length:cycleSettings.length});
+    updatePhaseChip();
+    const {data, error} = await sb.from('entries').insert(payload).select().single();
+    if (error) { console.error(error); toast('Error: ' + (error.message||error.code)); return; }
+    entries.unshift(data);
+    entries.sort((a,b)=>sortTs(b)-sortTs(a));
+    closeSheet();
+    toast('Period logged · cycle reset to day 1');
+    renderDashboard();
+    return;
   } else if (currentSheet === 'happy') {
     happyText = document.getElementById('happyInput').value.trim();
     if (!happyText) { toast('Write something first'); return; }
