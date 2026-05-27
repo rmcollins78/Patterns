@@ -395,9 +395,9 @@ const SHEET_DEFS = {
         mood_word: sheetState.moodWord, mood_quadrant: sheetState.moodQuadrant,
         cycle_phase: getPhaseForDate(la)?.name || null, entry_type:'log', logged_at: la
       }).select().single();
-      iif (!error) { entries.unshift(data); entries.sort((a,b)=>sortTs(b)-sortTs(a)); return true; }
-toast('DB: ' + (error.message || error.code || JSON.stringify(error)));
-console.error(error); return false;
+      if (!error) { entries.unshift(data); entries.sort((a,b)=>sortTs(b)-sortTs(a)); return true; }
+      toast('DB: ' + (error.message || error.code || JSON.stringify(error)));
+      console.error(error); return false;
     }
   },
   irrit: {
