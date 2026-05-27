@@ -269,7 +269,9 @@ let storedInsights = '';
 
 function nowDateStr() {
   const d = new Date();
-  return d.toISOString().slice(0,10);
+  return d.getFullYear() + '-' +
+    String(d.getMonth()+1).padStart(2,'0') + '-' +
+    String(d.getDate()).padStart(2,'0');
 }
 function nowTimeStr() {
   const d = new Date();
@@ -393,8 +395,9 @@ const SHEET_DEFS = {
         mood_word: sheetState.moodWord, mood_quadrant: sheetState.moodQuadrant,
         cycle_phase: getPhaseForDate(la)?.name || null, entry_type:'log', logged_at: la
       }).select().single();
-      if (!error) { entries.unshift(data); entries.sort((a,b)=>sortTs(b)-sortTs(a)); return true; }
-      console.error(error); return false;
+      iif (!error) { entries.unshift(data); entries.sort((a,b)=>sortTs(b)-sortTs(a)); return true; }
+toast('DB: ' + (error.message || error.code || JSON.stringify(error)));
+console.error(error); return false;
     }
   },
   irrit: {
