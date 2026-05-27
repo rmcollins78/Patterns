@@ -32,8 +32,6 @@ h1{font-family:'Lora',serif;font-size:24px;font-weight:400;color:var(--text);mar
 .section-label{font-size:10px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin:20px 0 8px}
 .section-label:first-child{margin-top:0}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:10px}
-
-/* FAB */
 .fab-wrap{position:fixed;bottom:calc(var(--nav-h) + 12px);right:16px;z-index:100;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
 .fab{width:52px;height:52px;border-radius:50%;background:var(--brown);border:none;color:#fff;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(74,55,40,.35);transition:transform .2s;flex-shrink:0}
 .fab.open{transform:rotate(45deg)}
@@ -42,8 +40,6 @@ h1{font-family:'Lora',serif;font-size:24px;font-weight:400;color:var(--text);mar
 .fab-action{display:flex;align-items:center;gap:10px;cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif}
 .fab-action-label{background:var(--brown-dark);color:#fff;font-size:13px;padding:7px 14px;border-radius:20px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.2)}
 .fab-action-icon{width:40px;height:40px;border-radius:50%;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 2px 8px rgba(0,0,0,.1);flex-shrink:0}
-
-/* Sheets */
 .sheet-bg{position:fixed;inset:0;background:rgba(44,37,32,0);z-index:200;display:none;align-items:flex-end;justify-content:center;transition:background .25s}
 .sheet-bg.open{display:flex;background:rgba(44,37,32,.5)}
 .sheet{background:var(--surface);border-radius:20px 20px 0 0;padding:0 20px 40px;width:100%;max-width:480px;max-height:92vh;overflow-y:auto;transform:translateY(100%);transition:transform .3s cubic-bezier(.32,0,.67,0)}
@@ -53,14 +49,15 @@ h1{font-family:'Lora',serif;font-size:24px;font-weight:400;color:var(--text);mar
 .sheet-actions{display:flex;gap:8px;margin-top:20px}
 .btn-save{flex:1;padding:14px;border-radius:var(--r);border:none;background:var(--brown);color:#fff;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif}
 .btn-cancel{padding:14px 20px;border-radius:var(--r);border:1px solid var(--border2);background:var(--surface);color:var(--text2);font-size:15px;cursor:pointer;font-family:'DM Sans',sans-serif}
-
-/* Datetime picker */
-.datetime-row{display:flex;gap:8px;margin-bottom:18px;align-items:center}
-.datetime-row label{font-size:12px;color:var(--text3);white-space:nowrap}
-.dt-input{flex:1;padding:9px 10px;border-radius:var(--rs);border:1px solid var(--border);background:var(--surface2);font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif}
-.dt-input:focus{outline:none;border-color:var(--brown-light)}
-
-/* Pills + scales */
+.when-row{margin-bottom:18px}
+.when-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.when-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.when-btn{padding:10px;border-radius:var(--rs);border:1px solid var(--border);background:var(--surface2);font-size:13px;color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;text-align:center;transition:all .15s}
+.when-btn.sel{background:var(--brown);border-color:var(--brown);color:#fff;font-weight:500}
+.date-row{display:flex;align-items:center;gap:8px;margin-top:8px}
+.date-row label{font-size:12px;color:var(--text3);white-space:nowrap}
+.date-input{flex:1;padding:9px 10px;border-radius:var(--rs);border:1px solid var(--border);background:var(--surface2);font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif}
+.date-input:focus{outline:none;border-color:var(--brown-light)}
 .pill-row{display:flex;flex-wrap:wrap;gap:7px}
 .pill{padding:9px 16px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);font-size:14px;color:var(--text2);cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
 .pill.sel{background:var(--brown);border-color:var(--brown);color:#fff;font-weight:500}
@@ -74,16 +71,14 @@ textarea:focus{outline:none;border-color:var(--brown-light)}
 textarea::placeholder{color:var(--text3)}
 input[type=number]{padding:10px;border-radius:var(--rs);border:1px solid var(--border);background:var(--surface2);font-size:15px;color:var(--text);font-family:'DM Sans',sans-serif;text-align:center}
 input[type=number]:focus{outline:none;border-color:var(--brown-light)}
-input[type=date],input[type=time]{padding:9px 10px;border-radius:var(--rs);border:1px solid var(--border);background:var(--surface2);font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif}
-input[type=date]:focus,input[type=time]:focus{outline:none;border-color:var(--brown-light)}
-
-/* Mood grid — vertical layout, no horizontal scroll */
+input[type=date]{padding:9px 10px;border-radius:var(--rs);border:1px solid var(--border);background:var(--surface2);font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif}
+input[type=date]:focus{outline:none;border-color:var(--brown-light)}
 .mood-outer{display:flex;gap:8px;align-items:stretch}
 .mood-axis-y{display:flex;flex-direction:column;justify-content:space-between;font-size:10px;color:var(--text3);padding:4px 0;text-align:right;width:40px;flex-shrink:0;line-height:1.2}
 .mood-right{flex:1;min-width:0}
 .mood-axis-x{display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-bottom:5px;padding:0 2px}
-.mood-grid{display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(5,1fr);gap:5px;width:100%}
-.mood-cell{padding:8px 2px;border-radius:var(--rs);font-size:10px;text-align:center;cursor:pointer;transition:all .15s;border:1.5px solid transparent;line-height:1.3;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;min-height:48px;word-break:break-word}
+.mood-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;width:100%}
+.mood-cell{padding:8px 2px;border-radius:var(--rs);font-size:10px;text-align:center;cursor:pointer;transition:all .15s;border:1.5px solid transparent;line-height:1.3;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;min-height:46px;word-break:break-word;hyphens:auto}
 .mood-cell:active{transform:scale(.95)}
 .mood-cell.sel{border-width:2.5px;font-weight:500;box-shadow:0 0 0 2px rgba(74,55,40,.4)}
 .mood-cell.red{background:#f0d4d0;color:#7a3d36;border-color:#ddb8b3}
@@ -95,8 +90,6 @@ input[type=date]:focus,input[type=time]:focus{outline:none;border-color:var(--br
 .mood-cell.sel.blue{border-color:#2d5570}
 .mood-cell.sel.green{border-color:#2d5e33}
 .mood-selected{text-align:center;font-family:'Lora',serif;font-style:italic;font-size:15px;color:var(--brown);min-height:22px;margin-top:10px}
-
-/* Dashboard */
 .phase-card{border-radius:var(--r);padding:16px;margin-bottom:10px}
 .phase-name{font-family:'Lora',serif;font-size:22px;font-weight:400;margin-bottom:2px}
 .phase-day{font-size:12px;opacity:.7;margin-bottom:8px}
@@ -106,15 +99,11 @@ input[type=date]:focus,input[type=time]:focus{outline:none;border-color:var(--br
 .metric-val{font-family:'Lora',serif;font-size:26px;font-weight:400;color:var(--brown)}
 .metric-lbl{font-size:11px;color:var(--text3);margin-top:2px}
 .insight-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:10px;border-left:3px solid var(--brown-light)}
-.insight-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:5px}
 .insight-text{font-size:13px;color:var(--text2);line-height:1.65}
 .refresh-btn{width:100%;padding:13px;border-radius:var(--r);border:1px solid var(--border2);background:var(--surface);color:var(--text2);font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px}
 .refresh-btn:active{background:var(--surface2)}
 .refresh-btn:disabled{opacity:.5;cursor:default}
 .refresh-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.ai-loading{text-align:center;padding:24px;color:var(--text3);font-size:13px;font-style:italic}
-
-/* History */
 .day-group{margin-bottom:18px}
 .day-label{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px}
 .entry-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);padding:12px 14px;margin-bottom:5px}
@@ -127,20 +116,14 @@ input[type=date]:focus,input[type=time]:focus{outline:none;border-color:var(--br
 .etag.green{background:#e8f0e9;border-color:#96b89a;color:#2d5e33}
 .entry-note{font-size:13px;color:var(--text2);font-style:italic;margin-top:5px;line-height:1.4}
 .happy-row{border-left:3px solid #c9a84c}
-
-/* Settings */
 .field-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--border)}
 .field-row:last-child{border-bottom:none;padding-bottom:0}
 .field-row:first-child{padding-top:0}
 .field-name{font-size:14px;color:var(--text)}
 .btn-primary{width:100%;padding:14px;border-radius:var(--r);border:none;background:var(--brown);color:#fff;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:12px}
 .btn-danger{width:100%;padding:14px;border-radius:var(--r);border:1px solid #c17f74;background:var(--surface);color:#c17f74;font-size:15px;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:8px}
-
-/* Toast */
 .toast{position:fixed;bottom:calc(var(--nav-h) + 16px);left:50%;transform:translateX(-50%);background:var(--brown-dark);color:#fff;padding:10px 20px;border-radius:20px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;white-space:nowrap}
 .toast.show{opacity:1}
-
-/* Loading */
 #loading{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:500;flex-direction:column;gap:12px}
 .spinner{width:28px;height:28px;border:2px solid var(--border);border-top-color:var(--brown);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -149,12 +132,7 @@ input[type=date]:focus,input[type=time]:focus{outline:none;border-color:var(--br
 </style>
 </head>
 <body>
-
-<div id="loading">
-  <div class="spinner"></div>
-  <div style="font-size:13px;color:var(--text3)">loading patterns...</div>
-</div>
-
+<div id="loading"><div class="spinner"></div><div style="font-size:13px;color:var(--text3)">loading patterns...</div></div>
 <div id="app" style="display:none">
   <div id="screen-dash" class="screen active">
     <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px">
@@ -163,12 +141,10 @@ input[type=date]:focus,input[type=time]:focus{outline:none;border-color:var(--br
     </div>
     <div id="dashContent"><div class="empty"><div class="empty-big">◦</div>log a few entries<br>to see your patterns</div></div>
   </div>
-
   <div id="screen-history" class="screen">
     <h1 style="margin-bottom:20px">history</h1>
     <div id="histContent"><div class="empty"><div class="empty-big">◦</div>no entries yet</div></div>
   </div>
-
   <div id="screen-settings" class="screen">
     <h1 style="margin-bottom:20px">settings</h1>
     <div class="section-label">Cycle</div>
@@ -183,8 +159,7 @@ input[type=date]:focus,input[type=time]:focus{outline:none;border-color:var(--br
       </div>
     </div>
     <button class="btn-primary" onclick="saveCycle()">save cycle settings</button>
-
-    <div class="section-label" style="margin-top:24px">AI insights key</div>
+    <div class="section-label" style="margin-top:24px">AI insights</div>
     <div class="card">
       <div class="field-row" style="flex-direction:column;align-items:stretch;gap:8px">
         <div class="field-name" style="font-size:13px;color:var(--text2)">Paste your Anthropic API key to enable AI pattern analysis.</div>
@@ -192,15 +167,11 @@ input[type=date]:focus,input[type=time]:focus{outline:none;border-color:var(--br
       </div>
     </div>
     <button class="btn-primary" onclick="saveApiKey()">save api key</button>
-
     <div class="section-label" style="margin-top:24px">Data</div>
-    <div class="card">
-      <p style="font-size:13px;color:var(--text2);line-height:1.6">Stored in Supabase. Persists indefinitely across all devices where you open this URL.</p>
-    </div>
+    <div class="card"><p style="font-size:13px;color:var(--text2);line-height:1.6">Stored in Supabase. Persists indefinitely.</p></div>
     <button class="btn-danger" onclick="confirmClear()">clear all data</button>
     <div style="height:20px"></div>
   </div>
-
   <nav>
     <button class="nav-btn active" onclick="goTo('dash',this)">
       <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
@@ -217,7 +188,6 @@ input[type=date]:focus,input[type=time]:focus{outline:none;border-color:var(--br
   </nav>
 </div>
 
-<!-- FAB -->
 <div class="fab-wrap" id="fabWrap">
   <div class="fab-actions" id="fabActions">
     <div class="fab-action" onclick="openSheet('mood')"><span class="fab-action-label">mood</span><span class="fab-action-icon">🎨</span></div>
@@ -233,7 +203,6 @@ input[type=date]:focus,input[type=time]:focus{outline:none;border-color:var(--br
   <button class="fab" id="fab" onclick="toggleFab()">+</button>
 </div>
 
-<!-- SHEET -->
 <div class="sheet-bg" id="sheetBg" onclick="closeSheetOnBg(event)">
   <div class="sheet" id="sheet">
     <div class="sheet-handle"></div>
@@ -248,14 +217,15 @@ const SUPABASE_URL = 'https://zslmaqrvsebxhtjirqgf.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpzbG1hcXJ2c2VieGh0amlycWdmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4MzE1MjYsImV4cCI6MjA5NTQwNzUyNn0.3vGpvvp3wmQkuky8zokELhElaYCjezp0iFeCTly6y3Y';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// 5x5 mood grid: row 0 = top = high energy, col 0 = left = unpleasant
 const MOOD_GRID = [
-  [{w:'enraged',q:'red'},{w:'anxious',q:'red'},{w:'jittery',q:'red'},{w:'excited',q:'yellow'},{w:'ecstatic',q:'yellow'}],
+  [{w:'enraged',q:'red'},{w:'anxious',q:'red'},{w:'dread',q:'red'},{w:'excited',q:'yellow'},{w:'ecstatic',q:'yellow'}],
   [{w:'furious',q:'red'},{w:'stressed',q:'red'},{w:'restless',q:'red'},{w:'energized',q:'yellow'},{w:'elated',q:'yellow'}],
   [{w:'frustrated',q:'red'},{w:'irritable',q:'red'},{w:'indifferent',q:'blue'},{w:'content',q:'green'},{w:'pleased',q:'yellow'}],
   [{w:'sad',q:'blue'},{w:'withdrawn',q:'blue'},{w:'foggy',q:'blue'},{w:'calm',q:'green'},{w:'grateful',q:'green'}],
   [{w:'hopeless',q:'blue'},{w:'exhausted',q:'blue'},{w:'apathetic',q:'blue'},{w:'relaxed',q:'green'},{w:'fulfilled',q:'green'}]
 ];
+
+const TOD_OPTIONS = ['morning','afternoon','evening','night'];
 
 let cycleSettings = {start:null,length:28};
 let entries = [];
@@ -267,33 +237,59 @@ let chartInst = {};
 let anthropicKey = '';
 let storedInsights = '';
 
-function nowDateStr() {
+// ── LOCAL DATE ────────────────────────────────────────────────────────
+function localDateStr() {
   const d = new Date();
-  return d.getFullYear() + '-' +
-    String(d.getMonth()+1).padStart(2,'0') + '-' +
-    String(d.getDate()).padStart(2,'0');
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
 }
-function nowTimeStr() {
-  const d = new Date();
-  return d.toTimeString().slice(0,5);
+
+function autoTOD() {
+  const h = new Date().getHours();
+  if (h >= 5 && h < 12) return 'morning';
+  if (h >= 12 && h < 17) return 'afternoon';
+  if (h >= 17 && h < 21) return 'evening';
+  return 'night';
 }
+
+// Build ISO timestamp from date input + tod selection
 function buildLoggedAt() {
   const dateEl = document.getElementById('entryDate');
-  const timeEl = document.getElementById('entryTime');
-  if (!dateEl || !timeEl) return new Date().toISOString();
-  const str = dateEl.value + 'T' + timeEl.value;
-  const d = new Date(str);
+  const dateStr = (dateEl && dateEl.value) ? dateEl.value : localDateStr();
+  const tod = sheetState._tod || autoTOD();
+  const hourMap = { morning: '09:00', afternoon: '14:00', evening: '19:00', night: '22:00' };
+  const timeStr = hourMap[tod] || '12:00';
+  const d = new Date(dateStr + 'T' + timeStr);
   return isNaN(d.getTime()) ? new Date().toISOString() : d.toISOString();
+}
+
+// ── WHEN PICKER HTML ──────────────────────────────────────────────────
+function whenPicker() {
+  const defaultTod = autoTOD();
+  sheetState._tod = defaultTod;
+  return `<div class="when-row">
+    <div class="when-label">when</div>
+    <div class="when-grid">
+      ${TOD_OPTIONS.map(t => `<div class="when-btn${t===defaultTod?' sel':''}" onclick="selTOD(this,'${t}')">${t}</div>`).join('')}
+    </div>
+    <div class="date-row">
+      <label>date</label>
+      <input type="date" id="entryDate" class="date-input" value="${localDateStr()}">
+    </div>
+  </div>`;
+}
+
+function selTOD(el, val) {
+  document.querySelectorAll('.when-btn').forEach(b => b.classList.remove('sel'));
+  el.classList.add('sel');
+  sheetState._tod = val;
 }
 
 // ── INIT ─────────────────────────────────────────────────────────────
 async function init() {
   anthropicKey = localStorage.getItem('patterns_ak') || '';
   if (anthropicKey) document.getElementById('anthropicKey').value = anthropicKey;
-  try {
-    await loadCycle();
-    await loadEntries();
-  } catch(e) { console.error('Init error:', e); }
+  try { await loadCycle(); } catch(e) { console.error('loadCycle:', e); }
+  try { await loadEntries(); } catch(e) { console.error('loadEntries:', e); }
   updatePhaseChip();
   renderDashboard();
   document.getElementById('loading').style.display = 'none';
@@ -302,10 +298,10 @@ async function init() {
 
 // ── DATA ─────────────────────────────────────────────────────────────
 async function loadEntries() {
-  const [{ data: logs }, { data: happy }] = await Promise.all([
-    sb.from('entries').select('*').order('logged_at', { ascending: false, nullsFirst: false }).order('created_at', { ascending: false }).limit(300),
-    sb.from('happy_moments').select('*').order('created_at', { ascending: false }).limit(100)
-  ]);
+  const { data: logs, error: e1 } = await sb.from('entries').select('*').order('created_at', {ascending:false}).limit(300);
+  const { data: happy, error: e2 } = await sb.from('happy_moments').select('*').order('created_at', {ascending:false}).limit(100);
+  if (e1) console.error('entries error:', e1);
+  if (e2) console.error('happy error:', e2);
   entries = logs || [];
   happyEntries = happy || [];
 }
@@ -322,8 +318,8 @@ async function loadCycle() {
 async function saveCycle() {
   const start = document.getElementById('cycleStart').value || null;
   const length = parseInt(document.getElementById('cycleLength').value) || 28;
-  cycleSettings = { start, length };
-  await sb.from('cycle_settings').upsert({ id:1, cycle_start:start, cycle_length:length });
+  cycleSettings = {start, length};
+  await sb.from('cycle_settings').upsert({id:1, cycle_start:start, cycle_length:length});
   updatePhaseChip();
   renderDashboard();
   toast('Cycle saved');
@@ -342,8 +338,7 @@ async function confirmClear() {
     sb.from('entries').delete().neq('id','00000000-0000-0000-0000-000000000000'),
     sb.from('happy_moments').delete().neq('id','00000000-0000-0000-0000-000000000000')
   ]);
-  entries = []; happyEntries = [];
-  storedInsights = '';
+  entries = []; happyEntries = []; storedInsights = '';
   renderDashboard();
   toast('Data cleared');
 }
@@ -360,256 +355,184 @@ function closeFab() {
   document.getElementById('fabActions').classList.remove('open');
 }
 
-// ── DATETIME PICKER HTML ──────────────────────────────────────────────
-function datetimePicker() {
-  return `<div class="datetime-row">
-    <label>when</label>
-    <input type="date" id="entryDate" class="dt-input" value="${nowDateStr()}">
-    <input type="time" id="entryTime" class="dt-input" value="${nowTimeStr()}" style="max-width:100px">
-  </div>`;
+// ── SHEETS ────────────────────────────────────────────────────────────
+function sheetHTML(title, body) {
+  return `<div class="sheet-title">${title}</div>${body}
+    <div class="sheet-actions">
+      <button class="btn-save" onclick="saveSheet()">save</button>
+      <button class="btn-cancel" onclick="closeSheet()">cancel</button>
+    </div>`;
 }
-
-// ── SHEET DEFINITIONS ─────────────────────────────────────────────────
-const SHEET_DEFS = {
-  mood: {
-    title: 'How are you feeling?',
-    render() {
-      return `${datetimePicker()}
-        <div class="mood-outer">
-          <div class="mood-axis-y"><span>high energy</span><span>low energy</span></div>
-          <div class="mood-right">
-            <div class="mood-axis-x"><span>unpleasant</span><span>pleasant</span></div>
-            <div class="mood-grid">
-              ${MOOD_GRID.map((row,ri)=>row.map((cell,ci)=>
-                `<div class="mood-cell ${cell.q}" data-row="${ri}" data-col="${ci}" onclick="selMood(this,'${cell.w}','${cell.q}')">${cell.w}</div>`
-              ).join('')).join('')}
-            </div>
-          </div>
-        </div>
-        <div class="mood-selected" id="moodSelected">tap a word</div>`;
-    },
-    async save() {
-      if (!sheetState.moodWord) { toast('Tap a feeling first'); return false; }
-      const la = buildLoggedAt();
-      const { data, error } = await sb.from('entries').insert({
-        mood_word: sheetState.moodWord, mood_quadrant: sheetState.moodQuadrant,
-        cycle_phase: getPhaseForDate(la)?.name || null, entry_type:'log', logged_at: la
-      }).select().single();
-      if (!error) { entries.unshift(data); entries.sort((a,b)=>sortTs(b)-sortTs(a)); return true; }
-      toast('DB: ' + (error.message || error.code || JSON.stringify(error)));
-      console.error(error); return false;
-    }
-  },
-  irrit: {
-    title: 'Irritability',
-    render() {
-      return `${datetimePicker()}
-        <div class="pill-row" id="irritPills">
-          <div class="pill" data-val="0" onclick="selPill('irrit',this)">nothing bothers me</div>
-          <div class="pill" data-val="1" onclick="selPill('irrit',this)">small things are annoying</div>
-          <div class="pill" data-val="2" onclick="selPill('irrit',this)">I snapped or almost snapped</div>
-          <div class="pill" data-val="3" onclick="selPill('irrit',this)">I feel like I'll explode</div>
-        </div>`;
-    },
-    async save() {
-      if (sheetState.irrit===undefined||sheetState.irrit===null) { toast('Make a selection'); return false; }
-      const la = buildLoggedAt();
-      const { data, error } = await sb.from('entries').insert({
-        irritability: sheetState.irrit, cycle_phase: getPhaseForDate(la)?.name||null, entry_type:'log', logged_at: la
-      }).select().single();
-      if (!error) { entries.unshift(data); entries.sort((a,b)=>sortTs(b)-sortTs(a)); return true; }
-      return false;
-    }
-  },
-  sh: {
-    title: 'Self-harm thoughts',
-    render() {
-      return `${datetimePicker()}
-        <div class="pill-row" id="shPills">
-          <div class="pill" data-val="0" onclick="selPill('sh',this)">none</div>
-          <div class="pill" data-val="1" onclick="selPill('sh',this)">quiet</div>
-          <div class="pill" data-val="2" onclick="selPill('sh',this)">loud</div>
-          <div class="pill" data-val="3" onclick="selPill('sh',this)">specific method</div>
-        </div>`;
-    },
-    async save() {
-      if (sheetState.sh===undefined||sheetState.sh===null) { toast('Make a selection'); return false; }
-      const la = buildLoggedAt();
-      const { data, error } = await sb.from('entries').insert({
-        self_harm: sheetState.sh, cycle_phase: getPhaseForDate(la)?.name||null, entry_type:'log', logged_at: la
-      }).select().single();
-      if (!error) { entries.unshift(data); entries.sort((a,b)=>sortTs(b)-sortTs(a)); return true; }
-      return false;
-    }
-  },
-  energy: {
-    title: 'Energy, anxiety & social',
-    render() {
-      return `${datetimePicker()}
-        <div class="scale-wrap">
-          <div>
-            <div class="scale-lbl-row"><span>Energy</span><span>drained → wired</span></div>
-            <div class="scale-btns" id="energyScale">
-              ${[1,2,3,4,5].map(v=>`<div class="scale-btn" data-val="${v}" onclick="selScale('energy',this)">${v}</div>`).join('')}
-            </div>
-          </div>
-          <div>
-            <div class="scale-lbl-row"><span>Anxiety</span><span>calm → spiral</span></div>
-            <div class="scale-btns" id="anxietyScale">
-              ${[1,2,3,4,5].map(v=>`<div class="scale-btn" data-val="${v}" onclick="selScale('anxiety',this)">${v}</div>`).join('')}
-            </div>
-          </div>
-          <div>
-            <div class="scale-lbl-row"><span>Social battery</span><span>hide → connect</span></div>
-            <div class="scale-btns" id="socialScale">
-              ${[1,2,3,4,5].map(v=>`<div class="scale-btn" data-val="${v}" onclick="selScale('social',this)">${v}</div>`).join('')}
-            </div>
-          </div>
-        </div>`;
-    },
-    async save() {
-      if (!sheetState.energy && !sheetState.anxiety && !sheetState.social) { toast('Make at least one selection'); return false; }
-      const la = buildLoggedAt();
-      const { data, error } = await sb.from('entries').insert({
-        energy: sheetState.energy||null, anxiety: sheetState.anxiety||null,
-        social_battery: sheetState.social||null,
-        cycle_phase: getPhaseForDate(la)?.name||null, entry_type:'log', logged_at: la
-      }).select().single();
-      if (!error) { entries.unshift(data); entries.sort((a,b)=>sortTs(b)-sortTs(a)); return true; }
-      return false;
-    }
-  },
-  sleep: {
-    title: 'Sleep',
-    render() {
-      return `${datetimePicker()}
-        <div style="display:flex;align-items:center;gap:16px;justify-content:center;padding:16px 0">
-          <input type="number" id="sleepInput" min="0" max="24" step="0.5" placeholder="0" style="width:100px;font-size:28px;text-align:center;padding:12px">
-          <span style="font-size:18px;color:var(--text2)">hours</span>
-        </div>`;
-    },
-    async save() {
-      const hrs = parseFloat(document.getElementById('sleepInput').value);
-      if (isNaN(hrs)) { toast('Enter hours'); return false; }
-      const la = buildLoggedAt();
-      const { data, error } = await sb.from('entries').insert({
-        sleep_hours: hrs, cycle_phase: getPhaseForDate(la)?.name||null, entry_type:'log', logged_at: la
-      }).select().single();
-      if (!error) { entries.unshift(data); entries.sort((a,b)=>sortTs(b)-sortTs(a)); return true; }
-      return false;
-    }
-  },
-  weed: {
-    title: 'Marijuana',
-    render() {
-      return `${datetimePicker()}
-        <div style="display:flex;flex-direction:column;gap:16px">
-          <div>
-            <div style="font-size:11px;color:var(--text3);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Time of use</div>
-            <div class="pill-row" id="weedTimePills">
-              ${['morning','afternoon','evening','night'].map(v=>`<div class="pill" data-val="${v}" onclick="selPill('weedTime',this)">${v}</div>`).join('')}
-            </div>
-          </div>
-          <div>
-            <div style="font-size:11px;color:var(--text3);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Why I used</div>
-            <div class="pill-row" id="weedWhyPills">
-              ${['anxiety','sleep','pain','social','habit','enjoyment'].map(v=>`<div class="pill" data-val="${v}" onclick="selPill('weedWhy',this)">${v}</div>`).join('')}
-            </div>
-          </div>
-          <div>
-            <div style="font-size:11px;color:var(--text3);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Amount</div>
-            <div class="pill-row" id="weedAmtPills">
-              ${['none','a little','moderate','a lot'].map(v=>`<div class="pill" data-val="${v}" onclick="selPill('weedAmt',this)">${v}</div>`).join('')}
-            </div>
-          </div>
-        </div>`;
-    },
-    async save() {
-      const la = buildLoggedAt();
-      const { data, error } = await sb.from('entries').insert({
-        weed_time: sheetState.weedTime||null, weed_why: sheetState.weedWhy||null,
-        weed_amount: sheetState.weedAmt||null,
-        cycle_phase: getPhaseForDate(la)?.name||null, entry_type:'log', logged_at: la
-      }).select().single();
-      if (!error) { entries.unshift(data); entries.sort((a,b)=>sortTs(b)-sortTs(a)); return true; }
-      return false;
-    }
-  },
-  alcohol: {
-    title: 'Alcohol',
-    render() {
-      return `${datetimePicker()}
-        <div style="display:flex;align-items:center;gap:16px;justify-content:center;padding:16px 0">
-          <input type="number" id="alcoholInput" min="0" max="30" step="1" placeholder="0" style="width:100px;font-size:28px;text-align:center;padding:12px">
-          <span style="font-size:18px;color:var(--text2)">drinks</span>
-        </div>`;
-    },
-    async save() {
-      const n = parseInt(document.getElementById('alcoholInput').value) || 0;
-      const la = buildLoggedAt();
-      const { data, error } = await sb.from('entries').insert({
-        alcohol_drinks: n, cycle_phase: getPhaseForDate(la)?.name||null, entry_type:'log', logged_at: la
-      }).select().single();
-      if (!error) { entries.unshift(data); entries.sort((a,b)=>sortTs(b)-sortTs(a)); return true; }
-      return false;
-    }
-  },
-  weighing: {
-    title: "What's weighing on me",
-    render() {
-      return `${datetimePicker()}<textarea id="weighingInput" rows="5" placeholder="What's on your mind..."></textarea>`;
-    },
-    async save() {
-      const text = document.getElementById('weighingInput').value.trim();
-      if (!text) { toast('Write something first'); return false; }
-      const la = buildLoggedAt();
-      const { data, error } = await sb.from('entries').insert({
-        weighing_on_me: text, cycle_phase: getPhaseForDate(la)?.name||null, entry_type:'log', logged_at: la
-      }).select().single();
-      if (!error) { entries.unshift(data); entries.sort((a,b)=>sortTs(b)-sortTs(a)); return true; }
-      return false;
-    }
-  },
-  happy: {
-    title: 'Something made me happy ✦',
-    render() {
-      return `<textarea id="happyInput" rows="5" placeholder="What happened?"></textarea>`;
-    },
-    async save() {
-      const text = document.getElementById('happyInput').value.trim();
-      if (!text) { toast('Write something first'); return false; }
-      const { data, error } = await sb.from('happy_moments').insert({ content: text }).select().single();
-      if (!error) { happyEntries.unshift(data); return true; }
-      return false;
-    }
-  }
-};
 
 function openSheet(key) {
   closeFab();
   currentSheet = key;
   sheetState = {};
-  const def = SHEET_DEFS[key];
-  document.getElementById('sheetInner').innerHTML = `
-    <div class="sheet-title">${def.title}</div>
-    ${def.render()}
-    <div class="sheet-actions">
-      <button class="btn-save" onclick="saveSheet()">save</button>
-      <button class="btn-cancel" onclick="closeSheet()">cancel</button>
-    </div>`;
+  const renders = {
+    mood: () => sheetHTML('How are you feeling?', `
+      ${whenPicker()}
+      <div class="mood-outer">
+        <div class="mood-axis-y"><span>high energy</span><span>low energy</span></div>
+        <div class="mood-right">
+          <div class="mood-axis-x"><span>unpleasant</span><span>pleasant</span></div>
+          <div class="mood-grid">
+            ${MOOD_GRID.map((row,ri)=>row.map((cell,ci)=>
+              `<div class="mood-cell ${cell.q}" onclick="selMood(this,'${cell.w}','${cell.q}')">${cell.w}</div>`
+            ).join('')).join('')}
+          </div>
+        </div>
+      </div>
+      <div class="mood-selected" id="moodSelected">tap a word</div>`),
+
+    irrit: () => sheetHTML('Irritability', `
+      ${whenPicker()}
+      <div class="pill-row" id="irritPills">
+        <div class="pill" data-val="0" onclick="selPill('irrit',this)">nothing bothers me</div>
+        <div class="pill" data-val="1" onclick="selPill('irrit',this)">small things are annoying</div>
+        <div class="pill" data-val="2" onclick="selPill('irrit',this)">I snapped or almost snapped</div>
+        <div class="pill" data-val="3" onclick="selPill('irrit',this)">I feel like I'll explode</div>
+      </div>`),
+
+    sh: () => sheetHTML('Self-harm thoughts', `
+      ${whenPicker()}
+      <div class="pill-row" id="shPills">
+        <div class="pill" data-val="0" onclick="selPill('sh',this)">none</div>
+        <div class="pill" data-val="1" onclick="selPill('sh',this)">quiet</div>
+        <div class="pill" data-val="2" onclick="selPill('sh',this)">loud</div>
+        <div class="pill" data-val="3" onclick="selPill('sh',this)">specific method</div>
+      </div>`),
+
+    energy: () => sheetHTML('Energy, anxiety & social', `
+      ${whenPicker()}
+      <div class="scale-wrap">
+        <div>
+          <div class="scale-lbl-row"><span>Energy</span><span>drained → wired</span></div>
+          <div class="scale-btns" id="energyScale">
+            ${[1,2,3,4,5].map(v=>`<div class="scale-btn" data-val="${v}" onclick="selScale('energy',this)">${v}</div>`).join('')}
+          </div>
+        </div>
+        <div>
+          <div class="scale-lbl-row"><span>Anxiety</span><span>calm → spiral</span></div>
+          <div class="scale-btns" id="anxietyScale">
+            ${[1,2,3,4,5].map(v=>`<div class="scale-btn" data-val="${v}" onclick="selScale('anxiety',this)">${v}</div>`).join('')}
+          </div>
+        </div>
+        <div>
+          <div class="scale-lbl-row"><span>Social battery</span><span>hide → connect</span></div>
+          <div class="scale-btns" id="socialScale">
+            ${[1,2,3,4,5].map(v=>`<div class="scale-btn" data-val="${v}" onclick="selScale('social',this)">${v}</div>`).join('')}
+          </div>
+        </div>
+      </div>`),
+
+    sleep: () => sheetHTML('Sleep', `
+      ${whenPicker()}
+      <div style="display:flex;align-items:center;gap:16px;justify-content:center;padding:16px 0">
+        <input type="number" id="sleepInput" min="0" max="24" step="0.5" placeholder="0" style="width:100px;font-size:28px;text-align:center;padding:12px">
+        <span style="font-size:18px;color:var(--text2)">hours</span>
+      </div>`),
+
+    weed: () => sheetHTML('Marijuana', `
+      ${whenPicker()}
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div>
+          <div style="font-size:11px;color:var(--text3);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Time of use</div>
+          <div class="pill-row" id="weedTimePills">
+            ${TOD_OPTIONS.map(v=>`<div class="pill" data-val="${v}" onclick="selPill('weedTime',this)">${v}</div>`).join('')}
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--text3);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Why I used</div>
+          <div class="pill-row" id="weedWhyPills">
+            ${['anxiety','sleep','pain','social','habit','enjoyment'].map(v=>`<div class="pill" data-val="${v}" onclick="selPill('weedWhy',this)">${v}</div>`).join('')}
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--text3);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Amount</div>
+          <div class="pill-row" id="weedAmtPills">
+            ${['none','a little','moderate','a lot'].map(v=>`<div class="pill" data-val="${v}" onclick="selPill('weedAmt',this)">${v}</div>`).join('')}
+          </div>
+        </div>
+      </div>`),
+
+    alcohol: () => sheetHTML('Alcohol', `
+      ${whenPicker()}
+      <div style="display:flex;align-items:center;gap:16px;justify-content:center;padding:16px 0">
+        <input type="number" id="alcoholInput" min="0" max="30" step="1" placeholder="0" style="width:100px;font-size:28px;text-align:center;padding:12px">
+        <span style="font-size:18px;color:var(--text2)">drinks</span>
+      </div>`),
+
+    weighing: () => sheetHTML("What's weighing on me", `
+      ${whenPicker()}
+      <textarea id="weighingInput" rows="5" placeholder="What's on your mind..."></textarea>`),
+
+    happy: () => sheetHTML('Something made me happy ✦', `
+      <textarea id="happyInput" rows="5" placeholder="What happened?"></textarea>`)
+  };
+
+  document.getElementById('sheetInner').innerHTML = renders[key]();
   document.getElementById('sheetBg').classList.add('open');
 }
 
 async function saveSheet() {
   if (!currentSheet) return;
-  try {
-    const ok = await SHEET_DEFS[currentSheet].save();
-    if (ok) { closeSheet(); toast('Saved'); renderDashboard(); }
-    else { toast('Save returned false'); }
-  } catch(e) {
-    toast('Error: ' + e.message);
-    console.error(e);
+  const la = buildLoggedAt();
+  const phase = getPhaseForDate(la);
+  const phaseName = phase ? phase.name : null;
+
+  let payload = { entry_type: 'log', logged_at: la, cycle_phase: phaseName };
+  let isHappy = false;
+  let happyText = '';
+
+  if (currentSheet === 'mood') {
+    if (!sheetState.moodWord) { toast('Tap a feeling first'); return; }
+    payload.mood_word = sheetState.moodWord;
+    payload.mood_quadrant = sheetState.moodQuadrant;
+  } else if (currentSheet === 'irrit') {
+    if (sheetState.irrit === undefined || sheetState.irrit === null) { toast('Make a selection'); return; }
+    payload.irritability = sheetState.irrit;
+  } else if (currentSheet === 'sh') {
+    if (sheetState.sh === undefined || sheetState.sh === null) { toast('Make a selection'); return; }
+    payload.self_harm = sheetState.sh;
+  } else if (currentSheet === 'energy') {
+    if (!sheetState.energy && !sheetState.anxiety && !sheetState.social) { toast('Make at least one selection'); return; }
+    payload.energy = sheetState.energy || null;
+    payload.anxiety = sheetState.anxiety || null;
+    payload.social_battery = sheetState.social || null;
+  } else if (currentSheet === 'sleep') {
+    const hrs = parseFloat(document.getElementById('sleepInput').value);
+    if (isNaN(hrs)) { toast('Enter hours'); return; }
+    payload.sleep_hours = hrs;
+  } else if (currentSheet === 'weed') {
+    payload.weed_time = sheetState.weedTime || null;
+    payload.weed_why = sheetState.weedWhy || null;
+    payload.weed_amount = sheetState.weedAmt || null;
+  } else if (currentSheet === 'alcohol') {
+    payload.alcohol_drinks = parseInt(document.getElementById('alcoholInput').value) || 0;
+  } else if (currentSheet === 'weighing') {
+    const text = document.getElementById('weighingInput').value.trim();
+    if (!text) { toast('Write something first'); return; }
+    payload.weighing_on_me = text;
+  } else if (currentSheet === 'happy') {
+    happyText = document.getElementById('happyInput').value.trim();
+    if (!happyText) { toast('Write something first'); return; }
+    isHappy = true;
   }
+
+  if (isHappy) {
+    const { data, error } = await sb.from('happy_moments').insert({ content: happyText }).select().single();
+    if (error) { console.error('happy insert error:', error); toast('Error saving'); return; }
+    happyEntries.unshift(data);
+  } else {
+    const { data, error } = await sb.from('entries').insert(payload).select().single();
+    if (error) { console.error('entry insert error:', error); toast('Error: ' + (error.message || error.code)); return; }
+    entries.unshift(data);
+    entries.sort((a,b) => sortTs(b) - sortTs(a));
+  }
+
+  closeSheet();
+  toast('Saved');
+  renderDashboard();
 }
 
 function closeSheet() {
@@ -624,24 +547,23 @@ function closeSheetOnBg(e) {
 
 // ── SELECTORS ─────────────────────────────────────────────────────────
 function selMood(el, word, quad) {
-  document.querySelectorAll('.mood-cell').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.mood-cell').forEach(c => c.classList.remove('sel'));
   el.classList.add('sel');
   sheetState.moodWord = word;
   sheetState.moodQuadrant = quad;
   const colors = {red:'#7a3d36',yellow:'#6b5010',blue:'#2d5570',green:'#2d5e33'};
   const sel = document.getElementById('moodSelected');
-  sel.textContent = word;
-  sel.style.color = colors[quad]||'var(--brown)';
+  if (sel) { sel.textContent = word; sel.style.color = colors[quad] || 'var(--brown)'; }
 }
 
 function selPill(key, el) {
-  el.closest('.pill-row').querySelectorAll('.pill').forEach(p=>p.classList.remove('sel'));
+  el.closest('.pill-row').querySelectorAll('.pill').forEach(p => p.classList.remove('sel'));
   el.classList.add('sel');
   sheetState[key] = el.dataset.val;
 }
 
 function selScale(key, el) {
-  el.closest('.scale-btns').querySelectorAll('.scale-btn').forEach(b=>b.classList.remove('sel'));
+  el.closest('.scale-btns').querySelectorAll('.scale-btn').forEach(b => b.classList.remove('sel'));
   el.classList.add('sel');
   sheetState[key] = parseInt(el.dataset.val);
 }
@@ -654,10 +576,10 @@ function getPhaseForDate(isoStr) {
   const diff = Math.floor((d - start) / 86400000);
   const len = cycleSettings.length;
   const day = ((diff % len) + len) % len + 1;
-  if (day<=5)  return {name:'menstrual', day, color:'#c17f74', bg:'#f5ebe9', text:'#7a3d36', desc:'Estrogen and progesterone are lowest. Energy dips, emotions can feel raw.'};
-  if (day<=13) return {name:'follicular',day, color:'#7a9db5', bg:'#e8eff4', text:'#2d5570', desc:'Rising estrogen. Energy, clarity, and social drive often increase.'};
-  if (day<=16) return {name:'ovulation', day, color:'#7a9e7e', bg:'#e8f0e9', text:'#2d5e33', desc:'Estrogen peaks. Often the highest energy and mood of the cycle.'};
-  return {name:'luteal', day, color:'#a07ab5', bg:'#f0eaf5', text:'#4a2d5e', desc:'Progesterone rises then falls. Irritability, anxiety, and fatigue are more common.'};
+  if (day<=5)  return {name:'menstrual', day,color:'#c17f74',bg:'#f5ebe9',text:'#7a3d36',desc:'Estrogen and progesterone are lowest. Energy dips, emotions can feel raw.'};
+  if (day<=13) return {name:'follicular',day,color:'#7a9db5',bg:'#e8eff4',text:'#2d5570',desc:'Rising estrogen. Energy, clarity, and social drive often increase.'};
+  if (day<=16) return {name:'ovulation', day,color:'#7a9e7e',bg:'#e8f0e9',text:'#2d5e33',desc:'Estrogen peaks. Often the highest energy and mood of the cycle.'};
+  return {name:'luteal',day,color:'#a07ab5',bg:'#f0eaf5',text:'#4a2d5e',desc:'Progesterone rises then falls. Irritability, anxiety, and fatigue are more common.'};
 }
 
 function getPhase() { return getPhaseForDate(new Date().toISOString()); }
@@ -692,22 +614,21 @@ function renderDashboard() {
     el.innerHTML='<div class="empty"><div class="empty-big">◦</div>log a few entries<br>to see your patterns</div>';
     return;
   }
-
   const now = Date.now();
   const week = real.filter(e=>sortTs(e)>now-7*86400000);
   const phase = getPhase();
   let html = '';
 
   if (phase) {
-    html += `<div class="phase-card" style="background:${phase.bg};border:1px solid ${phase.color}40">
+    html+=`<div class="phase-card" style="background:${phase.bg};border:1px solid ${phase.color}40">
       <div class="phase-name" style="color:${phase.color}">${phase.name}</div>
       <div class="phase-day" style="color:${phase.text}">day ${phase.day} of your cycle</div>
       <div class="phase-desc" style="color:${phase.text}">${phase.desc}</div>`;
-    const phaseData = real.filter(e=>e.cycle_phase===phase.name);
-    if (phaseData.length>=3) {
-      const ai=phaseData.map(e=>irritNum(e.irritability)).filter(v=>v!==null);
-      const aa=phaseData.map(e=>e.anxiety).filter(Boolean);
-      html+=`<div style="margin-top:8px;font-size:12px;color:${phase.text};opacity:.7">${phaseData.length} past entries in this phase · avg irritability ${ai.length?avg(ai).toFixed(1):'—'}/3 · avg anxiety ${aa.length?avg(aa).toFixed(1):'—'}/5</div>`;
+    const pd=real.filter(e=>e.cycle_phase===phase.name);
+    if (pd.length>=3) {
+      const ai=pd.map(e=>irritNum(e.irritability)).filter(v=>v!==null);
+      const aa=pd.map(e=>e.anxiety).filter(Boolean);
+      html+=`<div style="margin-top:8px;font-size:12px;color:${phase.text};opacity:.7">${pd.length} past entries in this phase · avg irritability ${ai.length?avg(ai).toFixed(1):'—'}/3 · avg anxiety ${aa.length?avg(aa).toFixed(1):'—'}/5</div>`;
     }
     html+='</div>';
   }
@@ -735,17 +656,14 @@ function renderDashboard() {
     happyEntries.slice(0,3).forEach((e,i)=>{
       html+=`<div style="padding:9px 0;${i<Math.min(happyEntries.length,3)-1?'border-bottom:1px solid var(--border)':''}">
         <div style="font-size:11px;color:var(--text3);margin-bottom:3px">${fmtDate(e.created_at)}</div>
-        <div style="font-size:14px;color:var(--text2)">${e.content}</div>
-      </div>`;
+        <div style="font-size:14px;color:var(--text2)">${e.content}</div></div>`;
     });
     html+='</div>';
   }
 
   if (real.length>=2) {
-    html+='<div class="section-label">irritability by time of day</div>';
-    html+='<div class="card"><div style="position:relative;height:110px"><canvas id="irritChart" role="img" aria-label="Irritability by time of day"></canvas></div></div>';
-    html+='<div class="section-label">self-harm thoughts over time</div>';
-    html+='<div class="card"><div style="position:relative;height:110px"><canvas id="shChart" role="img" aria-label="Self-harm thoughts over time"></canvas></div></div>';
+    html+='<div class="section-label">irritability by time of day</div><div class="card"><div style="position:relative;height:110px"><canvas id="irritChart" role="img" aria-label="Irritability by time of day"></canvas></div></div>';
+    html+='<div class="section-label">self-harm thoughts over time</div><div class="card"><div style="position:relative;height:110px"><canvas id="shChart" role="img" aria-label="Self-harm thoughts over time"></canvas></div></div>';
   }
 
   el.innerHTML = html;
@@ -753,7 +671,7 @@ function renderDashboard() {
     Object.values(chartInst).forEach(c=>{try{c.destroy();}catch(e){}});
     chartInst={};
     if (real.length>=2) { drawIrritChart(real); drawSHChart(real); }
-  }, 60);
+  },60);
 }
 
 // ── AI INSIGHTS ───────────────────────────────────────────────────────
@@ -762,21 +680,20 @@ async function loadAIInsights() {
   const aiEl = document.getElementById('aiInsights');
   const btn = document.getElementById('refreshBtn');
   if (!aiEl) return;
-  aiEl.innerHTML='<div class="ai-loading">analyzing your patterns...</div>';
+  aiEl.innerHTML='<div style="text-align:center;padding:24px;color:var(--text3);font-size:13px;font-style:italic">analyzing your patterns...</div>';
   if (btn) btn.disabled=true;
 
   const real = entries.filter(e=>e.entry_type!=='happy').slice(0,60);
+  const sorted = [...real].sort((a,b)=>sortTs(a)-sortTs(b));
   const phase = getPhase();
 
-  // Build a concise but complete summary sorted oldest to newest for arc detection
-  const sorted = [...real].sort((a,b)=>sortTs(a)-sortTs(b));
   const summary = sorted.map(e=>{
     const d = new Date(e.logged_at||e.created_at);
-    const dateStr = d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
-    const timeStr = d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+    const ds = d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+    const ts = d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
     const parts=[];
     if (e.mood_word) parts.push(`mood:${e.mood_word}(${e.mood_quadrant})`);
-    if (e.irritability!==null&&e.irritability!==undefined) parts.push(`irrit:${['0-nothing','1-small','2-snapped','3-explosive'][parseInt(e.irritability)]||e.irritability}`);
+    if (e.irritability!==null&&e.irritability!==undefined) parts.push(`irrit:${['nothing','small','snapped','explosive'][parseInt(e.irritability)]||e.irritability}`);
     if (e.self_harm!==null&&e.self_harm!==undefined) parts.push(`sh:${['none','quiet','loud','specific'][parseInt(e.self_harm)]||e.self_harm}`);
     if (e.anxiety) parts.push(`anx:${e.anxiety}/5`);
     if (e.energy) parts.push(`nrg:${e.energy}/5`);
@@ -786,54 +703,37 @@ async function loadAIInsights() {
     if (e.alcohol_drinks>0) parts.push(`alc:${e.alcohol_drinks}`);
     if (e.cycle_phase) parts.push(`phase:${e.cycle_phase}`);
     if (e.weighing_on_me) parts.push(`note:"${e.weighing_on_me.slice(0,60)}"`);
-    return parts.length ? `${dateStr} ${timeStr} — ${parts.join(', ')}` : null;
+    return parts.length ? `${ds} ${ts}: ${parts.join(', ')}` : null;
   }).filter(Boolean).join('\n');
 
-  const totalDays = sorted.length>1
-    ? Math.round((sortTs(sorted[sorted.length-1])-sortTs(sorted[0]))/86400000)
-    : 0;
+  const totalDays = sorted.length>1 ? Math.round((sortTs(sorted[sorted.length-1])-sortTs(sorted[0]))/86400000) : 0;
 
-  const prompt = `You are a compassionate, sharp-eyed pattern analyst helping someone understand their mental health data to bring to therapy. They have been tracking mood, irritability, self-harm thoughts, anxiety, energy, social battery, sleep, marijuana, alcohol, and menstrual cycle phase.
+  const prompt = `You are helping someone understand their mental health patterns to bring to therapy. They track mood, irritability, self-harm thoughts, anxiety, energy, social battery, sleep, marijuana, alcohol, and menstrual cycle phase.
 
-Data spans approximately ${totalDays} days (${sorted.length} entries). Current cycle phase: ${phase?phase.name+' day '+phase.day:'unknown'}.
+Data spans ~${totalDays} days (${sorted.length} entries). Current cycle phase: ${phase?phase.name+' day '+phase.day:'unknown'}.
 
-Entries (oldest to newest):
+Entries oldest to newest:
 ${summary}
 
-Write 4-6 pattern observations. Mix short-term and long-term patterns. Include both concerning patterns AND positive ones — if energy has been higher lately, say so. If they've been in the blue quadrant for weeks, say so. Note time-of-day patterns, cycle phase correlations, substance and mood relationships, and any trends over the full timespan.
+Write 4-6 pattern observations. Mix short-term and long-term. Include positive trends (higher energy, more social) alongside concerning ones (persistent low mood, elevated self-harm thoughts). Note time-of-day patterns, cycle correlations, substance relationships, and arcs over the full timespan (e.g. "you've been in the blue quadrant for most of the past two weeks" or "your energy levels have been climbing lately").
 
-Each insight:
-- Bold title on its own line
-- 2-3 sentences of plain, warm, direct observation
-- Use "you" language
-- Do not be clinical or list raw numbers
-- Note whether something is improving, worsening, or stable over time when you can tell
+Each insight: bold title, 2-3 sentences, warm and direct, use "you", no raw numbers, note direction (improving/worsening/stable) when visible.
 
 Format:
 **Title**
 Observation.
 
-Keep total under 420 words.`;
+Under 420 words total.`;
 
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
-      headers:{
-        'Content-Type':'application/json',
-        'x-api-key':anthropicKey,
-        'anthropic-version':'2023-06-01',
-        'anthropic-dangerous-direct-browser-access':'true'
-      },
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:700,
-        messages:[{role:'user',content:prompt}]
-      })
+      headers:{'Content-Type':'application/json','x-api-key':anthropicKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:700,messages:[{role:'user',content:prompt}]})
     });
     const data = await res.json();
     if (data.content&&data.content[0]) {
-      const text = data.content[0].text;
-      const rendered = text
+      const rendered = data.content[0].text
         .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
         .split('\n\n').filter(p=>p.trim())
         .map(p=>`<div class="insight-box"><div class="insight-text">${p.replace(/\n/g,'<br>')}</div></div>`)
@@ -844,7 +744,7 @@ Keep total under 420 words.`;
       aiEl.innerHTML='<div class="insight-box"><div class="insight-text">Could not generate insights. Check your API key in settings.</div></div>';
     }
   } catch(e) {
-    aiEl.innerHTML='<div class="insight-box"><div class="insight-text">Error connecting. Check your API key and network connection.</div></div>';
+    aiEl.innerHTML='<div class="insight-box"><div class="insight-text">Error connecting. Check your API key and network.</div></div>';
   }
   if (btn) btn.disabled=false;
 }
@@ -853,38 +753,29 @@ Keep total under 420 words.`;
 function drawIrritChart(data) {
   const ctx=document.getElementById('irritChart'); if(!ctx) return;
   const slots={morning:[],afternoon:[],evening:[],night:[]};
-  data.forEach(e=>{
-    const v=irritNum(e.irritability);
-    if(v!==null) slots[tod(sortTs(e))].push(v);
-  });
-  chartInst.irrit=new Chart(ctx,{
-    type:'bar',
-    data:{labels:['Morning','Afternoon','Evening','Night'],
-      datasets:[{data:Object.values(slots).map(a=>a.length?parseFloat(avg(a).toFixed(2)):0),
-        backgroundColor:['rgba(193,127,116,.45)','rgba(201,168,76,.45)','rgba(160,122,181,.45)','rgba(122,157,181,.45)'],
-        borderColor:['#c17f74','#c9a84c','#a07ab5','#7a9db5'],borderWidth:1.5,borderRadius:4}]},
-    options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false}},
+  data.forEach(e=>{const v=irritNum(e.irritability); if(v!==null) slots[tod(sortTs(e))].push(v);});
+  chartInst.irrit=new Chart(ctx,{type:'bar',
+    data:{labels:['Morning','Afternoon','Evening','Night'],datasets:[{
+      data:Object.values(slots).map(a=>a.length?parseFloat(avg(a).toFixed(2)):0),
+      backgroundColor:['rgba(193,127,116,.45)','rgba(201,168,76,.45)','rgba(160,122,181,.45)','rgba(122,157,181,.45)'],
+      borderColor:['#c17f74','#c9a84c','#a07ab5','#7a9db5'],borderWidth:1.5,borderRadius:4}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
       scales:{y:{min:0,max:3,ticks:{font:{size:10},color:'#9c8f85',stepSize:1},grid:{color:'rgba(224,216,207,.5)'}},
-        x:{ticks:{font:{size:10},color:'#9c8f85'},grid:{display:false}}}}
-  });
+        x:{ticks:{font:{size:10},color:'#9c8f85'},grid:{display:false}}}}});
 }
 
 function drawSHChart(data) {
   const ctx=document.getElementById('shChart'); if(!ctx) return;
   const recent=data.filter(e=>e.self_harm!==null&&e.self_harm!==undefined).slice(0,14).reverse();
   if(!recent.length) return;
-  chartInst.sh=new Chart(ctx,{
-    type:'line',
+  chartInst.sh=new Chart(ctx,{type:'line',
     data:{labels:recent.map(e=>{const d=new Date(e.logged_at||e.created_at);return(d.getMonth()+1)+'/'+d.getDate();}),
       datasets:[{data:recent.map(e=>parseInt(e.self_harm)||0),
         borderColor:'#c17f74',backgroundColor:'rgba(193,127,116,.1)',
         borderWidth:2,pointRadius:4,pointBackgroundColor:'#c17f74',fill:true,tension:.3}]},
-    options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false}},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
       scales:{y:{min:0,max:3,ticks:{font:{size:10},color:'#9c8f85',stepSize:1,callback:v=>['none','quiet','loud','specific'][v]||v},grid:{color:'rgba(224,216,207,.5)'}},
-        x:{ticks:{font:{size:9},color:'#9c8f85',maxRotation:0,autoSkip:true,maxTicksLimit:7},grid:{display:false}}}}
-  });
+        x:{ticks:{font:{size:9},color:'#9c8f85',maxRotation:0,autoSkip:true,maxTicksLimit:7},grid:{display:false}}}}});
 }
 
 // ── HISTORY ───────────────────────────────────────────────────────────
@@ -894,16 +785,13 @@ function renderHistory() {
     ...entries.map(e=>({...e,_type:'log',_ts:sortTs(e)})),
     ...happyEntries.map(e=>({...e,_type:'happy',_ts:new Date(e.created_at).getTime()}))
   ].sort((a,b)=>b._ts-a._ts);
-
   if(!all.length){el.innerHTML='<div class="empty"><div class="empty-big">◦</div>no entries yet</div>';return;}
-
   const groups={};
   all.forEach(e=>{
     const key=new Date(e._ts).toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
     if(!groups[key]) groups[key]=[];
     groups[key].push(e);
   });
-
   let html='';
   Object.entries(groups).forEach(([date,items])=>{
     html+=`<div class="day-group"><div class="day-label">${date}</div>`;
@@ -951,7 +839,7 @@ function toast(msg){
   const t=document.getElementById('toast');
   t.textContent=msg;
   t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2200);
+  setTimeout(()=>t.classList.remove('show'),2500);
 }
 
 init();
