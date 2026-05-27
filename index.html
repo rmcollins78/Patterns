@@ -32,7 +32,7 @@ h1{font-family:'Lora',serif;font-size:24px;font-weight:400;color:var(--text);mar
 .section-label{font-size:10px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin:20px 0 8px}
 .section-label:first-child{margin-top:0}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:10px}
-.fab-wrap{position:fixed;bottom:calc(var(--nav-h) + 12px);right:16px;z-index:50;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.fab-wrap{position:fixed;bottom:calc(var(--nav-h) + 12px);right:16px;z-index:100;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
 .fab{width:52px;height:52px;border-radius:50%;background:var(--brown);border:none;color:#fff;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(74,55,40,.35);transition:transform .2s;flex-shrink:0}
 .fab.open{transform:rotate(45deg)}
 .fab-actions{display:flex;flex-direction:column;gap:8px;align-items:flex-end;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .2s,transform .2s}
@@ -73,23 +73,33 @@ input[type=number]{padding:10px;border-radius:var(--rs);border:1px solid var(--b
 input[type=number]:focus{outline:none;border-color:var(--brown-light)}
 input[type=date]{padding:9px 10px;border-radius:var(--rs);border:1px solid var(--border);background:var(--surface2);font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif}
 input[type=date]:focus{outline:none;border-color:var(--brown-light)}
-.mood-outer{display:flex;gap:8px;align-items:stretch}
-.mood-axis-y{display:flex;flex-direction:column;justify-content:space-between;font-size:10px;color:var(--text3);padding:4px 0;text-align:right;width:40px;flex-shrink:0;line-height:1.2}
-.mood-right{flex:1;min-width:0}
-.mood-axis-x{display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-bottom:5px;padding:0 2px}
-.mood-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;width:100%}
-.mood-cell{padding:8px 2px;border-radius:var(--rs);font-size:10px;text-align:center;cursor:pointer;transition:all .15s;border:1.5px solid transparent;line-height:1.3;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;min-height:46px;word-break:break-word;hyphens:auto}
-.mood-cell:active{transform:scale(.95)}
-.mood-cell.sel{border-width:2.5px;font-weight:500;box-shadow:0 0 0 2px rgba(74,55,40,.4)}
-.mood-cell.red{background:#f0d4d0;color:#7a3d36;border-color:#ddb8b3}
-.mood-cell.yellow{background:#f0e6c0;color:#6b5010;border-color:#ddd0a0}
-.mood-cell.blue{background:#cfe0ec;color:#2d5570;border-color:#b0cbde}
-.mood-cell.green{background:#cde4cf;color:#2d5e33;border-color:#aed0b1}
-.mood-cell.sel.red{border-color:#7a3d36}
-.mood-cell.sel.yellow{border-color:#6b5010}
-.mood-cell.sel.blue{border-color:#2d5570}
-.mood-cell.sel.green{border-color:#2d5e33}
-.mood-selected{text-align:center;font-family:'Lora',serif;font-style:italic;font-size:15px;color:var(--brown);min-height:22px;margin-top:10px}
+.mood-quadrants{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.mood-quadrant-btn{padding:22px 12px;border-radius:var(--r);border:2px solid transparent;cursor:pointer;text-align:center;font-family:'DM Sans',sans-serif;transition:all .2s;position:relative}
+.mood-quadrant-btn .q-name{font-size:15px;font-weight:500;display:block;margin-bottom:4px}
+.mood-quadrant-btn .q-hint{font-size:11px;opacity:.7;line-height:1.3}
+.mood-quadrant-btn.active-q{border-width:2.5px}
+.mood-quadrant-btn.red{background:#f0d4d0;color:#7a3d36;border-color:#ddb8b3}
+.mood-quadrant-btn.yellow{background:#f0e6c0;color:#6b5010;border-color:#ddd0a0}
+.mood-quadrant-btn.blue{background:#cfe0ec;color:#2d5570;border-color:#b0cbde}
+.mood-quadrant-btn.green{background:#cde4cf;color:#2d5e33;border-color:#aed0b1}
+.mood-quadrant-btn.red.active-q{border-color:#7a3d36;box-shadow:0 0 0 3px rgba(122,61,54,.2)}
+.mood-quadrant-btn.yellow.active-q{border-color:#6b5010;box-shadow:0 0 0 3px rgba(107,80,16,.2)}
+.mood-quadrant-btn.blue.active-q{border-color:#2d5570;box-shadow:0 0 0 3px rgba(45,85,112,.2)}
+.mood-quadrant-btn.green.active-q{border-color:#2d5e33;box-shadow:0 0 0 3px rgba(45,94,51,.2)}
+.mood-word-grid{display:none;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:12px}
+.mood-word-grid.open{display:grid}
+.mood-word{padding:9px 3px;border-radius:var(--rs);font-size:12px;text-align:center;cursor:pointer;transition:all .15s;border:1.5px solid transparent;line-height:1.3;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;min-height:44px;word-break:break-word;hyphens:auto}
+.mood-word:active{transform:scale(.95)}
+.mood-word.sel{font-weight:500;box-shadow:0 0 0 2px rgba(74,55,40,.4)}
+.mood-word.red{background:#f0d4d0;color:#7a3d36}
+.mood-word.yellow{background:#f0e6c0;color:#6b5010}
+.mood-word.blue{background:#cfe0ec;color:#2d5570}
+.mood-word.green{background:#cde4cf;color:#2d5e33}
+.mood-word.sel.red{border-color:#7a3d36}
+.mood-word.sel.yellow{border-color:#6b5010}
+.mood-word.sel.blue{border-color:#2d5570}
+.mood-word.sel.green{border-color:#2d5e33}
+.mood-selected{text-align:center;font-family:'Lora',serif;font-style:italic;font-size:15px;color:var(--brown);min-height:22px;margin-top:4px}
 .phase-card{border-radius:var(--r);padding:16px;margin-bottom:10px}
 .phase-name{font-family:'Lora',serif;font-size:22px;font-weight:400;margin-bottom:2px}
 .phase-day{font-size:12px;opacity:.7;margin-bottom:8px}
@@ -147,15 +157,7 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
   </div>
   <div id="screen-settings" class="screen">
     <h1 style="margin-bottom:20px">settings</h1>
-    <div class="section-label">Cycle</div>
-<div class="card">
-  <div class="field-row">
-    <div class="field-name">Cycle length (days)</div>
-    <input type="number" id="cycleLength" min="21" max="45" value="28" style="width:72px">
-  </div>
-</div>
-<button class="btn-primary" onclick="saveCycleLength()">save</button>
-    <div class="section-label" style="margin-top:24px">AI insights</div>
+    <div class="section-label">AI insights</div>
     <div class="card">
       <div class="field-row" style="flex-direction:column;align-items:stretch;gap:8px">
         <div class="field-name" style="font-size:13px;color:var(--text2)">Paste your Anthropic API key to enable AI pattern analysis.</div>
@@ -212,17 +214,14 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
 <script>
 const SUPABASE_URL = 'https://zslmaqrvsebxhtjirqgf.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_Er0_gJ3ZJcSnqDWGgXWsRA_6dEq0Rr5';
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
-  auth: { persistSession: false }
-});
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const MOOD_GRID = [
-  [{w:'enraged',q:'red'},{w:'anxious',q:'red'},{w:'dread',q:'red'},{w:'excited',q:'yellow'},{w:'ecstatic',q:'yellow'}],
-  [{w:'furious',q:'red'},{w:'stressed',q:'red'},{w:'restless',q:'red'},{w:'energized',q:'yellow'},{w:'elated',q:'yellow'}],
-  [{w:'frustrated',q:'red'},{w:'irritable',q:'red'},{w:'indifferent',q:'blue'},{w:'content',q:'green'},{w:'pleased',q:'yellow'}],
-  [{w:'sad',q:'blue'},{w:'withdrawn',q:'blue'},{w:'foggy',q:'blue'},{w:'calm',q:'green'},{w:'grateful',q:'green'}],
-  [{w:'hopeless',q:'blue'},{w:'exhausted',q:'blue'},{w:'apathetic',q:'blue'},{w:'relaxed',q:'green'},{w:'fulfilled',q:'green'}]
-];
+const MOOD_WORDS = {
+  red: ['enraged','hostile','furious','livid','panicked','terrified','angry','frightened','stressed','jittery','alarmed','shocked','tense','distressed','apprehensive','irritable','frustrated','annoyed','uneasy','bitter','troubled','mad','afraid','anxious','overwhelmed'],
+  yellow: ['ecstatic','elated','thrilled','exhilarated','overjoyed','energized','enthusiastic','inspired','motivated','pumped','excited','upbeat','festive','cheerful','optimistic','pleased','happy','amused','playful','hopeful','glad','grateful','content','joyful','lively'],
+  blue: ['depressed','hopeless','miserable','defeated','helpless','despondent','gloomy','dejected','sad','mournful','withdrawn','lonely','alienated','drained','exhausted','lethargic','apathetic','sluggish','foggy','bored','indifferent','heavy','dull','fatigued','melancholy'],
+  green: ['serene','peaceful','tranquil','calm','relaxed','fulfilled','nurturing','loving','blessed','grateful','at ease','comfortable','restful','easygoing','balanced','thoughtful','pensive','carefree','satisfied','relieved','content','gentle','still','grounded','present']
+};
 
 const TOD_OPTIONS = ['morning','afternoon','evening','night'];
 
@@ -309,17 +308,7 @@ async function loadCycle() {
   const { data } = await sb.from('cycle_settings').select('*').eq('id',1).maybeSingle();
   if (data) {
     cycleSettings = { start: data.cycle_start, length: data.cycle_length || 28 };
-    if (data.cycle_start) document.getElementById('cycleStart').value = data.cycle_start;
-    document.getElementById('cycleLength').value = cycleSettings.length;
   }
-}
-
-async function saveCycleLength() {
-  const length = parseInt(document.getElementById('cycleLength').value) || 28;
-  cycleSettings.length = length;
-  await sb.from('cycle_settings').upsert({id:1, cycle_start:cycleSettings.start||null, cycle_length:length});
-  updatePhaseChip();
-  toast('Saved');
 }
 
 function saveApiKey() {
@@ -368,18 +357,34 @@ function openSheet(key) {
   const renders = {
     mood: () => sheetHTML('How are you feeling?', `
       ${whenPicker()}
-      <div class="mood-outer">
-        <div class="mood-axis-y"><span>high energy</span><span>low energy</span></div>
-        <div class="mood-right">
-          <div class="mood-axis-x"><span>unpleasant</span><span>pleasant</span></div>
-          <div class="mood-grid">
-            ${MOOD_GRID.map((row,ri)=>row.map((cell,ci)=>
-              `<div class="mood-cell ${cell.q}" onclick="selMood(this,'${cell.w}','${cell.q}')">${cell.w}</div>`
-            ).join('')).join('')}
-          </div>
+      <div style="font-size:11px;color:var(--text3);margin-bottom:10px">tap a quadrant to expand · tap a word to select</div>
+      <div class="mood-quadrants">
+        <div class="mood-quadrant-btn red" onclick="toggleQuadrant('red')">
+          <span class="q-name">red</span><span class="q-hint">high energy · unpleasant</span>
+        </div>
+        <div class="mood-quadrant-btn yellow" onclick="toggleQuadrant('yellow')">
+          <span class="q-name">yellow</span><span class="q-hint">high energy · pleasant</span>
+        </div>
+        <div class="mood-quadrant-btn blue" onclick="toggleQuadrant('blue')">
+          <span class="q-name">blue</span><span class="q-hint">low energy · unpleasant</span>
+        </div>
+        <div class="mood-quadrant-btn green" onclick="toggleQuadrant('green')">
+          <span class="q-name">green</span><span class="q-hint">low energy · pleasant</span>
         </div>
       </div>
-      <div class="mood-selected" id="moodSelected">tap a word</div>`),
+      <div class="mood-word-grid" id="wordGrid-red">
+        ${MOOD_WORDS.red.map(w=>`<div class="mood-word red" onclick="selMood(this,'${w}','red')">${w}</div>`).join('')}
+      </div>
+      <div class="mood-word-grid" id="wordGrid-yellow">
+        ${MOOD_WORDS.yellow.map(w=>`<div class="mood-word yellow" onclick="selMood(this,'${w}','yellow')">${w}</div>`).join('')}
+      </div>
+      <div class="mood-word-grid" id="wordGrid-blue">
+        ${MOOD_WORDS.blue.map(w=>`<div class="mood-word blue" onclick="selMood(this,'${w}','blue')">${w}</div>`).join('')}
+      </div>
+      <div class="mood-word-grid" id="wordGrid-green">
+        ${MOOD_WORDS.green.map(w=>`<div class="mood-word green" onclick="selMood(this,'${w}','green')">${w}</div>`).join('')}
+      </div>
+      <div class="mood-selected" id="moodSelected">tap a quadrant to begin</div>`),
 
     irrit: () => sheetHTML('Irritability', `
       ${whenPicker()}
@@ -430,12 +435,11 @@ function openSheet(key) {
       </div>`),
 
     weed: () => sheetHTML('Marijuana', `
-      ${whenPicker()}
       <div style="display:flex;flex-direction:column;gap:16px">
         <div>
           <div style="font-size:11px;color:var(--text3);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Time of use</div>
           <div class="pill-row" id="weedTimePills">
-            ${TOD_OPTIONS.map(v=>`<div class="pill" data-val="${v}" onclick="selPill('weedTime',this)">${v}</div>`).join('')}
+            ${TOD_OPTIONS.map(v=>`<div class="pill" data-val="${v}" onclick="selPillWeedTime(this,'${v}')">${v}</div>`).join('')}
           </div>
         </div>
         <div>
@@ -450,6 +454,10 @@ function openSheet(key) {
             ${['none','a little','moderate','a lot'].map(v=>`<div class="pill" data-val="${v}" onclick="selPill('weedAmt',this)">${v}</div>`).join('')}
           </div>
         </div>
+        <div class="date-row">
+          <label>date</label>
+          <input type="date" id="entryDate" class="date-input" value="${localDateStr()}">
+        </div>
       </div>`),
 
     alcohol: () => sheetHTML('Alcohol', `
@@ -463,9 +471,13 @@ function openSheet(key) {
       ${whenPicker()}
       <textarea id="weighingInput" rows="5" placeholder="What's on your mind..."></textarea>`),
 
-    period: () => sheetHTML('Log period start', `
-      ${whenPicker()}
-      <p style="font-size:14px;color:var(--text2);line-height:1.6;margin-top:8px">This will mark today as day 1 of your cycle and update your cycle tracking automatically.</p>`),
+    period: () => sheetHTML('Start of period 🌸', `
+      <div class="date-row" style="margin-bottom:16px">
+        <label>date</label>
+        <input type="date" id="entryDate" class="date-input" value="${localDateStr()}">
+      </div>
+      <p style="font-size:14px;color:var(--text2);line-height:1.6">This marks day 1 of your cycle and updates your phase tracking automatically.</p>`),
+
     happy: () => sheetHTML('Something made me happy ✦', `
       <textarea id="happyInput" rows="5" placeholder="What happened?"></textarea>`)
   };
@@ -514,14 +526,16 @@ async function saveSheet() {
     if (!text) { toast('Write something first'); return; }
     payload.weighing_on_me = text;
   } else if (currentSheet === 'period') {
-    payload.is_period_start = true;
-    const la2 = buildLoggedAt();
-    const dateOnly = la2.slice(0,10);
+    const dateEl = document.getElementById('entryDate');
+    const dateOnly = (dateEl && dateEl.value) ? dateEl.value : localDateStr();
     cycleSettings.start = dateOnly;
     await sb.from('cycle_settings').upsert({id:1, cycle_start:dateOnly, cycle_length:cycleSettings.length});
     updatePhaseChip();
-    const {data, error} = await sb.from('entries').insert(payload).select().single();
-    if (error) { console.error(error); toast('Error: ' + (error.message||error.code)); return; }
+    payload.is_period_start = true;
+    payload.logged_at = new Date(dateOnly + 'T09:00').toISOString();
+    payload.cycle_phase = 'menstrual';
+    const { data, error } = await sb.from('entries').insert(payload).select().single();
+    if (error) { console.error(error); toast('Error: '+(error.message||error.code)); return; }
     entries.unshift(data);
     entries.sort((a,b)=>sortTs(b)-sortTs(a));
     closeSheet();
@@ -561,14 +575,36 @@ function closeSheetOnBg(e) {
 }
 
 // ── SELECTORS ─────────────────────────────────────────────────────────
+function toggleQuadrant(quad) {
+  const grids = ['red','yellow','blue','green'];
+  const isOpen = document.getElementById('wordGrid-'+quad).classList.contains('open');
+  grids.forEach(q => {
+    document.getElementById('wordGrid-'+q).classList.remove('open');
+    document.querySelectorAll('.mood-quadrant-btn.'+q).forEach(b=>b.classList.remove('active-q'));
+  });
+  if (!isOpen) {
+    document.getElementById('wordGrid-'+quad).classList.add('open');
+    document.querySelectorAll('.mood-quadrant-btn.'+quad).forEach(b=>b.classList.add('active-q'));
+  }
+}
+
 function selMood(el, word, quad) {
-  document.querySelectorAll('.mood-cell').forEach(c => c.classList.remove('sel'));
+  document.querySelectorAll('.mood-word').forEach(c=>c.classList.remove('sel'));
   el.classList.add('sel');
   sheetState.moodWord = word;
   sheetState.moodQuadrant = quad;
   const colors = {red:'#7a3d36',yellow:'#6b5010',blue:'#2d5570',green:'#2d5e33'};
   const sel = document.getElementById('moodSelected');
-  if (sel) { sel.textContent = word; sel.style.color = colors[quad] || 'var(--brown)'; }
+  if (sel) { sel.textContent = word; sel.style.color = colors[quad]||'var(--brown)'; }
+  // collapse grid after selection
+  toggleQuadrant(quad);
+}
+
+function selPillWeedTime(el, val) {
+  el.closest('.pill-row').querySelectorAll('.pill').forEach(p=>p.classList.remove('sel'));
+  el.classList.add('sel');
+  sheetState.weedTime = val;
+  sheetState._tod = val;
 }
 
 function selPill(key, el) {
@@ -846,7 +882,6 @@ function goTo(name,btn){
   document.getElementById('screen-'+name).classList.add('active');
   btn.classList.add('active');
   closeFab();
-  document.getElementById('fabWrap').style.display = name==='settings' ? 'none' : 'flex';
   if(name==='history') renderHistory();
   if(name==='dash') renderDashboard();
 }
