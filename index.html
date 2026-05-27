@@ -214,8 +214,10 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
 
 <script>
 const SUPABASE_URL = 'https://zslmaqrvsebxhtjirqgf.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpzbG1hcXJ2c2VieGh0amlycWdmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4MzE1MjYsImV4cCI6MjA5NTQwNzUyNn0.3vGpvvp3wmQkuky8zokELhElaYCjezp0iFeCTly6y3Y';
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const SUPABASE_KEY = 'sb_publishable_Er0_gJ3ZJcSnqDWGgXWsRA_6dEq0Rr5';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+  auth: { persistSession: false }
+});
 
 const MOOD_GRID = [
   [{w:'enraged',q:'red'},{w:'anxious',q:'red'},{w:'dread',q:'red'},{w:'excited',q:'yellow'},{w:'ecstatic',q:'yellow'}],
