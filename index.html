@@ -32,7 +32,7 @@ h1{font-family:'Lora',serif;font-size:24px;font-weight:400;color:var(--text);mar
 .section-label{font-size:10px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin:20px 0 8px}
 .section-label:first-child{margin-top:0}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:10px}
-.fab-wrap{position:fixed;bottom:calc(var(--nav-h) + 12px);right:16px;z-index:100;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.fab-wrap{position:fixed;bottom:calc(var(--nav-h) + 12px);right:16px;z-index:50;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
 .fab{width:52px;height:52px;border-radius:50%;background:var(--brown);border:none;color:#fff;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(74,55,40,.35);transition:transform .2s;flex-shrink:0}
 .fab.open{transform:rotate(45deg)}
 .fab-actions{display:flex;flex-direction:column;gap:8px;align-items:flex-end;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .2s,transform .2s}
@@ -74,10 +74,9 @@ input[type=number]:focus{outline:none;border-color:var(--brown-light)}
 input[type=date]{padding:9px 10px;border-radius:var(--rs);border:1px solid var(--border);background:var(--surface2);font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif}
 input[type=date]:focus{outline:none;border-color:var(--brown-light)}
 .mood-quadrants{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
-.mood-quadrant-btn{padding:22px 12px;border-radius:var(--r);border:2px solid transparent;cursor:pointer;text-align:center;font-family:'DM Sans',sans-serif;transition:all .2s;position:relative}
+.mood-quadrant-btn{padding:22px 12px;border-radius:var(--r);border:2px solid transparent;cursor:pointer;text-align:center;font-family:'DM Sans',sans-serif;transition:all .2s}
 .mood-quadrant-btn .q-name{font-size:15px;font-weight:500;display:block;margin-bottom:4px}
 .mood-quadrant-btn .q-hint{font-size:11px;opacity:.7;line-height:1.3}
-.mood-quadrant-btn.active-q{border-width:2.5px}
 .mood-quadrant-btn.red{background:#f0d4d0;color:#7a3d36;border-color:#ddb8b3}
 .mood-quadrant-btn.yellow{background:#f0e6c0;color:#6b5010;border-color:#ddd0a0}
 .mood-quadrant-btn.blue{background:#cfe0ec;color:#2d5570;border-color:#b0cbde}
@@ -88,17 +87,12 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
 .mood-quadrant-btn.green.active-q{border-color:#2d5e33;box-shadow:0 0 0 3px rgba(45,94,51,.2)}
 .mood-word-grid{display:none;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:12px}
 .mood-word-grid.open{display:grid}
-.mood-word{padding:9px 3px;border-radius:var(--rs);font-size:12px;text-align:center;cursor:pointer;transition:all .15s;border:1.5px solid transparent;line-height:1.3;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;min-height:44px;word-break:break-word;hyphens:auto}
-.mood-word:active{transform:scale(.95)}
+.mood-word{padding:8px 2px;border-radius:var(--rs);font-size:11px;text-align:center;cursor:pointer;transition:all .15s;border:1.5px solid transparent;line-height:1.3;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;min-height:44px;word-break:break-word;hyphens:auto}
 .mood-word.sel{font-weight:500;box-shadow:0 0 0 2px rgba(74,55,40,.4)}
-.mood-word.red{background:#f0d4d0;color:#7a3d36}
-.mood-word.yellow{background:#f0e6c0;color:#6b5010}
-.mood-word.blue{background:#cfe0ec;color:#2d5570}
-.mood-word.green{background:#cde4cf;color:#2d5e33}
-.mood-word.sel.red{border-color:#7a3d36}
-.mood-word.sel.yellow{border-color:#6b5010}
-.mood-word.sel.blue{border-color:#2d5570}
-.mood-word.sel.green{border-color:#2d5e33}
+.mood-word.red{background:#f0d4d0;color:#7a3d36}.mood-word.sel.red{border-color:#7a3d36}
+.mood-word.yellow{background:#f0e6c0;color:#6b5010}.mood-word.sel.yellow{border-color:#6b5010}
+.mood-word.blue{background:#cfe0ec;color:#2d5570}.mood-word.sel.blue{border-color:#2d5570}
+.mood-word.green{background:#cde4cf;color:#2d5e33}.mood-word.sel.green{border-color:#2d5e33}
 .mood-selected{text-align:center;font-family:'Lora',serif;font-style:italic;font-size:15px;color:var(--brown);min-height:22px;margin-top:4px}
 .phase-card{border-radius:var(--r);padding:16px;margin-bottom:10px}
 .phase-name{font-family:'Lora',serif;font-size:22px;font-weight:400;margin-bottom:2px}
@@ -115,7 +109,7 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
 .refresh-btn:disabled{opacity:.5;cursor:default}
 .refresh-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 .day-group{margin-bottom:18px}
-.day-label{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px}
+.day-label{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;line-height:1.5}
 .entry-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);padding:12px 14px;margin-bottom:5px}
 .entry-time{font-size:11px;color:var(--text3);margin-bottom:5px}
 .entry-tags{display:flex;flex-wrap:wrap;gap:4px}
@@ -125,6 +119,9 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
 .etag.blue{background:#e8eff4;border-color:#9ab5c9;color:#2d5570}
 .etag.green{background:#e8f0e9;border-color:#96b89a;color:#2d5e33}
 .entry-note{font-size:13px;color:var(--text2);font-style:italic;margin-top:5px;line-height:1.4}
+.entry-actions{display:flex;gap:6px;margin-top:8px}
+.entry-btn{padding:5px 12px;border-radius:10px;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;border:1px solid var(--border);background:var(--surface2);color:var(--text3);transition:all .15s}
+.entry-btn.del{border-color:#d4a09a;color:#c17f74}
 .happy-row{border-left:3px solid #c9a84c}
 .field-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--border)}
 .field-row:last-child{border-bottom:none;padding-bottom:0}
@@ -185,7 +182,6 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
     </button>
   </nav>
 </div>
-
 <div class="fab-wrap" id="fabWrap">
   <div class="fab-actions" id="fabActions">
     <div class="fab-action" onclick="openSheet('mood')"><span class="fab-action-label">mood</span><span class="fab-action-icon">🎨</span></div>
@@ -201,28 +197,21 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
   </div>
   <button class="fab" id="fab" onclick="toggleFab()">+</button>
 </div>
-
 <div class="sheet-bg" id="sheetBg" onclick="closeSheetOnBg(event)">
-  <div class="sheet" id="sheet">
-    <div class="sheet-handle"></div>
-    <div id="sheetInner"></div>
-  </div>
+  <div class="sheet" id="sheet"><div class="sheet-handle"></div><div id="sheetInner"></div></div>
 </div>
-
 <div class="toast" id="toast"></div>
-
 <script>
-const SUPABASE_URL = 'https://zslmaqrvsebxhtjirqgf.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_Er0_gJ3ZJcSnqDWGgXWsRA_6dEq0Rr5';
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const SUPABASE_URL = 'REPLACE_WITH_YOUR_PROJECT_URL';
+const SUPABASE_KEY = 'REPLACE_WITH_YOUR_ANON_KEY';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {auth:{persistSession:false}});
 
 const MOOD_WORDS = {
-  red: ['enraged','hostile','furious','livid','panicked','terrified','angry','frightened','stressed','jittery','alarmed','shocked','tense','distressed','apprehensive','irritable','frustrated','annoyed','uneasy','bitter','troubled','mad','afraid','anxious','overwhelmed'],
+  red:    ['enraged','hostile','furious','livid','panicked','terrified','angry','frightened','stressed','jittery','alarmed','shocked','tense','distressed','apprehensive','irritable','frustrated','annoyed','uneasy','bitter','troubled','mad','afraid','anxious','overwhelmed'],
   yellow: ['ecstatic','elated','thrilled','exhilarated','overjoyed','energized','enthusiastic','inspired','motivated','pumped','excited','upbeat','festive','cheerful','optimistic','pleased','happy','amused','playful','hopeful','glad','grateful','content','joyful','lively'],
-  blue: ['depressed','hopeless','miserable','defeated','helpless','despondent','gloomy','dejected','sad','mournful','withdrawn','lonely','alienated','drained','exhausted','lethargic','apathetic','sluggish','foggy','bored','indifferent','heavy','dull','fatigued','melancholy'],
-  green: ['serene','peaceful','tranquil','calm','relaxed','fulfilled','nurturing','loving','blessed','grateful','at ease','comfortable','restful','easygoing','balanced','thoughtful','pensive','carefree','satisfied','relieved','content','gentle','still','grounded','present']
+  blue:   ['depressed','hopeless','miserable','defeated','helpless','despondent','gloomy','dejected','sad','mournful','withdrawn','lonely','alienated','drained','exhausted','lethargic','apathetic','sluggish','foggy','bored','indifferent','heavy','dull','fatigued','melancholy'],
+  green:  ['serene','peaceful','tranquil','calm','relaxed','fulfilled','nurturing','loving','blessed','grateful','at ease','comfortable','restful','easygoing','balanced','thoughtful','pensive','carefree','satisfied','relieved','content','gentle','still','grounded','present']
 };
-
 const TOD_OPTIONS = ['morning','afternoon','evening','night'];
 
 let cycleSettings = {start:null,length:28};
@@ -235,86 +224,58 @@ let chartInst = {};
 let anthropicKey = '';
 let storedInsights = '';
 
-// ── LOCAL DATE ────────────────────────────────────────────────────────
 function localDateStr() {
   const d = new Date();
-  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 }
-
 function autoTOD() {
   const h = new Date().getHours();
-  if (h >= 5 && h < 12) return 'morning';
-  if (h >= 12 && h < 17) return 'afternoon';
-  if (h >= 17 && h < 21) return 'evening';
+  if (h>=5&&h<12) return 'morning';
+  if (h>=12&&h<17) return 'afternoon';
+  if (h>=17&&h<21) return 'evening';
   return 'night';
 }
-
-// Build ISO timestamp from date input + tod selection
 function buildLoggedAt() {
   const dateEl = document.getElementById('entryDate');
-  const dateStr = (dateEl && dateEl.value) ? dateEl.value : localDateStr();
-  const tod = sheetState._tod || autoTOD();
-  const hourMap = { morning: '09:00', afternoon: '14:00', evening: '19:00', night: '22:00' };
-  const timeStr = hourMap[tod] || '12:00';
-  const d = new Date(dateStr + 'T' + timeStr);
+  const dateStr = (dateEl&&dateEl.value) ? dateEl.value : localDateStr();
+  const t = sheetState._tod || autoTOD();
+  const hm = {morning:'09:00',afternoon:'14:00',evening:'19:00',night:'22:00'};
+  const d = new Date(dateStr+'T'+(hm[t]||'12:00'));
   return isNaN(d.getTime()) ? new Date().toISOString() : d.toISOString();
-}
-
-// ── WHEN PICKER HTML ──────────────────────────────────────────────────
-function whenPicker() {
-  const defaultTod = autoTOD();
-  sheetState._tod = defaultTod;
-  return `<div class="when-row">
-    <div class="when-label">when</div>
-    <div class="when-grid">
-      ${TOD_OPTIONS.map(t => `<div class="when-btn${t===defaultTod?' sel':''}" onclick="selTOD(this,'${t}')">${t}</div>`).join('')}
-    </div>
-    <div class="date-row">
-      <label>date</label>
-      <input type="date" id="entryDate" class="date-input" value="${localDateStr()}">
-    </div>
-  </div>`;
-}
-
-function selTOD(el, val) {
-  document.querySelectorAll('.when-btn').forEach(b => b.classList.remove('sel'));
-  el.classList.add('sel');
-  sheetState._tod = val;
 }
 
 // ── INIT ─────────────────────────────────────────────────────────────
 async function init() {
-  anthropicKey = localStorage.getItem('patterns_ak') || '';
+  anthropicKey = localStorage.getItem('patterns_ak')||'';
   if (anthropicKey) document.getElementById('anthropicKey').value = anthropicKey;
-  try { await loadCycle(); } catch(e) { console.error('loadCycle:', e); }
-  try { await loadEntries(); } catch(e) { console.error('loadEntries:', e); }
+  try { await loadCycle(); } catch(e) { console.error('cycle:',e); }
+  try { await loadEntries(); } catch(e) { console.error('entries:',e); }
   updatePhaseChip();
   renderDashboard();
   document.getElementById('loading').style.display = 'none';
   document.getElementById('app').style.display = 'flex';
 }
 
-// ── DATA ─────────────────────────────────────────────────────────────
 async function loadEntries() {
-  const { data: logs, error: e1 } = await sb.from('entries').select('*').order('created_at', {ascending:false}).limit(300);
-  const { data: happy, error: e2 } = await sb.from('happy_moments').select('*').order('created_at', {ascending:false}).limit(100);
-  if (e1) console.error('entries error:', e1);
-  if (e2) console.error('happy error:', e2);
-  entries = logs || [];
-  happyEntries = happy || [];
+  const [{data:logs,error:e1},{data:happy,error:e2}] = await Promise.all([
+    sb.from('entries').select('*').order('logged_at',{ascending:false,nullsFirst:false}).order('created_at',{ascending:false}).limit(300),
+    sb.from('happy_moments').select('*').order('created_at',{ascending:false}).limit(100)
+  ]);
+  if (e1) console.error('entries:',e1);
+  if (e2) console.error('happy:',e2);
+  entries = logs||[];
+  happyEntries = happy||[];
 }
 
 async function loadCycle() {
-  const { data } = await sb.from('cycle_settings').select('*').eq('id',1).maybeSingle();
-  if (data) {
-    cycleSettings = { start: data.cycle_start, length: data.cycle_length || 28 };
-  }
+  const {data} = await sb.from('cycle_settings').select('*').eq('id',1).maybeSingle();
+  if (data) cycleSettings = {start:data.cycle_start, length:data.cycle_length||28};
 }
 
 function saveApiKey() {
-  const key = document.getElementById('anthropicKey').value.trim();
-  localStorage.setItem('patterns_ak', key);
-  anthropicKey = key;
+  const k = document.getElementById('anthropicKey').value.trim();
+  localStorage.setItem('patterns_ak',k);
+  anthropicKey = k;
   toast('API key saved');
 }
 
@@ -324,24 +285,23 @@ async function confirmClear() {
     sb.from('entries').delete().neq('id','00000000-0000-0000-0000-000000000000'),
     sb.from('happy_moments').delete().neq('id','00000000-0000-0000-0000-000000000000')
   ]);
-  entries = []; happyEntries = []; storedInsights = '';
-  renderDashboard();
-  toast('Data cleared');
+  entries=[]; happyEntries=[]; storedInsights='';
+  renderDashboard(); toast('Data cleared');
 }
 
 // ── FAB ───────────────────────────────────────────────────────────────
 function toggleFab() {
-  fabOpen = !fabOpen;
-  document.getElementById('fab').classList.toggle('open', fabOpen);
-  document.getElementById('fabActions').classList.toggle('open', fabOpen);
+  fabOpen=!fabOpen;
+  document.getElementById('fab').classList.toggle('open',fabOpen);
+  document.getElementById('fabActions').classList.toggle('open',fabOpen);
 }
 function closeFab() {
-  fabOpen = false;
+  fabOpen=false;
   document.getElementById('fab').classList.remove('open');
   document.getElementById('fabActions').classList.remove('open');
 }
 
-// ── SHEETS ────────────────────────────────────────────────────────────
+// ── SHEET BUILDER ─────────────────────────────────────────────────────
 function sheetHTML(title, body) {
   return `<div class="sheet-title">${title}</div>${body}
     <div class="sheet-actions">
@@ -350,359 +310,392 @@ function sheetHTML(title, body) {
     </div>`;
 }
 
+function whenPickerHTML(prefillDate, prefillTOD) {
+  const def = prefillTOD || autoTOD();
+  sheetState._tod = def;
+  return `<div class="when-row">
+    <div class="when-label">when</div>
+    <div class="when-grid">
+      ${TOD_OPTIONS.map(t=>`<div class="when-btn${t===def?' sel':''}" onclick="selTOD(this,'${t}')">${t}</div>`).join('')}
+    </div>
+    <div class="date-row"><label>date</label>
+      <input type="date" id="entryDate" class="date-input" value="${prefillDate||localDateStr()}">
+    </div>
+  </div>`;
+}
+
+function moodSheetBody(prefillDate, prefillTOD) {
+  return `${whenPickerHTML(prefillDate,prefillTOD)}
+    <div style="font-size:11px;color:var(--text3);margin-bottom:10px">tap a quadrant to expand · tap a word to select</div>
+    <div class="mood-quadrants">
+      <div class="mood-quadrant-btn red" onclick="toggleQuadrant('red')"><span class="q-name">red</span><span class="q-hint">high energy · unpleasant</span></div>
+      <div class="mood-quadrant-btn yellow" onclick="toggleQuadrant('yellow')"><span class="q-name">yellow</span><span class="q-hint">high energy · pleasant</span></div>
+      <div class="mood-quadrant-btn blue" onclick="toggleQuadrant('blue')"><span class="q-name">blue</span><span class="q-hint">low energy · unpleasant</span></div>
+      <div class="mood-quadrant-btn green" onclick="toggleQuadrant('green')"><span class="q-name">green</span><span class="q-hint">low energy · pleasant</span></div>
+    </div>
+    <div class="mood-word-grid" id="wordGrid-red">${MOOD_WORDS.red.map(w=>`<div class="mood-word red" onclick="selMood(this,'${w}','red')">${w}</div>`).join('')}</div>
+    <div class="mood-word-grid" id="wordGrid-yellow">${MOOD_WORDS.yellow.map(w=>`<div class="mood-word yellow" onclick="selMood(this,'${w}','yellow')">${w}</div>`).join('')}</div>
+    <div class="mood-word-grid" id="wordGrid-blue">${MOOD_WORDS.blue.map(w=>`<div class="mood-word blue" onclick="selMood(this,'${w}','blue')">${w}</div>`).join('')}</div>
+    <div class="mood-word-grid" id="wordGrid-green">${MOOD_WORDS.green.map(w=>`<div class="mood-word green" onclick="selMood(this,'${w}','green')">${w}</div>`).join('')}</div>
+    <div class="mood-selected" id="moodSelected">tap a quadrant to begin</div>`;
+}
+
+function getSheetContent(key, prefillDate, prefillTOD) {
+  const pd = prefillDate||localDateStr();
+  const pt = prefillTOD||autoTOD();
+  const wp = () => whenPickerHTML(pd, pt);
+  const sheets = {
+    mood:    () => sheetHTML('How are you feeling?', moodSheetBody(pd,pt)),
+    irrit:   () => sheetHTML('Irritability', `${wp()}<div class="pill-row" id="irritPills">
+      <div class="pill" data-val="0" onclick="selPill('irrit',this)">nothing bothers me</div>
+      <div class="pill" data-val="1" onclick="selPill('irrit',this)">small things are annoying</div>
+      <div class="pill" data-val="2" onclick="selPill('irrit',this)">I snapped or almost snapped</div>
+      <div class="pill" data-val="3" onclick="selPill('irrit',this)">I feel like I'll explode</div>
+    </div>`),
+    sh:      () => sheetHTML('Self-harm thoughts', `${wp()}<div class="pill-row" id="shPills">
+      <div class="pill" data-val="0" onclick="selPill('sh',this)">none</div>
+      <div class="pill" data-val="1" onclick="selPill('sh',this)">quiet</div>
+      <div class="pill" data-val="2" onclick="selPill('sh',this)">loud</div>
+      <div class="pill" data-val="3" onclick="selPill('sh',this)">specific method</div>
+    </div>`),
+    energy:  () => sheetHTML('Energy, anxiety & social', `${wp()}<div class="scale-wrap">
+      <div><div class="scale-lbl-row"><span>Energy</span><span>drained → wired</span></div>
+        <div class="scale-btns" id="energyScale">${[1,2,3,4,5].map(v=>`<div class="scale-btn" data-val="${v}" onclick="selScale('energy',this)">${v}</div>`).join('')}</div></div>
+      <div><div class="scale-lbl-row"><span>Anxiety</span><span>calm → spiral</span></div>
+        <div class="scale-btns" id="anxietyScale">${[1,2,3,4,5].map(v=>`<div class="scale-btn" data-val="${v}" onclick="selScale('anxiety',this)">${v}</div>`).join('')}</div></div>
+      <div><div class="scale-lbl-row"><span>Social battery</span><span>hide → connect</span></div>
+        <div class="scale-btns" id="socialScale">${[1,2,3,4,5].map(v=>`<div class="scale-btn" data-val="${v}" onclick="selScale('social',this)">${v}</div>`).join('')}</div></div>
+    </div>`),
+    sleep:   () => sheetHTML('Sleep', `${wp()}<div style="display:flex;align-items:center;gap:16px;justify-content:center;padding:16px 0">
+      <input type="number" id="sleepInput" min="0" max="24" step="0.5" placeholder="0" style="width:100px;font-size:28px;text-align:center;padding:12px">
+      <span style="font-size:18px;color:var(--text2)">hours</span></div>`),
+    weed:    () => sheetHTML('Marijuana', `<div style="display:flex;flex-direction:column;gap:16px">
+      <div><div style="font-size:11px;color:var(--text3);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Time of use</div>
+        <div class="pill-row" id="weedTimePills">${TOD_OPTIONS.map(v=>`<div class="pill" data-val="${v}" onclick="selPillWeedTime(this,'${v}')">${v}</div>`).join('')}</div></div>
+      <div><div style="font-size:11px;color:var(--text3);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Why I used</div>
+        <div class="pill-row" id="weedWhyPills">${['anxiety','sleep','pain','social','habit','enjoyment'].map(v=>`<div class="pill" data-val="${v}" onclick="selPill('weedWhy',this)">${v}</div>`).join('')}</div></div>
+      <div><div style="font-size:11px;color:var(--text3);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Amount</div>
+        <div class="pill-row" id="weedAmtPills">${['none','a little','moderate','a lot'].map(v=>`<div class="pill" data-val="${v}" onclick="selPill('weedAmt',this)">${v}</div>`).join('')}</div></div>
+      <div class="date-row"><label>date</label><input type="date" id="entryDate" class="date-input" value="${pd}"></div>
+    </div>`),
+    alcohol: () => sheetHTML('Alcohol', `${wp()}<div style="display:flex;align-items:center;gap:16px;justify-content:center;padding:16px 0">
+      <input type="number" id="alcoholInput" min="0" max="30" step="1" placeholder="0" style="width:100px;font-size:28px;text-align:center;padding:12px">
+      <span style="font-size:18px;color:var(--text2)">drinks</span></div>`),
+    weighing:() => sheetHTML("What's weighing on me", `${wp()}<textarea id="weighingInput" rows="5" placeholder="What's on your mind..."></textarea>`),
+    period:  () => sheetHTML('Start of period 🌸', `<div class="date-row" style="margin-bottom:16px"><label>date</label>
+      <input type="date" id="entryDate" class="date-input" value="${pd}"></div>
+      <p style="font-size:14px;color:var(--text2);line-height:1.6">This marks day 1 of your cycle and updates your phase tracking automatically.</p>`),
+    happy:   () => sheetHTML('Something made me happy ✦', `<textarea id="happyInput" rows="5" placeholder="What happened?"></textarea>`)
+  };
+  return sheets[key] ? sheets[key]() : '';
+}
+
 function openSheet(key) {
   closeFab();
   currentSheet = key;
   sheetState = {};
-  const renders = {
-    mood: () => sheetHTML('How are you feeling?', `
-      ${whenPicker()}
-      <div style="font-size:11px;color:var(--text3);margin-bottom:10px">tap a quadrant to expand · tap a word to select</div>
-      <div class="mood-quadrants">
-        <div class="mood-quadrant-btn red" onclick="toggleQuadrant('red')">
-          <span class="q-name">red</span><span class="q-hint">high energy · unpleasant</span>
-        </div>
-        <div class="mood-quadrant-btn yellow" onclick="toggleQuadrant('yellow')">
-          <span class="q-name">yellow</span><span class="q-hint">high energy · pleasant</span>
-        </div>
-        <div class="mood-quadrant-btn blue" onclick="toggleQuadrant('blue')">
-          <span class="q-name">blue</span><span class="q-hint">low energy · unpleasant</span>
-        </div>
-        <div class="mood-quadrant-btn green" onclick="toggleQuadrant('green')">
-          <span class="q-name">green</span><span class="q-hint">low energy · pleasant</span>
-        </div>
-      </div>
-      <div class="mood-word-grid" id="wordGrid-red">
-        ${MOOD_WORDS.red.map(w=>`<div class="mood-word red" onclick="selMood(this,'${w}','red')">${w}</div>`).join('')}
-      </div>
-      <div class="mood-word-grid" id="wordGrid-yellow">
-        ${MOOD_WORDS.yellow.map(w=>`<div class="mood-word yellow" onclick="selMood(this,'${w}','yellow')">${w}</div>`).join('')}
-      </div>
-      <div class="mood-word-grid" id="wordGrid-blue">
-        ${MOOD_WORDS.blue.map(w=>`<div class="mood-word blue" onclick="selMood(this,'${w}','blue')">${w}</div>`).join('')}
-      </div>
-      <div class="mood-word-grid" id="wordGrid-green">
-        ${MOOD_WORDS.green.map(w=>`<div class="mood-word green" onclick="selMood(this,'${w}','green')">${w}</div>`).join('')}
-      </div>
-      <div class="mood-selected" id="moodSelected">tap a quadrant to begin</div>`),
-
-    irrit: () => sheetHTML('Irritability', `
-      ${whenPicker()}
-      <div class="pill-row" id="irritPills">
-        <div class="pill" data-val="0" onclick="selPill('irrit',this)">nothing bothers me</div>
-        <div class="pill" data-val="1" onclick="selPill('irrit',this)">small things are annoying</div>
-        <div class="pill" data-val="2" onclick="selPill('irrit',this)">I snapped or almost snapped</div>
-        <div class="pill" data-val="3" onclick="selPill('irrit',this)">I feel like I'll explode</div>
-      </div>`),
-
-    sh: () => sheetHTML('Self-harm thoughts', `
-      ${whenPicker()}
-      <div class="pill-row" id="shPills">
-        <div class="pill" data-val="0" onclick="selPill('sh',this)">none</div>
-        <div class="pill" data-val="1" onclick="selPill('sh',this)">quiet</div>
-        <div class="pill" data-val="2" onclick="selPill('sh',this)">loud</div>
-        <div class="pill" data-val="3" onclick="selPill('sh',this)">specific method</div>
-      </div>`),
-
-    energy: () => sheetHTML('Energy, anxiety & social', `
-      ${whenPicker()}
-      <div class="scale-wrap">
-        <div>
-          <div class="scale-lbl-row"><span>Energy</span><span>drained → wired</span></div>
-          <div class="scale-btns" id="energyScale">
-            ${[1,2,3,4,5].map(v=>`<div class="scale-btn" data-val="${v}" onclick="selScale('energy',this)">${v}</div>`).join('')}
-          </div>
-        </div>
-        <div>
-          <div class="scale-lbl-row"><span>Anxiety</span><span>calm → spiral</span></div>
-          <div class="scale-btns" id="anxietyScale">
-            ${[1,2,3,4,5].map(v=>`<div class="scale-btn" data-val="${v}" onclick="selScale('anxiety',this)">${v}</div>`).join('')}
-          </div>
-        </div>
-        <div>
-          <div class="scale-lbl-row"><span>Social battery</span><span>hide → connect</span></div>
-          <div class="scale-btns" id="socialScale">
-            ${[1,2,3,4,5].map(v=>`<div class="scale-btn" data-val="${v}" onclick="selScale('social',this)">${v}</div>`).join('')}
-          </div>
-        </div>
-      </div>`),
-
-    sleep: () => sheetHTML('Sleep', `
-      ${whenPicker()}
-      <div style="display:flex;align-items:center;gap:16px;justify-content:center;padding:16px 0">
-        <input type="number" id="sleepInput" min="0" max="24" step="0.5" placeholder="0" style="width:100px;font-size:28px;text-align:center;padding:12px">
-        <span style="font-size:18px;color:var(--text2)">hours</span>
-      </div>`),
-
-    weed: () => sheetHTML('Marijuana', `
-      <div style="display:flex;flex-direction:column;gap:16px">
-        <div>
-          <div style="font-size:11px;color:var(--text3);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Time of use</div>
-          <div class="pill-row" id="weedTimePills">
-            ${TOD_OPTIONS.map(v=>`<div class="pill" data-val="${v}" onclick="selPillWeedTime(this,'${v}')">${v}</div>`).join('')}
-          </div>
-        </div>
-        <div>
-          <div style="font-size:11px;color:var(--text3);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Why I used</div>
-          <div class="pill-row" id="weedWhyPills">
-            ${['anxiety','sleep','pain','social','habit','enjoyment'].map(v=>`<div class="pill" data-val="${v}" onclick="selPill('weedWhy',this)">${v}</div>`).join('')}
-          </div>
-        </div>
-        <div>
-          <div style="font-size:11px;color:var(--text3);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Amount</div>
-          <div class="pill-row" id="weedAmtPills">
-            ${['none','a little','moderate','a lot'].map(v=>`<div class="pill" data-val="${v}" onclick="selPill('weedAmt',this)">${v}</div>`).join('')}
-          </div>
-        </div>
-        <div class="date-row">
-          <label>date</label>
-          <input type="date" id="entryDate" class="date-input" value="${localDateStr()}">
-        </div>
-      </div>`),
-
-    alcohol: () => sheetHTML('Alcohol', `
-      ${whenPicker()}
-      <div style="display:flex;align-items:center;gap:16px;justify-content:center;padding:16px 0">
-        <input type="number" id="alcoholInput" min="0" max="30" step="1" placeholder="0" style="width:100px;font-size:28px;text-align:center;padding:12px">
-        <span style="font-size:18px;color:var(--text2)">drinks</span>
-      </div>`),
-
-    weighing: () => sheetHTML("What's weighing on me", `
-      ${whenPicker()}
-      <textarea id="weighingInput" rows="5" placeholder="What's on your mind..."></textarea>`),
-
-    period: () => sheetHTML('Start of period 🌸', `
-      <div class="date-row" style="margin-bottom:16px">
-        <label>date</label>
-        <input type="date" id="entryDate" class="date-input" value="${localDateStr()}">
-      </div>
-      <p style="font-size:14px;color:var(--text2);line-height:1.6">This marks day 1 of your cycle and updates your phase tracking automatically.</p>`),
-
-    happy: () => sheetHTML('Something made me happy ✦', `
-      <textarea id="happyInput" rows="5" placeholder="What happened?"></textarea>`)
-  };
-
-  document.getElementById('sheetInner').innerHTML = renders[key]();
+  document.getElementById('sheetInner').innerHTML = getSheetContent(key);
   document.getElementById('sheetBg').classList.add('open');
 }
 
+// ── SAVE SHEET ─────────────────────────────────────────────────────────
 async function saveSheet() {
   if (!currentSheet) return;
+  const isEdit = !!sheetState._editId;
+  const editId = sheetState._editId;
   const la = buildLoggedAt();
-  const phase = getPhaseForDate(la);
-  const phaseName = phase ? phase.name : null;
-
-  let payload = { entry_type: 'log', logged_at: la, cycle_phase: phaseName };
+  let payload = {entry_type:'log', logged_at:la};
   let isHappy = false;
   let happyText = '';
 
-  if (currentSheet === 'mood') {
+  if (currentSheet==='mood') {
     if (!sheetState.moodWord) { toast('Tap a feeling first'); return; }
     payload.mood_word = sheetState.moodWord;
     payload.mood_quadrant = sheetState.moodQuadrant;
-  } else if (currentSheet === 'irrit') {
-    if (sheetState.irrit === undefined || sheetState.irrit === null) { toast('Make a selection'); return; }
+  } else if (currentSheet==='irrit') {
+    if (sheetState.irrit===undefined||sheetState.irrit===null) { toast('Make a selection'); return; }
     payload.irritability = sheetState.irrit;
-  } else if (currentSheet === 'sh') {
-    if (sheetState.sh === undefined || sheetState.sh === null) { toast('Make a selection'); return; }
+  } else if (currentSheet==='sh') {
+    if (sheetState.sh===undefined||sheetState.sh===null) { toast('Make a selection'); return; }
     payload.self_harm = sheetState.sh;
-  } else if (currentSheet === 'energy') {
-    if (!sheetState.energy && !sheetState.anxiety && !sheetState.social) { toast('Make at least one selection'); return; }
-    payload.energy = sheetState.energy || null;
-    payload.anxiety = sheetState.anxiety || null;
-    payload.social_battery = sheetState.social || null;
-  } else if (currentSheet === 'sleep') {
+  } else if (currentSheet==='energy') {
+    if (!sheetState.energy&&!sheetState.anxiety&&!sheetState.social) { toast('Make at least one selection'); return; }
+    payload.energy = sheetState.energy||null;
+    payload.anxiety = sheetState.anxiety||null;
+    payload.social_battery = sheetState.social||null;
+  } else if (currentSheet==='sleep') {
     const hrs = parseFloat(document.getElementById('sleepInput').value);
     if (isNaN(hrs)) { toast('Enter hours'); return; }
     payload.sleep_hours = hrs;
-  } else if (currentSheet === 'weed') {
-    payload.weed_time = sheetState.weedTime || null;
-    payload.weed_why = sheetState.weedWhy || null;
-    payload.weed_amount = sheetState.weedAmt || null;
-  } else if (currentSheet === 'alcohol') {
-    payload.alcohol_drinks = parseInt(document.getElementById('alcoholInput').value) || 0;
-  } else if (currentSheet === 'weighing') {
+  } else if (currentSheet==='weed') {
+    payload.weed_time = sheetState.weedTime||null;
+    payload.weed_why = sheetState.weedWhy||null;
+    payload.weed_amount = sheetState.weedAmt||null;
+  } else if (currentSheet==='alcohol') {
+    payload.alcohol_drinks = parseInt(document.getElementById('alcoholInput').value)||0;
+  } else if (currentSheet==='weighing') {
     const text = document.getElementById('weighingInput').value.trim();
     if (!text) { toast('Write something first'); return; }
     payload.weighing_on_me = text;
-  } else if (currentSheet === 'period') {
+  } else if (currentSheet==='period') {
     const dateEl = document.getElementById('entryDate');
-    const dateOnly = (dateEl && dateEl.value) ? dateEl.value : localDateStr();
+    const dateOnly = (dateEl&&dateEl.value)?dateEl.value:localDateStr();
     cycleSettings.start = dateOnly;
-    await sb.from('cycle_settings').upsert({id:1, cycle_start:dateOnly, cycle_length:cycleSettings.length});
+    await sb.from('cycle_settings').upsert({id:1,cycle_start:dateOnly,cycle_length:cycleSettings.length});
     updatePhaseChip();
     payload.is_period_start = true;
-    payload.logged_at = new Date(dateOnly + 'T09:00').toISOString();
-    payload.cycle_phase = 'menstrual';
-    const { data, error } = await sb.from('entries').insert(payload).select().single();
-    if (error) { console.error(error); toast('Error: '+(error.message||error.code)); return; }
-    entries.unshift(data);
+    payload.logged_at = new Date(dateOnly+'T09:00').toISOString();
+    if (isEdit) {
+      const {error} = await sb.from('entries').update(payload).eq('id',editId);
+      if (error) { toast('Error: '+(error.message||error.code)); return; }
+      const i = entries.findIndex(e=>e.id===editId);
+      if (i>=0) entries[i]={...entries[i],...payload};
+    } else {
+      const {data,error} = await sb.from('entries').insert(payload).select().single();
+      if (error) { toast('Error: '+(error.message||error.code)); return; }
+      entries.unshift(data);
+    }
     entries.sort((a,b)=>sortTs(b)-sortTs(a));
-    closeSheet();
-    toast('Period logged · cycle reset to day 1');
-    renderDashboard();
-    return;
-  } else if (currentSheet === 'happy') {
+    closeSheet(); toast(isEdit?'Updated':'Period logged · cycle reset to day 1');
+    renderDashboard(); renderHistory(); return;
+  } else if (currentSheet==='happy') {
     happyText = document.getElementById('happyInput').value.trim();
     if (!happyText) { toast('Write something first'); return; }
     isHappy = true;
   }
 
   if (isHappy) {
-    const { data, error } = await sb.from('happy_moments').insert({ content: happyText }).select().single();
-    if (error) { console.error('happy insert error:', error); toast('Error saving'); return; }
-    happyEntries.unshift(data);
+    if (isEdit) {
+      const {error} = await sb.from('happy_moments').update({content:happyText}).eq('id',editId);
+      if (error) { toast('Error saving'); return; }
+      const i = happyEntries.findIndex(e=>e.id===editId);
+      if (i>=0) happyEntries[i]={...happyEntries[i],content:happyText};
+    } else {
+      const {data,error} = await sb.from('happy_moments').insert({content:happyText}).select().single();
+      if (error) { toast('Error saving'); return; }
+      happyEntries.unshift(data);
+    }
   } else {
-    const { data, error } = await sb.from('entries').insert(payload).select().single();
-    if (error) { console.error('entry insert error:', error); toast('Error: ' + (error.message || error.code)); return; }
-    entries.unshift(data);
-    entries.sort((a,b) => sortTs(b) - sortTs(a));
+    if (isEdit) {
+      const {error} = await sb.from('entries').update(payload).eq('id',editId);
+      if (error) { console.error(error); toast('Error: '+(error.message||error.code)); return; }
+      const i = entries.findIndex(e=>e.id===editId);
+      if (i>=0) entries[i]={...entries[i],...payload};
+    } else {
+      const {data,error} = await sb.from('entries').insert(payload).select().single();
+      if (error) { console.error(error); toast('Error: '+(error.message||error.code)); return; }
+      entries.unshift(data);
+    }
+    entries.sort((a,b)=>sortTs(b)-sortTs(a));
   }
-
   closeSheet();
-  toast('Saved');
-  renderDashboard();
+  toast(isEdit?'Updated':'Saved');
+  renderDashboard(); renderHistory();
 }
 
 function closeSheet() {
   document.getElementById('sheetBg').classList.remove('open');
-  currentSheet = null;
-  sheetState = {};
+  currentSheet=null; sheetState={};
+}
+function closeSheetOnBg(e) { if(e.target===document.getElementById('sheetBg')) closeSheet(); }
+
+// ── EDIT & DELETE ─────────────────────────────────────────────────────
+function editEntry(type, id) {
+  if (type==='happy') {
+    const e = happyEntries.find(x=>x.id===id);
+    if (!e) return;
+    currentSheet='happy';
+    sheetState={_editId:id,_editType:'happy'};
+    document.getElementById('sheetInner').innerHTML = sheetHTML('Edit happy moment ✦',`<textarea id="happyInput" rows="5">${e.content}</textarea>`);
+    document.getElementById('sheetBg').classList.add('open');
+    return;
+  }
+  const e = entries.find(x=>x.id===id);
+  if (!e) return;
+  const la = new Date(e.logged_at||e.created_at);
+  const pd = la.getFullYear()+'-'+String(la.getMonth()+1).padStart(2,'0')+'-'+String(la.getDate()).padStart(2,'0');
+  const pt = tod(la.getTime());
+
+  let key = 'mood';
+  if (e.mood_word) key='mood';
+  else if (e.irritability!==null&&e.irritability!==undefined) key='irrit';
+  else if (e.self_harm!==null&&e.self_harm!==undefined) key='sh';
+  else if (e.energy||e.anxiety||e.social_battery) key='energy';
+  else if (e.sleep_hours!=null) key='sleep';
+  else if (e.weed_amount||e.weed_time||e.weed_why) key='weed';
+  else if (e.alcohol_drinks!=null) key='alcohol';
+  else if (e.weighing_on_me) key='weighing';
+  else if (e.is_period_start) key='period';
+
+  currentSheet=key;
+  sheetState={_editId:id,_editType:'log',_tod:pt};
+  document.getElementById('sheetInner').innerHTML = getSheetContent(key,pd,pt);
+  document.getElementById('sheetBg').classList.add('open');
+
+  requestAnimationFrame(()=>{
+    if (key==='mood'&&e.mood_word) {
+      const cell=[...document.querySelectorAll('.mood-word')].find(el=>el.textContent.trim()===e.mood_word);
+      if (cell) { selMood(cell,e.mood_word,e.mood_quadrant); toggleQuadrant(e.mood_quadrant); }
+    }
+    if (key==='irrit'&&e.irritability!==null&&e.irritability!==undefined) {
+      const p=document.querySelector(`#irritPills .pill[data-val="${e.irritability}"]`);
+      if(p){p.classList.add('sel');sheetState.irrit=String(e.irritability);}
+    }
+    if (key==='sh'&&e.self_harm!==null&&e.self_harm!==undefined) {
+      const p=document.querySelector(`#shPills .pill[data-val="${e.self_harm}"]`);
+      if(p){p.classList.add('sel');sheetState.sh=String(e.self_harm);}
+    }
+    if (key==='energy') {
+      if(e.energy){const b=document.querySelector(`#energyScale .scale-btn[data-val="${e.energy}"]`);if(b){b.classList.add('sel');sheetState.energy=e.energy;}}
+      if(e.anxiety){const b=document.querySelector(`#anxietyScale .scale-btn[data-val="${e.anxiety}"]`);if(b){b.classList.add('sel');sheetState.anxiety=e.anxiety;}}
+      if(e.social_battery){const b=document.querySelector(`#socialScale .scale-btn[data-val="${e.social_battery}"]`);if(b){b.classList.add('sel');sheetState.social=e.social_battery;}}
+    }
+    if (key==='sleep'&&e.sleep_hours!=null){const i=document.getElementById('sleepInput');if(i)i.value=e.sleep_hours;}
+    if (key==='weed') {
+      if(e.weed_time){const p=document.querySelector(`#weedTimePills .pill[data-val="${e.weed_time}"]`);if(p){p.classList.add('sel');sheetState.weedTime=e.weed_time;sheetState._tod=e.weed_time;}}
+      if(e.weed_why){const p=document.querySelector(`#weedWhyPills .pill[data-val="${e.weed_why}"]`);if(p){p.classList.add('sel');sheetState.weedWhy=e.weed_why;}}
+      if(e.weed_amount){const p=document.querySelector(`#weedAmtPills .pill[data-val="${e.weed_amount}"]`);if(p){p.classList.add('sel');sheetState.weedAmt=e.weed_amount;}}
+    }
+    if (key==='alcohol'&&e.alcohol_drinks!=null){const i=document.getElementById('alcoholInput');if(i)i.value=e.alcohol_drinks;}
+    if (key==='weighing'&&e.weighing_on_me){const ta=document.getElementById('weighingInput');if(ta)ta.value=e.weighing_on_me;}
+  });
 }
 
-function closeSheetOnBg(e) {
-  if (e.target === document.getElementById('sheetBg')) closeSheet();
+async function deleteEntry(type, id) {
+  if (!confirm('Delete this entry?')) return;
+  if (type==='happy') {
+    const {error}=await sb.from('happy_moments').delete().eq('id',id);
+    if(error){toast('Error deleting');return;}
+    happyEntries=happyEntries.filter(e=>e.id!==id);
+  } else {
+    const {error}=await sb.from('entries').delete().eq('id',id);
+    if(error){toast('Error deleting');return;}
+    entries=entries.filter(e=>e.id!==id);
+  }
+  toast('Deleted');
+  renderHistory(); renderDashboard();
 }
 
 // ── SELECTORS ─────────────────────────────────────────────────────────
+function selTOD(el, val) {
+  document.querySelectorAll('.when-btn').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
+  sheetState._tod=val;
+}
 function toggleQuadrant(quad) {
-  const grids = ['red','yellow','blue','green'];
-  const isOpen = document.getElementById('wordGrid-'+quad).classList.contains('open');
-  grids.forEach(q => {
-    document.getElementById('wordGrid-'+q).classList.remove('open');
+  const quads=['red','yellow','blue','green'];
+  const grid=document.getElementById('wordGrid-'+quad);
+  if(!grid) return;
+  const isOpen=grid.classList.contains('open');
+  quads.forEach(q=>{
+    const g=document.getElementById('wordGrid-'+q);
+    if(g) g.classList.remove('open');
     document.querySelectorAll('.mood-quadrant-btn.'+q).forEach(b=>b.classList.remove('active-q'));
   });
-  if (!isOpen) {
-    document.getElementById('wordGrid-'+quad).classList.add('open');
+  if(!isOpen){
+    grid.classList.add('open');
     document.querySelectorAll('.mood-quadrant-btn.'+quad).forEach(b=>b.classList.add('active-q'));
   }
 }
-
 function selMood(el, word, quad) {
   document.querySelectorAll('.mood-word').forEach(c=>c.classList.remove('sel'));
   el.classList.add('sel');
-  sheetState.moodWord = word;
-  sheetState.moodQuadrant = quad;
-  const colors = {red:'#7a3d36',yellow:'#6b5010',blue:'#2d5570',green:'#2d5e33'};
-  const sel = document.getElementById('moodSelected');
-  if (sel) { sel.textContent = word; sel.style.color = colors[quad]||'var(--brown)'; }
-  // collapse grid after selection
-  toggleQuadrant(quad);
+  sheetState.moodWord=word;
+  sheetState.moodQuadrant=quad;
+  const colors={red:'#7a3d36',yellow:'#6b5010',blue:'#2d5570',green:'#2d5e33'};
+  const sel=document.getElementById('moodSelected');
+  if(sel){sel.textContent=word;sel.style.color=colors[quad]||'var(--brown)';}
+  setTimeout(()=>toggleQuadrant(quad),300);
 }
-
 function selPillWeedTime(el, val) {
   el.closest('.pill-row').querySelectorAll('.pill').forEach(p=>p.classList.remove('sel'));
   el.classList.add('sel');
-  sheetState.weedTime = val;
-  sheetState._tod = val;
+  sheetState.weedTime=val;
+  sheetState._tod=val;
 }
-
 function selPill(key, el) {
-  el.closest('.pill-row').querySelectorAll('.pill').forEach(p => p.classList.remove('sel'));
+  el.closest('.pill-row').querySelectorAll('.pill').forEach(p=>p.classList.remove('sel'));
   el.classList.add('sel');
-  sheetState[key] = el.dataset.val;
+  sheetState[key]=el.dataset.val;
 }
-
 function selScale(key, el) {
-  el.closest('.scale-btns').querySelectorAll('.scale-btn').forEach(b => b.classList.remove('sel'));
+  el.closest('.scale-btns').querySelectorAll('.scale-btn').forEach(b=>b.classList.remove('sel'));
   el.classList.add('sel');
-  sheetState[key] = parseInt(el.dataset.val);
+  sheetState[key]=parseInt(el.dataset.val);
 }
 
 // ── CYCLE ─────────────────────────────────────────────────────────────
 function getPhaseForDate(isoStr) {
-  if (!cycleSettings.start) return null;
-  const start = new Date(cycleSettings.start);
-  const d = new Date(isoStr);
-  const diff = Math.floor((d - start) / 86400000);
-  const len = cycleSettings.length;
-  const day = ((diff % len) + len) % len + 1;
-  if (day<=5)  return {name:'menstrual', day,color:'#c17f74',bg:'#f5ebe9',text:'#7a3d36',desc:'Estrogen and progesterone are lowest. Energy dips, emotions can feel raw.'};
-  if (day<=13) return {name:'follicular',day,color:'#7a9db5',bg:'#e8eff4',text:'#2d5570',desc:'Rising estrogen. Energy, clarity, and social drive often increase.'};
-  if (day<=16) return {name:'ovulation', day,color:'#7a9e7e',bg:'#e8f0e9',text:'#2d5e33',desc:'Estrogen peaks. Often the highest energy and mood of the cycle.'};
-  return {name:'luteal',day,color:'#a07ab5',bg:'#f0eaf5',text:'#4a2d5e',desc:'Progesterone rises then falls. Irritability, anxiety, and fatigue are more common.'};
+  if(!cycleSettings.start) return null;
+  const start=new Date(cycleSettings.start);
+  const d=new Date(isoStr);
+  const diff=Math.floor((d-start)/86400000);
+  const len=cycleSettings.length;
+  const day=((diff%len)+len)%len+1;
+  if(day<=5)  return {name:'menstrual', day,color:'#c17f74',bg:'#f5ebe9',text:'#7a3d36',desc:'Estrogen and progesterone are lowest. Energy dips, emotions can feel raw.'};
+  if(day<=13) return {name:'follicular',day,color:'#7a9db5',bg:'#e8eff4',text:'#2d5570',desc:'Rising estrogen. Energy, clarity, and social drive often increase.'};
+  if(day<=16) return {name:'ovulation', day,color:'#7a9e7e',bg:'#e8f0e9',text:'#2d5e33',desc:'Estrogen peaks. Often the highest energy and mood of the cycle.'};
+  return        {name:'luteal',     day,color:'#a07ab5',bg:'#f0eaf5',text:'#4a2d5e',desc:'Progesterone rises then falls. Irritability, anxiety, and fatigue are more common.'};
 }
-
 function getPhase() { return getPhaseForDate(new Date().toISOString()); }
-
 function updatePhaseChip() {
-  const phase = getPhase();
-  const chip = document.getElementById('phaseChip');
-  if (chip) chip.textContent = phase ? phase.name+' · day '+phase.day : '';
+  const phase=getPhase();
+  const chip=document.getElementById('phaseChip');
+  if(chip) chip.textContent=phase?phase.name+' · day '+phase.day:'';
 }
 
 // ── HELPERS ───────────────────────────────────────────────────────────
-function sortTs(e) { return new Date(e.logged_at || e.created_at).getTime(); }
-function avg(arr) { return arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : 0; }
+function sortTs(e) { return new Date(e.logged_at||e.created_at).getTime(); }
+function avg(arr) { return arr.length?arr.reduce((a,b)=>a+b,0)/arr.length:0; }
 function tod(ts) {
-  const h = new Date(ts).getHours();
-  if (h>=5&&h<12) return 'morning';
-  if (h>=12&&h<17) return 'afternoon';
-  if (h>=17&&h<21) return 'evening';
+  const h=new Date(ts).getHours();
+  if(h>=5&&h<12) return 'morning';
+  if(h>=12&&h<17) return 'afternoon';
+  if(h>=17&&h<21) return 'evening';
   return 'night';
 }
 function irritNum(v) { return (v===null||v===undefined)?null:parseInt(v); }
-function fmtDate(ts) {
-  return new Date(ts).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
-}
+function fmtDate(ts) { return new Date(ts).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}); }
 
 // ── DASHBOARD ─────────────────────────────────────────────────────────
 function renderDashboard() {
-  const el = document.getElementById('dashContent');
-  if (!el) return;
-  const real = entries.filter(e=>e.entry_type!=='happy');
-  if (!real.length && !happyEntries.length) {
-    el.innerHTML='<div class="empty"><div class="empty-big">◦</div>log a few entries<br>to see your patterns</div>';
-    return;
-  }
-  const now = Date.now();
-  const week = real.filter(e=>sortTs(e)>now-7*86400000);
-  const phase = getPhase();
-  let html = '';
-
-  if (phase) {
+  const el=document.getElementById('dashContent');
+  if(!el) return;
+  const real=entries.filter(e=>e.entry_type!=='happy');
+  if(!real.length&&!happyEntries.length){el.innerHTML='<div class="empty"><div class="empty-big">◦</div>log a few entries<br>to see your patterns</div>';return;}
+  const now=Date.now();
+  const week=real.filter(e=>sortTs(e)>now-7*86400000);
+  const phase=getPhase();
+  let html='';
+  if(phase){
     html+=`<div class="phase-card" style="background:${phase.bg};border:1px solid ${phase.color}40">
       <div class="phase-name" style="color:${phase.color}">${phase.name}</div>
       <div class="phase-day" style="color:${phase.text}">day ${phase.day} of your cycle</div>
       <div class="phase-desc" style="color:${phase.text}">${phase.desc}</div>`;
-    const pd=real.filter(e=>e.cycle_phase===phase.name);
-    if (pd.length>=3) {
+    const pd=real.filter(e=>{const p=getPhaseForDate(new Date(e.logged_at||e.created_at).toISOString());return p&&p.name===phase.name;});
+    if(pd.length>=3){
       const ai=pd.map(e=>irritNum(e.irritability)).filter(v=>v!==null);
       const aa=pd.map(e=>e.anxiety).filter(Boolean);
       html+=`<div style="margin-top:8px;font-size:12px;color:${phase.text};opacity:.7">${pd.length} past entries in this phase · avg irritability ${ai.length?avg(ai).toFixed(1):'—'}/3 · avg anxiety ${aa.length?avg(aa).toFixed(1):'—'}/5</div>`;
     }
     html+='</div>';
   }
-
-  if (week.length>0) {
+  if(week.length>0){
     html+='<div class="metric-grid">';
     html+=`<div class="metric-card"><div class="metric-val">${week.length}</div><div class="metric-lbl">entries this week</div></div>`;
     const ia=week.map(e=>irritNum(e.irritability)).filter(v=>v!==null);
     html+=`<div class="metric-card"><div class="metric-val">${ia.length?avg(ia).toFixed(1):'—'}</div><div class="metric-lbl">avg irritability</div></div>`;
     const aa=week.map(e=>e.anxiety).filter(Boolean);
     html+=`<div class="metric-card"><div class="metric-val">${aa.length?avg(aa).toFixed(1):'—'}</div><div class="metric-lbl">avg anxiety</div></div>`;
-    const sa=week.map(e=>e.sleep_hours).filter(Boolean);
+    const sa=week.map(e=>e.sleep_hours).filter(v=>v!=null);
     html+=`<div class="metric-card"><div class="metric-val">${sa.length?avg(sa).toFixed(1)+'h':'—'}</div><div class="metric-lbl">avg sleep</div></div>`;
     html+='</div>';
   }
-
   html+=`<button class="refresh-btn" id="refreshBtn" onclick="loadAIInsights()">
     <svg viewBox="0 0 24 24"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-    refresh AI insights
-  </button>`;
+    refresh AI insights</button>`;
   html+=`<div id="aiInsights">${storedInsights||'<div style="font-size:13px;color:var(--text3);text-align:center;padding:12px">tap refresh to generate insights</div>'}</div>`;
-
-  if (happyEntries.length) {
+  if(happyEntries.length){
     html+='<div class="section-label">recent happy moments</div><div class="card">';
     happyEntries.slice(0,3).forEach((e,i)=>{
       html+=`<div style="padding:9px 0;${i<Math.min(happyEntries.length,3)-1?'border-bottom:1px solid var(--border)':''}">
@@ -711,62 +704,57 @@ function renderDashboard() {
     });
     html+='</div>';
   }
-
-  if (real.length>=2) {
-    html+='<div class="section-label">irritability by time of day</div><div class="card"><div style="position:relative;height:110px"><canvas id="irritChart" role="img" aria-label="Irritability by time of day"></canvas></div></div>';
-    html+='<div class="section-label">self-harm thoughts over time</div><div class="card"><div style="position:relative;height:110px"><canvas id="shChart" role="img" aria-label="Self-harm thoughts over time"></canvas></div></div>';
+  if(real.length>=2){
+    html+='<div class="section-label">irritability by time of day</div><div class="card"><div style="position:relative;height:110px"><canvas id="irritChart"></canvas></div></div>';
+    html+='<div class="section-label">self-harm thoughts over time</div><div class="card"><div style="position:relative;height:110px"><canvas id="shChart"></canvas></div></div>';
   }
-
-  el.innerHTML = html;
+  el.innerHTML=html;
   setTimeout(()=>{
     Object.values(chartInst).forEach(c=>{try{c.destroy();}catch(e){}});
     chartInst={};
-    if (real.length>=2) { drawIrritChart(real); drawSHChart(real); }
+    if(real.length>=2){drawIrritChart(real);drawSHChart(real);}
   },60);
 }
 
 // ── AI INSIGHTS ───────────────────────────────────────────────────────
 async function loadAIInsights() {
-  if (!anthropicKey) { toast('Add your Anthropic API key in settings'); return; }
-  const aiEl = document.getElementById('aiInsights');
-  const btn = document.getElementById('refreshBtn');
-  if (!aiEl) return;
+  if(!anthropicKey){toast('Add your Anthropic API key in settings');return;}
+  const aiEl=document.getElementById('aiInsights');
+  const btn=document.getElementById('refreshBtn');
+  if(!aiEl) return;
   aiEl.innerHTML='<div style="text-align:center;padding:24px;color:var(--text3);font-size:13px;font-style:italic">analyzing your patterns...</div>';
-  if (btn) btn.disabled=true;
-
-  const real = entries.filter(e=>e.entry_type!=='happy').slice(0,60);
-  const sorted = [...real].sort((a,b)=>sortTs(a)-sortTs(b));
-  const phase = getPhase();
-
-  const summary = sorted.map(e=>{
-    const d = new Date(e.logged_at||e.created_at);
-    const ds = d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
-    const ts = d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+  if(btn) btn.disabled=true;
+  const real=entries.filter(e=>e.entry_type!=='happy').slice(0,60);
+  const sorted=[...real].sort((a,b)=>sortTs(a)-sortTs(b));
+  const phase=getPhase();
+  const summary=sorted.map(e=>{
+    const d=new Date(e.logged_at||e.created_at);
+    const ds=d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+    const ts=d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+    const ep=getPhaseForDate(d.toISOString());
     const parts=[];
-    if (e.mood_word) parts.push(`mood:${e.mood_word}(${e.mood_quadrant})`);
-    if (e.irritability!==null&&e.irritability!==undefined) parts.push(`irrit:${['nothing','small','snapped','explosive'][parseInt(e.irritability)]||e.irritability}`);
-    if (e.self_harm!==null&&e.self_harm!==undefined) parts.push(`sh:${['none','quiet','loud','specific'][parseInt(e.self_harm)]||e.self_harm}`);
-    if (e.anxiety) parts.push(`anx:${e.anxiety}/5`);
-    if (e.energy) parts.push(`nrg:${e.energy}/5`);
-    if (e.social_battery) parts.push(`soc:${e.social_battery}/5`);
-    if (e.sleep_hours) parts.push(`slp:${e.sleep_hours}h`);
-    if (e.weed_amount&&e.weed_amount!=='none') parts.push(`weed:${e.weed_amount}${e.weed_time?'('+e.weed_time+')':''}`);
-    if (e.alcohol_drinks>0) parts.push(`alc:${e.alcohol_drinks}`);
-    if (e.cycle_phase) parts.push(`phase:${e.cycle_phase}`);
-    if (e.weighing_on_me) parts.push(`note:"${e.weighing_on_me.slice(0,60)}"`);
-    return parts.length ? `${ds} ${ts}: ${parts.join(', ')}` : null;
+    if(e.mood_word) parts.push(`mood:${e.mood_word}(${e.mood_quadrant})`);
+    if(e.irritability!==null&&e.irritability!==undefined) parts.push(`irrit:${['nothing','small','snapped','explosive'][parseInt(e.irritability)]||e.irritability}`);
+    if(e.self_harm!==null&&e.self_harm!==undefined) parts.push(`sh:${['none','quiet','loud','specific'][parseInt(e.self_harm)]||e.self_harm}`);
+    if(e.anxiety) parts.push(`anx:${e.anxiety}/5`);
+    if(e.energy) parts.push(`nrg:${e.energy}/5`);
+    if(e.social_battery) parts.push(`soc:${e.social_battery}/5`);
+    if(e.sleep_hours) parts.push(`slp:${e.sleep_hours}h`);
+    if(e.weed_amount&&e.weed_amount!=='none') parts.push(`weed:${e.weed_amount}${e.weed_time?'('+e.weed_time+')':''}`);
+    if(e.alcohol_drinks>0) parts.push(`alc:${e.alcohol_drinks}`);
+    if(ep) parts.push(`phase:${ep.name}`);
+    if(e.weighing_on_me) parts.push(`note:"${e.weighing_on_me.slice(0,60)}"`);
+    return parts.length?`${ds} ${ts}: ${parts.join(', ')}`:null;
   }).filter(Boolean).join('\n');
-
-  const totalDays = sorted.length>1 ? Math.round((sortTs(sorted[sorted.length-1])-sortTs(sorted[0]))/86400000) : 0;
-
-  const prompt = `You are helping someone understand their mental health patterns to bring to therapy. They track mood, irritability, self-harm thoughts, anxiety, energy, social battery, sleep, marijuana, alcohol, and menstrual cycle phase.
+  const totalDays=sorted.length>1?Math.round((sortTs(sorted[sorted.length-1])-sortTs(sorted[0]))/86400000):0;
+  const prompt=`You are helping someone understand their mental health patterns to bring to therapy. They track mood, irritability, self-harm thoughts, anxiety, energy, social battery, sleep, marijuana, alcohol, and menstrual cycle phase.
 
 Data spans ~${totalDays} days (${sorted.length} entries). Current cycle phase: ${phase?phase.name+' day '+phase.day:'unknown'}.
 
 Entries oldest to newest:
 ${summary}
 
-Write 4-6 pattern observations. Mix short-term and long-term. Include positive trends (higher energy, more social) alongside concerning ones (persistent low mood, elevated self-harm thoughts). Note time-of-day patterns, cycle correlations, substance relationships, and arcs over the full timespan (e.g. "you've been in the blue quadrant for most of the past two weeks" or "your energy levels have been climbing lately").
+Write 4-6 pattern observations. Mix short-term and long-term. Include positive trends alongside concerning ones. Note time-of-day patterns, cycle correlations, substance relationships, and arcs over the full timespan.
 
 Each insight: bold title, 2-3 sentences, warm and direct, use "you", no raw numbers, note direction (improving/worsening/stable) when visible.
 
@@ -775,36 +763,35 @@ Format:
 Observation.
 
 Under 420 words total.`;
-
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages',{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:{'Content-Type':'application/json','x-api-key':anthropicKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:700,messages:[{role:'user',content:prompt}]})
     });
-    const data = await res.json();
-    if (data.content&&data.content[0]) {
-      const rendered = data.content[0].text
+    const data=await res.json();
+    if(data.content&&data.content[0]){
+      const rendered=data.content[0].text
         .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
         .split('\n\n').filter(p=>p.trim())
         .map(p=>`<div class="insight-box"><div class="insight-text">${p.replace(/\n/g,'<br>')}</div></div>`)
         .join('');
-      storedInsights = rendered;
-      aiEl.innerHTML = rendered;
+      storedInsights=rendered;
+      aiEl.innerHTML=rendered;
     } else {
-      aiEl.innerHTML='<div class="insight-box"><div class="insight-text">Could not generate insights. Check your API key in settings.</div></div>';
+      aiEl.innerHTML='<div class="insight-box"><div class="insight-text">Could not generate insights. Check your API key.</div></div>';
     }
   } catch(e) {
     aiEl.innerHTML='<div class="insight-box"><div class="insight-text">Error connecting. Check your API key and network.</div></div>';
   }
-  if (btn) btn.disabled=false;
+  if(btn) btn.disabled=false;
 }
 
 // ── CHARTS ────────────────────────────────────────────────────────────
 function drawIrritChart(data) {
   const ctx=document.getElementById('irritChart'); if(!ctx) return;
   const slots={morning:[],afternoon:[],evening:[],night:[]};
-  data.forEach(e=>{const v=irritNum(e.irritability); if(v!==null) slots[tod(sortTs(e))].push(v);});
+  data.forEach(e=>{const v=irritNum(e.irritability);if(v!==null)slots[tod(sortTs(e))].push(v);});
   chartInst.irrit=new Chart(ctx,{type:'bar',
     data:{labels:['Morning','Afternoon','Evening','Night'],datasets:[{
       data:Object.values(slots).map(a=>a.length?parseFloat(avg(a).toFixed(2)):0),
@@ -814,7 +801,6 @@ function drawIrritChart(data) {
       scales:{y:{min:0,max:3,ticks:{font:{size:10},color:'#9c8f85',stepSize:1},grid:{color:'rgba(224,216,207,.5)'}},
         x:{ticks:{font:{size:10},color:'#9c8f85'},grid:{display:false}}}}});
 }
-
 function drawSHChart(data) {
   const ctx=document.getElementById('shChart'); if(!ctx) return;
   const recent=data.filter(e=>e.self_harm!==null&&e.self_harm!==undefined).slice(0,14).reverse();
@@ -840,34 +826,46 @@ function renderHistory() {
   const groups={};
   all.forEach(e=>{
     const key=new Date(e._ts).toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
-    if(!groups[key]) groups[key]=[];
-    groups[key].push(e);
+    if(!groups[key]) groups[key]={ts:e._ts,items:[]};
+    groups[key].items.push(e);
   });
   let html='';
-  Object.entries(groups).forEach(([date,items])=>{
-    html+=`<div class="day-group"><div class="day-label">${date}</div>`;
+  Object.entries(groups).forEach(([date,{ts,items}])=>{
+    const phase=getPhaseForDate(new Date(ts).toISOString());
+    const phaseStr=phase?` <span style="color:${phase.color};font-weight:500">· ${phase.name} day ${phase.day}</span>`:'';
+    html+=`<div class="day-group"><div class="day-label">${date}${phaseStr}</div>`;
     items.forEach(e=>{
       const time=new Date(e._ts).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
       if(e._type==='happy'){
-        html+=`<div class="entry-row happy-row"><div class="entry-time">${time} · happy moment</div><div style="font-size:14px;color:var(--text2);line-height:1.4">${e.content}</div></div>`;
+        html+=`<div class="entry-row happy-row">
+          <div class="entry-time">${time} · happy moment</div>
+          <div style="font-size:14px;color:var(--text2);line-height:1.4">${e.content}</div>
+          <div class="entry-actions">
+            <button class="entry-btn" onclick="editEntry('happy','${e.id}')">edit</button>
+            <button class="entry-btn del" onclick="deleteEntry('happy','${e.id}')">delete</button>
+          </div></div>`;
       } else {
         const tags=[];
         if(e.mood_word) tags.push(`<span class="etag ${e.mood_quadrant||''}">${e.mood_word}</span>`);
         const iL=['nothing bothers me','small things','snapped','explosive'];
         if(e.irritability!==null&&e.irritability!==undefined) tags.push(`<span class="etag">${iL[parseInt(e.irritability)]||e.irritability}</span>`);
         const sL=['no sh thoughts','quiet','loud','specific method'];
-        if(e.self_harm!==null&&e.self_harm!==undefined&&parseInt(e.self_harm)>0) tags.push(`<span class="etag red">${sL[parseInt(e.self_harm)]}</span>`);
+        if(e.self_harm!==null&&e.self_harm!==undefined) tags.push(`<span class="etag ${parseInt(e.self_harm)>0?'red':''}">${sL[parseInt(e.self_harm)]||e.self_harm}</span>`);
         if(e.anxiety) tags.push(`<span class="etag">anxiety ${e.anxiety}/5</span>`);
         if(e.energy) tags.push(`<span class="etag">energy ${e.energy}/5</span>`);
-        if(e.sleep_hours) tags.push(`<span class="etag">${e.sleep_hours}h sleep</span>`);
+        if(e.sleep_hours!=null) tags.push(`<span class="etag">${e.sleep_hours}h sleep</span>`);
         if(e.weed_amount&&e.weed_amount!=='none') tags.push(`<span class="etag">${e.weed_amount} weed${e.weed_time?' ('+e.weed_time+')':''}</span>`);
         if(e.alcohol_drinks>0) tags.push(`<span class="etag">${e.alcohol_drinks} drink${e.alcohol_drinks!==1?'s':''}</span>`);
-        if(e.cycle_phase) tags.push(`<span class="etag" style="background:var(--cream)">${e.cycle_phase}</span>`);
+        if(e.is_period_start) tags.push(`<span class="etag" style="background:#f5ebe9;border-color:#c17f74;color:#7a3d36">period start</span>`);
         if(!tags.length&&!e.weighing_on_me) return;
-        html+=`<div class="entry-row"><div class="entry-time">${time}</div>`;
-        if(tags.length) html+=`<div class="entry-tags">${tags.join('')}</div>`;
-        if(e.weighing_on_me) html+=`<div class="entry-note">"${e.weighing_on_me}"</div>`;
-        html+='</div>';
+        html+=`<div class="entry-row">
+          <div class="entry-time">${time}</div>
+          ${tags.length?`<div class="entry-tags">${tags.join('')}</div>`:''}
+          ${e.weighing_on_me?`<div class="entry-note">"${e.weighing_on_me}"</div>`:''}
+          <div class="entry-actions">
+            <button class="entry-btn" onclick="editEntry('log','${e.id}')">edit</button>
+            <button class="entry-btn del" onclick="deleteEntry('log','${e.id}')">delete</button>
+          </div></div>`;
       }
     });
     html+='</div>';
@@ -882,14 +880,14 @@ function goTo(name,btn){
   document.getElementById('screen-'+name).classList.add('active');
   btn.classList.add('active');
   closeFab();
+  const fw=document.getElementById('fabWrap');
+  if(fw) fw.style.display=name==='settings'?'none':'flex';
   if(name==='history') renderHistory();
   if(name==='dash') renderDashboard();
 }
-
 function toast(msg){
   const t=document.getElementById('toast');
-  t.textContent=msg;
-  t.classList.add('show');
+  t.textContent=msg;t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),2500);
 }
 
