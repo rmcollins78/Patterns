@@ -1162,6 +1162,7 @@ Under 420 words total.`;
     });
     if(!res.ok) throw new Error(`Server error ${res.status}`);
     const data=await res.json();
+    console.log('API response:', JSON.stringify(data));
     if(data.content&&data.content[0]&&data.content[0].text){
       const rendered=data.content[0].text
         .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
