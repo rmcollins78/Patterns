@@ -574,8 +574,8 @@ function openSheet(key) {
   sheetState={};
   document.getElementById('sheetInner').innerHTML=getSheetContent(key);
   document.getElementById('sheetBg').classList.add('open');
+  document.getElementById('fabWrap').style.display='none';
 }
-
 // ── SAVE SHEET ─────────────────────────────────────────────────────────
 async function saveSheet() {
   if(!currentSheet) return;
@@ -674,6 +674,8 @@ async function saveSheet() {
 function closeSheet() {
   document.getElementById('sheetBg').classList.remove('open');
   currentSheet=null;sheetState={};
+  const fw=document.getElementById('fabWrap');
+  if(fw) fw.style.display='flex';
 }
 function closeSheetOnBg(e) { if(e.target===document.getElementById('sheetBg')) closeSheet(); }
 
