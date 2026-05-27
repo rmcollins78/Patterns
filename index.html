@@ -32,7 +32,7 @@ h1{font-family:'Lora',serif;font-size:24px;font-weight:400;color:var(--text);mar
 .section-label{font-size:10px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin:20px 0 8px}
 .section-label:first-child{margin-top:0}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:10px}
-.fab-wrap{position:fixed;bottom:calc(var(--nav-h) + 12px);right:16px;z-index:100;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.fab-wrap{position:fixed;bottom:calc(var(--nav-h) + 12px);right:16px;z-index:50;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
 .fab{width:52px;height:52px;border-radius:50%;background:var(--brown);border:none;color:#fff;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(74,55,40,.35);transition:transform .2s;flex-shrink:0}
 .fab.open{transform:rotate(45deg)}
 .fab-actions{display:flex;flex-direction:column;gap:8px;align-items:flex-end;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .2s,transform .2s}
@@ -846,6 +846,7 @@ function goTo(name,btn){
   document.getElementById('screen-'+name).classList.add('active');
   btn.classList.add('active');
   closeFab();
+  document.getElementById('fabWrap').style.display = name==='settings' ? 'none' : 'flex';
   if(name==='history') renderHistory();
   if(name==='dash') renderDashboard();
 }
