@@ -21,7 +21,7 @@ exports.handler = async function(event, context) {
   }
 
   const payload = JSON.stringify({
-    model: 'claude-3-haiku-20240307',
+    model: 'claude-opus-4-7',
     max_tokens: 700,
     messages: body.messages
   });
