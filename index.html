@@ -11,22 +11,12 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
-:root {
-  --bg: #f5f0eb;
-  --surface: #faf7f4;
-  --surface2: #f0ebe4;
-  --border: #e0d8cf;
-  --border2: #cfc5b8;
-  --text: #2c2520;
-  --text2: #6b5f56;
-  --text3: #9c8f85;
-  --brown: #7c5c45;
-  --brown-light: #a67c5b;
-  --brown-dark: #4a3728;
-  --cream: #ede5d8;
-  --nav-h: 60px;
-  --r: 14px;
-  --rs: 8px;
+:root{
+  --bg:#f5f0eb;--surface:#faf7f4;--surface2:#f0ebe4;
+  --border:#e0d8cf;--border2:#cfc5b8;
+  --text:#2c2520;--text2:#6b5f56;--text3:#9c8f85;
+  --brown:#7c5c45;--brown-light:#a67c5b;--brown-dark:#4a3728;
+  --cream:#ede5d8;--nav-h:60px;--r:14px;--rs:8px;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden;background:var(--bg)}
@@ -45,9 +35,9 @@ h1{font-family:'Lora',serif;font-size:24px;font-weight:400;color:var(--text);mar
 
 /* FAB */
 .fab-wrap{position:fixed;bottom:calc(var(--nav-h) + 12px);right:16px;z-index:100;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
-.fab{width:52px;height:52px;border-radius:50%;background:var(--brown);border:none;color:#fff;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(74,55,40,.35);transition:transform .2s,background .2s;flex-shrink:0}
+.fab{width:52px;height:52px;border-radius:50%;background:var(--brown);border:none;color:#fff;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(74,55,40,.35);transition:transform .2s;flex-shrink:0}
 .fab.open{transform:rotate(45deg)}
-.fab-actions{display:flex;flex-direction:column;gap:8px;align-items:flex-end;transition:opacity .2s,transform .2s;opacity:0;pointer-events:none;transform:translateY(8px)}
+.fab-actions{display:flex;flex-direction:column;gap:8px;align-items:flex-end;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .2s,transform .2s}
 .fab-actions.open{opacity:1;pointer-events:all;transform:translateY(0)}
 .fab-action{display:flex;align-items:center;gap:10px;cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif}
 .fab-action-label{background:var(--brown-dark);color:#fff;font-size:13px;padding:7px 14px;border-radius:20px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.2)}
@@ -56,20 +46,25 @@ h1{font-family:'Lora',serif;font-size:24px;font-weight:400;color:var(--text);mar
 /* Sheets */
 .sheet-bg{position:fixed;inset:0;background:rgba(44,37,32,0);z-index:200;display:none;align-items:flex-end;justify-content:center;transition:background .25s}
 .sheet-bg.open{display:flex;background:rgba(44,37,32,.5)}
-.sheet{background:var(--surface);border-radius:20px 20px 0 0;padding:0 20px 40px;width:100%;max-width:480px;max-height:88vh;overflow-y:auto;transform:translateY(100%);transition:transform .3s cubic-bezier(.32,0,.67,0)}
+.sheet{background:var(--surface);border-radius:20px 20px 0 0;padding:0 20px 40px;width:100%;max-width:480px;max-height:92vh;overflow-y:auto;transform:translateY(100%);transition:transform .3s cubic-bezier(.32,0,.67,0)}
 .sheet-bg.open .sheet{transform:translateY(0)}
 .sheet-handle{width:36px;height:4px;background:var(--border2);border-radius:2px;margin:12px auto 20px}
-.sheet-title{font-family:'Lora',serif;font-size:20px;font-weight:400;margin-bottom:20px;color:var(--text)}
+.sheet-title{font-family:'Lora',serif;font-size:20px;font-weight:400;margin-bottom:16px;color:var(--text)}
 .sheet-actions{display:flex;gap:8px;margin-top:20px}
 .btn-save{flex:1;padding:14px;border-radius:var(--r);border:none;background:var(--brown);color:#fff;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif}
 .btn-cancel{padding:14px 20px;border-radius:var(--r);border:1px solid var(--border2);background:var(--surface);color:var(--text2);font-size:15px;cursor:pointer;font-family:'DM Sans',sans-serif}
+
+/* Datetime picker */
+.datetime-row{display:flex;gap:8px;margin-bottom:18px;align-items:center}
+.datetime-row label{font-size:12px;color:var(--text3);white-space:nowrap}
+.dt-input{flex:1;padding:9px 10px;border-radius:var(--rs);border:1px solid var(--border);background:var(--surface2);font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif}
+.dt-input:focus{outline:none;border-color:var(--brown-light)}
 
 /* Pills + scales */
 .pill-row{display:flex;flex-wrap:wrap;gap:7px}
 .pill{padding:9px 16px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);font-size:14px;color:var(--text2);cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
 .pill.sel{background:var(--brown);border-color:var(--brown);color:#fff;font-weight:500}
-.scale-wrap{display:flex;flex-direction:column;gap:12px}
-.scale-item{}
+.scale-wrap{display:flex;flex-direction:column;gap:14px}
 .scale-lbl-row{display:flex;justify-content:space-between;font-size:11px;color:var(--text3);margin-bottom:6px}
 .scale-btns{display:flex;gap:6px}
 .scale-btn{flex:1;padding:11px 4px;border-radius:var(--rs);border:1px solid var(--border);background:var(--surface2);font-size:13px;color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;text-align:center;transition:all .15s}
@@ -77,23 +72,29 @@ h1{font-family:'Lora',serif;font-size:24px;font-weight:400;color:var(--text);mar
 textarea{width:100%;padding:12px;border-radius:var(--rs);border:1px solid var(--border);background:var(--surface2);font-size:14px;color:var(--text);font-family:'DM Sans',sans-serif;resize:none;line-height:1.5}
 textarea:focus{outline:none;border-color:var(--brown-light)}
 textarea::placeholder{color:var(--text3)}
-input[type=number]{width:80px;padding:10px;border-radius:var(--rs);border:1px solid var(--border);background:var(--surface2);font-size:15px;color:var(--text);font-family:'DM Sans',sans-serif;text-align:center}
+input[type=number]{padding:10px;border-radius:var(--rs);border:1px solid var(--border);background:var(--surface2);font-size:15px;color:var(--text);font-family:'DM Sans',sans-serif;text-align:center}
 input[type=number]:focus{outline:none;border-color:var(--brown-light)}
-input[type=date]{padding:10px 12px;border-radius:var(--rs);border:1px solid var(--border);background:var(--surface2);font-size:14px;color:var(--text);font-family:'DM Sans',sans-serif}
-input[type=date]:focus{outline:none;border-color:var(--brown-light)}
+input[type=date],input[type=time]{padding:9px 10px;border-radius:var(--rs);border:1px solid var(--border);background:var(--surface2);font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif}
+input[type=date]:focus,input[type=time]:focus{outline:none;border-color:var(--brown-light)}
 
-/* Mood meter 5x5 */
-.mood-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:8px}
-.mood-cell{padding:10px 4px;border-radius:var(--rs);font-size:13px;text-align:center;cursor:pointer;transition:all .15s;border:1.5px solid transparent;line-height:1.2;font-family:'DM Sans',sans-serif;min-height:44px;display:flex;align-items:center;justify-content:center}
-.mood-cell:active{transform:scale(.96)}
-.mood-cell.sel{border-width:2px;font-weight:500;box-shadow:0 0 0 2px var(--brown-dark)}
-.mood-cell.red{background:#f0d4d0;color:#7a3d36}
-.mood-cell.yellow{background:#f0e6c0;color:#6b5010}
-.mood-cell.blue{background:#cfe0ec;color:#2d5570}
-.mood-cell.green{background:#cde4cf;color:#2d5e33}
-.mood-axis-x{display:flex;justify-content:space-between;font-size:10px;color:var(--text3);padding:0 2px;margin-bottom:2px}
-.mood-axis-y-wrap{display:flex;gap:6px}
-.mood-axis-y{display:flex;flex-direction:column;justify-content:space-between;font-size:10px;color:var(--text3);padding:4px 0;text-align:right;min-width:44px;flex-shrink:0;line-height:1.2}
+/* Mood grid — vertical layout, no horizontal scroll */
+.mood-outer{display:flex;gap:8px;align-items:stretch}
+.mood-axis-y{display:flex;flex-direction:column;justify-content:space-between;font-size:10px;color:var(--text3);padding:4px 0;text-align:right;width:40px;flex-shrink:0;line-height:1.2}
+.mood-right{flex:1;min-width:0}
+.mood-axis-x{display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-bottom:5px;padding:0 2px}
+.mood-grid{display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(5,1fr);gap:5px;width:100%}
+.mood-cell{padding:10px 2px;border-radius:var(--rs);font-size:12px;text-align:center;cursor:pointer;transition:all .15s;border:1.5px solid transparent;line-height:1.3;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;min-height:48px;word-break:break-word}
+.mood-cell:active{transform:scale(.95)}
+.mood-cell.sel{border-width:2.5px;font-weight:500;box-shadow:0 0 0 2px rgba(74,55,40,.4)}
+.mood-cell.red{background:#f0d4d0;color:#7a3d36;border-color:#ddb8b3}
+.mood-cell.yellow{background:#f0e6c0;color:#6b5010;border-color:#ddd0a0}
+.mood-cell.blue{background:#cfe0ec;color:#2d5570;border-color:#b0cbde}
+.mood-cell.green{background:#cde4cf;color:#2d5e33;border-color:#aed0b1}
+.mood-cell.sel.red{border-color:#7a3d36}
+.mood-cell.sel.yellow{border-color:#6b5010}
+.mood-cell.sel.blue{border-color:#2d5570}
+.mood-cell.sel.green{border-color:#2d5e33}
+.mood-selected{text-align:center;font-family:'Lora',serif;font-style:italic;font-size:15px;color:var(--brown);min-height:22px;margin-top:10px}
 
 /* Dashboard */
 .phase-card{border-radius:var(--r);padding:16px;margin-bottom:10px}
@@ -106,9 +107,10 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
 .metric-lbl{font-size:11px;color:var(--text3);margin-top:2px}
 .insight-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:10px;border-left:3px solid var(--brown-light)}
 .insight-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:5px}
-.insight-text{font-size:13px;color:var(--text2);line-height:1.6}
+.insight-text{font-size:13px;color:var(--text2);line-height:1.65}
 .refresh-btn{width:100%;padding:13px;border-radius:var(--r);border:1px solid var(--border2);background:var(--surface);color:var(--text2);font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px}
 .refresh-btn:active{background:var(--surface2)}
+.refresh-btn:disabled{opacity:.5;cursor:default}
 .refresh-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 .ai-loading{text-align:center;padding:24px;color:var(--text3);font-size:13px;font-style:italic}
 
@@ -154,8 +156,6 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
 </div>
 
 <div id="app" style="display:none">
-
-  <!-- DASHBOARD -->
   <div id="screen-dash" class="screen active">
     <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px">
       <h1>patterns</h1>
@@ -164,13 +164,11 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
     <div id="dashContent"><div class="empty"><div class="empty-big">◦</div>log a few entries<br>to see your patterns</div></div>
   </div>
 
-  <!-- HISTORY -->
   <div id="screen-history" class="screen">
     <h1 style="margin-bottom:20px">history</h1>
     <div id="histContent"><div class="empty"><div class="empty-big">◦</div>no entries yet</div></div>
   </div>
 
-  <!-- SETTINGS -->
   <div id="screen-settings" class="screen">
     <h1 style="margin-bottom:20px">settings</h1>
     <div class="section-label">Cycle</div>
@@ -181,27 +179,28 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
       </div>
       <div class="field-row">
         <div class="field-name">Cycle length (days)</div>
-        <input type="number" id="cycleLength" min="21" max="45" value="28">
+        <input type="number" id="cycleLength" min="21" max="45" value="28" style="width:72px">
       </div>
     </div>
     <button class="btn-primary" onclick="saveCycle()">save cycle settings</button>
-    <div class="section-label" style="margin-top:24px">API key for AI insights</div>
+
+    <div class="section-label" style="margin-top:24px">AI insights key</div>
     <div class="card">
-      <div class="field-row">
-        <div class="field-name" style="font-size:13px">Anthropic key</div>
-        <input type="password" id="anthropicKey" placeholder="sk-ant-..." style="flex:1;padding:8px 10px;border-radius:var(--rs);border:1px solid var(--border);background:var(--surface2);font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif">
+      <div class="field-row" style="flex-direction:column;align-items:stretch;gap:8px">
+        <div class="field-name" style="font-size:13px;color:var(--text2)">Paste your Anthropic API key to enable AI pattern analysis.</div>
+        <input type="password" id="anthropicKey" placeholder="sk-ant-..." style="width:100%;padding:9px 12px;border-radius:var(--rs);border:1px solid var(--border);background:var(--surface2);font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif">
       </div>
     </div>
     <button class="btn-primary" onclick="saveApiKey()">save api key</button>
+
     <div class="section-label" style="margin-top:24px">Data</div>
     <div class="card">
-      <p style="font-size:13px;color:var(--text2);line-height:1.6">Stored in Supabase. Persists indefinitely across all devices.</p>
+      <p style="font-size:13px;color:var(--text2);line-height:1.6">Stored in Supabase. Persists indefinitely across all devices where you open this URL.</p>
     </div>
     <button class="btn-danger" onclick="confirmClear()">clear all data</button>
     <div style="height:20px"></div>
   </div>
 
-  <!-- NAV -->
   <nav>
     <button class="nav-btn active" onclick="goTo('dash',this)">
       <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
@@ -234,7 +233,7 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
   <button class="fab" id="fab" onclick="toggleFab()">+</button>
 </div>
 
-<!-- SHEETS -->
+<!-- SHEET -->
 <div class="sheet-bg" id="sheetBg" onclick="closeSheetOnBg(event)">
   <div class="sheet" id="sheet">
     <div class="sheet-handle"></div>
@@ -247,7 +246,6 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
 <script>
 const SUPABASE_URL = 'https://zslmaqrvsebxhtjirqgf.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpzbG1hcXJ2c2VieGh0amlycWdmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4MzE1MjYsImV4cCI6MjA5NTQwNzUyNn0.3vGpvvp3wmQkuky8zokELhElaYCjezp0iFeCTly6y3Y';
-
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // 5x5 mood grid: row 0 = top = high energy, col 0 = left = unpleasant
@@ -259,7 +257,7 @@ const MOOD_GRID = [
   [{w:'hopeless',q:'blue'},{w:'exhausted',q:'blue'},{w:'apathetic',q:'blue'},{w:'relaxed',q:'green'},{w:'fulfilled',q:'green'}]
 ];
 
-let cycleSettings = { start: null, length: 28 };
+let cycleSettings = {start:null,length:28};
 let entries = [];
 let happyEntries = [];
 let fabOpen = false;
@@ -267,6 +265,22 @@ let currentSheet = null;
 let sheetState = {};
 let chartInst = {};
 let anthropicKey = '';
+let storedInsights = '';
+
+function nowDateStr() {
+  const d = new Date();
+  return d.toISOString().slice(0,10);
+}
+function nowTimeStr() {
+  const d = new Date();
+  return d.toTimeString().slice(0,5);
+}
+function buildLoggedAt() {
+  const dateEl = document.getElementById('entryDate');
+  const timeEl = document.getElementById('entryTime');
+  if (!dateEl || !timeEl) return new Date().toISOString();
+  return new Date(dateEl.value + 'T' + timeEl.value).toISOString();
+}
 
 // ── INIT ─────────────────────────────────────────────────────────────
 async function init() {
@@ -275,9 +289,7 @@ async function init() {
   try {
     await loadCycle();
     await loadEntries();
-  } catch(e) {
-    console.error('Init error:', e);
-  }
+  } catch(e) { console.error('Init error:', e); }
   updatePhaseChip();
   renderDashboard();
   document.getElementById('loading').style.display = 'none';
@@ -287,7 +299,7 @@ async function init() {
 // ── DATA ─────────────────────────────────────────────────────────────
 async function loadEntries() {
   const [{ data: logs }, { data: happy }] = await Promise.all([
-    sb.from('entries').select('*').order('created_at', { ascending: false }).limit(200),
+    sb.from('entries').select('*').order('logged_at', { ascending: false, nullsFirst: false }).order('created_at', { ascending: false }).limit(300),
     sb.from('happy_moments').select('*').order('created_at', { ascending: false }).limit(100)
   ]);
   entries = logs || [];
@@ -295,7 +307,7 @@ async function loadEntries() {
 }
 
 async function loadCycle() {
-  const { data } = await sb.from('cycle_settings').select('*').eq('id', 1).maybeSingle();
+  const { data } = await sb.from('cycle_settings').select('*').eq('id',1).maybeSingle();
   if (data) {
     cycleSettings = { start: data.cycle_start, length: data.cycle_length || 28 };
     if (data.cycle_start) document.getElementById('cycleStart').value = data.cycle_start;
@@ -307,7 +319,7 @@ async function saveCycle() {
   const start = document.getElementById('cycleStart').value || null;
   const length = parseInt(document.getElementById('cycleLength').value) || 28;
   cycleSettings = { start, length };
-  await sb.from('cycle_settings').upsert({ id: 1, cycle_start: start, cycle_length: length });
+  await sb.from('cycle_settings').upsert({ id:1, cycle_start:start, cycle_length:length });
   updatePhaseChip();
   renderDashboard();
   toast('Cycle saved');
@@ -327,6 +339,7 @@ async function confirmClear() {
     sb.from('happy_moments').delete().neq('id','00000000-0000-0000-0000-000000000000')
   ]);
   entries = []; happyEntries = [];
+  storedInsights = '';
   renderDashboard();
   toast('Data cleared');
 }
@@ -343,200 +356,217 @@ function closeFab() {
   document.getElementById('fabActions').classList.remove('open');
 }
 
-// ── SHEETS ────────────────────────────────────────────────────────────
+// ── DATETIME PICKER HTML ──────────────────────────────────────────────
+function datetimePicker() {
+  return `<div class="datetime-row">
+    <label>when</label>
+    <input type="date" id="entryDate" class="dt-input" value="${nowDateStr()}">
+    <input type="time" id="entryTime" class="dt-input" value="${nowTimeStr()}" style="max-width:100px">
+  </div>`;
+}
+
+// ── SHEET DEFINITIONS ─────────────────────────────────────────────────
 const SHEET_DEFS = {
   mood: {
     title: 'How are you feeling?',
     render() {
-      return `
-        <div class="mood-axis-y-wrap">
+      return `${datetimePicker()}
+        <div class="mood-outer">
           <div class="mood-axis-y"><span>high energy</span><span>low energy</span></div>
-          <div style="flex:1">
+          <div class="mood-right">
             <div class="mood-axis-x"><span>unpleasant</span><span>pleasant</span></div>
-            <div class="mood-grid" id="moodGrid">
-              ${MOOD_GRID.map((row,ri) => row.map((cell,ci) =>
+            <div class="mood-grid">
+              ${MOOD_GRID.map((row,ri)=>row.map((cell,ci)=>
                 `<div class="mood-cell ${cell.q}" data-row="${ri}" data-col="${ci}" onclick="selMood(this,'${cell.w}','${cell.q}')">${cell.w}</div>`
               ).join('')).join('')}
             </div>
           </div>
         </div>
-        <div id="moodSelected" style="text-align:center;font-family:'Lora',serif;font-style:italic;font-size:15px;color:var(--brown);min-height:22px;margin-top:8px"></div>`;
+        <div class="mood-selected" id="moodSelected">tap a word</div>`;
     },
     async save() {
       if (!sheetState.moodWord) { toast('Tap a feeling first'); return false; }
+      const la = buildLoggedAt();
       const { data, error } = await sb.from('entries').insert({
-        mood_word: sheetState.moodWord,
-        mood_quadrant: sheetState.moodQuadrant,
-        cycle_phase: getPhase()?.name || null,
-        entry_type: 'log'
+        mood_word: sheetState.moodWord, mood_quadrant: sheetState.moodQuadrant,
+        cycle_phase: getPhaseForDate(la)?.name || null, entry_type:'log', logged_at: la
       }).select().single();
-      if (!error) { entries.unshift(data); return true; }
-      return false;
+      if (!error) { entries.unshift(data); entries.sort((a,b)=>sortTs(b)-sortTs(a)); return true; }
+      console.error(error); return false;
     }
   },
   irrit: {
     title: 'Irritability',
     render() {
-      return `<div class="pill-row" id="irritPills">
-        <div class="pill" data-val="0" onclick="selPill('irrit',this)">nothing bothers me</div>
-        <div class="pill" data-val="1" onclick="selPill('irrit',this)">small things are annoying</div>
-        <div class="pill" data-val="2" onclick="selPill('irrit',this)">I snapped or almost snapped</div>
-        <div class="pill" data-val="3" onclick="selPill('irrit',this)">I feel like I'll explode</div>
-      </div>`;
+      return `${datetimePicker()}
+        <div class="pill-row" id="irritPills">
+          <div class="pill" data-val="0" onclick="selPill('irrit',this)">nothing bothers me</div>
+          <div class="pill" data-val="1" onclick="selPill('irrit',this)">small things are annoying</div>
+          <div class="pill" data-val="2" onclick="selPill('irrit',this)">I snapped or almost snapped</div>
+          <div class="pill" data-val="3" onclick="selPill('irrit',this)">I feel like I'll explode</div>
+        </div>`;
     },
     async save() {
-      if (sheetState.irrit === undefined || sheetState.irrit === null) { toast('Make a selection'); return false; }
+      if (sheetState.irrit===undefined||sheetState.irrit===null) { toast('Make a selection'); return false; }
+      const la = buildLoggedAt();
       const { data, error } = await sb.from('entries').insert({
-        irritability: sheetState.irrit, cycle_phase: getPhase()?.name || null, entry_type: 'log'
+        irritability: sheetState.irrit, cycle_phase: getPhaseForDate(la)?.name||null, entry_type:'log', logged_at: la
       }).select().single();
-      if (!error) { entries.unshift(data); return true; }
+      if (!error) { entries.unshift(data); entries.sort((a,b)=>sortTs(b)-sortTs(a)); return true; }
       return false;
     }
   },
   sh: {
     title: 'Self-harm thoughts',
     render() {
-      return `<div class="pill-row" id="shPills">
-        <div class="pill" data-val="0" onclick="selPill('sh',this)">none</div>
-        <div class="pill" data-val="1" onclick="selPill('sh',this)">quiet</div>
-        <div class="pill" data-val="2" onclick="selPill('sh',this)">loud</div>
-        <div class="pill" data-val="3" onclick="selPill('sh',this)">specific method</div>
-      </div>`;
+      return `${datetimePicker()}
+        <div class="pill-row" id="shPills">
+          <div class="pill" data-val="0" onclick="selPill('sh',this)">none</div>
+          <div class="pill" data-val="1" onclick="selPill('sh',this)">quiet</div>
+          <div class="pill" data-val="2" onclick="selPill('sh',this)">loud</div>
+          <div class="pill" data-val="3" onclick="selPill('sh',this)">specific method</div>
+        </div>`;
     },
     async save() {
-      if (sheetState.sh === undefined || sheetState.sh === null) { toast('Make a selection'); return false; }
+      if (sheetState.sh===undefined||sheetState.sh===null) { toast('Make a selection'); return false; }
+      const la = buildLoggedAt();
       const { data, error } = await sb.from('entries').insert({
-        self_harm: sheetState.sh, cycle_phase: getPhase()?.name || null, entry_type: 'log'
+        self_harm: sheetState.sh, cycle_phase: getPhaseForDate(la)?.name||null, entry_type:'log', logged_at: la
       }).select().single();
-      if (!error) { entries.unshift(data); return true; }
+      if (!error) { entries.unshift(data); entries.sort((a,b)=>sortTs(b)-sortTs(a)); return true; }
       return false;
     }
   },
   energy: {
     title: 'Energy, anxiety & social',
     render() {
-      return `<div class="scale-wrap">
-        <div class="scale-item">
-          <div class="scale-lbl-row"><span>Energy</span><span style="color:var(--text3)">drained → wired</span></div>
-          <div class="scale-btns" id="energyScale">
-            ${[1,2,3,4,5].map(v=>`<div class="scale-btn" data-val="${v}" onclick="selScale('energy',this)">${v}</div>`).join('')}
+      return `${datetimePicker()}
+        <div class="scale-wrap">
+          <div>
+            <div class="scale-lbl-row"><span>Energy</span><span>drained → wired</span></div>
+            <div class="scale-btns" id="energyScale">
+              ${[1,2,3,4,5].map(v=>`<div class="scale-btn" data-val="${v}" onclick="selScale('energy',this)">${v}</div>`).join('')}
+            </div>
           </div>
-        </div>
-        <div class="scale-item">
-          <div class="scale-lbl-row"><span>Anxiety</span><span style="color:var(--text3)">calm → spiral</span></div>
-          <div class="scale-btns" id="anxietyScale">
-            ${[1,2,3,4,5].map(v=>`<div class="scale-btn" data-val="${v}" onclick="selScale('anxiety',this)">${v}</div>`).join('')}
+          <div>
+            <div class="scale-lbl-row"><span>Anxiety</span><span>calm → spiral</span></div>
+            <div class="scale-btns" id="anxietyScale">
+              ${[1,2,3,4,5].map(v=>`<div class="scale-btn" data-val="${v}" onclick="selScale('anxiety',this)">${v}</div>`).join('')}
+            </div>
           </div>
-        </div>
-        <div class="scale-item">
-          <div class="scale-lbl-row"><span>Social battery</span><span style="color:var(--text3)">hide → connect</span></div>
-          <div class="scale-btns" id="socialScale">
-            ${[1,2,3,4,5].map(v=>`<div class="scale-btn" data-val="${v}" onclick="selScale('social',this)">${v}</div>`).join('')}
+          <div>
+            <div class="scale-lbl-row"><span>Social battery</span><span>hide → connect</span></div>
+            <div class="scale-btns" id="socialScale">
+              ${[1,2,3,4,5].map(v=>`<div class="scale-btn" data-val="${v}" onclick="selScale('social',this)">${v}</div>`).join('')}
+            </div>
           </div>
-        </div>
-      </div>`;
+        </div>`;
     },
     async save() {
       if (!sheetState.energy && !sheetState.anxiety && !sheetState.social) { toast('Make at least one selection'); return false; }
+      const la = buildLoggedAt();
       const { data, error } = await sb.from('entries').insert({
-        energy: sheetState.energy || null,
-        anxiety: sheetState.anxiety || null,
-        social_battery: sheetState.social || null,
-        cycle_phase: getPhase()?.name || null,
-        entry_type: 'log'
+        energy: sheetState.energy||null, anxiety: sheetState.anxiety||null,
+        social_battery: sheetState.social||null,
+        cycle_phase: getPhaseForDate(la)?.name||null, entry_type:'log', logged_at: la
       }).select().single();
-      if (!error) { entries.unshift(data); return true; }
+      if (!error) { entries.unshift(data); entries.sort((a,b)=>sortTs(b)-sortTs(a)); return true; }
       return false;
     }
   },
   sleep: {
     title: 'Sleep',
     render() {
-      return `<div style="display:flex;align-items:center;gap:16px;justify-content:center;padding:20px 0">
-        <input type="number" id="sleepInput" min="0" max="24" step="0.5" placeholder="0" style="width:100px;font-size:28px;text-align:center;padding:14px">
-        <span style="font-size:18px;color:var(--text2)">hours</span>
-      </div>`;
+      return `${datetimePicker()}
+        <div style="display:flex;align-items:center;gap:16px;justify-content:center;padding:16px 0">
+          <input type="number" id="sleepInput" min="0" max="24" step="0.5" placeholder="0" style="width:100px;font-size:28px;text-align:center;padding:12px">
+          <span style="font-size:18px;color:var(--text2)">hours</span>
+        </div>`;
     },
     async save() {
       const hrs = parseFloat(document.getElementById('sleepInput').value);
-      if (!hrs && hrs !== 0) { toast('Enter hours'); return false; }
+      if (isNaN(hrs)) { toast('Enter hours'); return false; }
+      const la = buildLoggedAt();
       const { data, error } = await sb.from('entries').insert({
-        sleep_hours: hrs, cycle_phase: getPhase()?.name || null, entry_type: 'log'
+        sleep_hours: hrs, cycle_phase: getPhaseForDate(la)?.name||null, entry_type:'log', logged_at: la
       }).select().single();
-      if (!error) { entries.unshift(data); return true; }
+      if (!error) { entries.unshift(data); entries.sort((a,b)=>sortTs(b)-sortTs(a)); return true; }
       return false;
     }
   },
   weed: {
     title: 'Marijuana',
     render() {
-      return `<div style="display:flex;flex-direction:column;gap:18px">
-        <div>
-          <div style="font-size:12px;color:var(--text3);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em">Time of use</div>
-          <div class="pill-row" id="weedTimePills">
-            ${['morning','afternoon','evening','night'].map(v=>`<div class="pill" data-val="${v}" onclick="selPill('weedTime',this)">${v}</div>`).join('')}
+      return `${datetimePicker()}
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div>
+            <div style="font-size:11px;color:var(--text3);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Time of use</div>
+            <div class="pill-row" id="weedTimePills">
+              ${['morning','afternoon','evening','night'].map(v=>`<div class="pill" data-val="${v}" onclick="selPill('weedTime',this)">${v}</div>`).join('')}
+            </div>
           </div>
-        </div>
-        <div>
-          <div style="font-size:12px;color:var(--text3);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em">Why I used</div>
-          <div class="pill-row" id="weedWhyPills">
-            ${['anxiety','sleep','pain','social','habit','enjoyment'].map(v=>`<div class="pill" data-val="${v}" onclick="selPill('weedWhy',this)">${v}</div>`).join('')}
+          <div>
+            <div style="font-size:11px;color:var(--text3);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Why I used</div>
+            <div class="pill-row" id="weedWhyPills">
+              ${['anxiety','sleep','pain','social','habit','enjoyment'].map(v=>`<div class="pill" data-val="${v}" onclick="selPill('weedWhy',this)">${v}</div>`).join('')}
+            </div>
           </div>
-        </div>
-        <div>
-          <div style="font-size:12px;color:var(--text3);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em">Amount</div>
-          <div class="pill-row" id="weedAmtPills">
-            ${['none','a little','moderate','a lot'].map(v=>`<div class="pill" data-val="${v}" onclick="selPill('weedAmt',this)">${v}</div>`).join('')}
+          <div>
+            <div style="font-size:11px;color:var(--text3);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Amount</div>
+            <div class="pill-row" id="weedAmtPills">
+              ${['none','a little','moderate','a lot'].map(v=>`<div class="pill" data-val="${v}" onclick="selPill('weedAmt',this)">${v}</div>`).join('')}
+            </div>
           </div>
-        </div>
-      </div>`;
+        </div>`;
     },
     async save() {
+      const la = buildLoggedAt();
       const { data, error } = await sb.from('entries').insert({
-        weed_time: sheetState.weedTime || null,
-        weed_why: sheetState.weedWhy || null,
-        weed_amount: sheetState.weedAmt || null,
-        cycle_phase: getPhase()?.name || null,
-        entry_type: 'log'
+        weed_time: sheetState.weedTime||null, weed_why: sheetState.weedWhy||null,
+        weed_amount: sheetState.weedAmt||null,
+        cycle_phase: getPhaseForDate(la)?.name||null, entry_type:'log', logged_at: la
       }).select().single();
-      if (!error) { entries.unshift(data); return true; }
+      if (!error) { entries.unshift(data); entries.sort((a,b)=>sortTs(b)-sortTs(a)); return true; }
       return false;
     }
   },
   alcohol: {
     title: 'Alcohol',
     render() {
-      return `<div style="display:flex;align-items:center;gap:16px;justify-content:center;padding:20px 0">
-        <input type="number" id="alcoholInput" min="0" max="30" step="1" placeholder="0" style="width:100px;font-size:28px;text-align:center;padding:14px">
-        <span style="font-size:18px;color:var(--text2)">drinks</span>
-      </div>`;
+      return `${datetimePicker()}
+        <div style="display:flex;align-items:center;gap:16px;justify-content:center;padding:16px 0">
+          <input type="number" id="alcoholInput" min="0" max="30" step="1" placeholder="0" style="width:100px;font-size:28px;text-align:center;padding:12px">
+          <span style="font-size:18px;color:var(--text2)">drinks</span>
+        </div>`;
     },
     async save() {
       const n = parseInt(document.getElementById('alcoholInput').value) || 0;
+      const la = buildLoggedAt();
       const { data, error } = await sb.from('entries').insert({
-        alcohol_drinks: n, cycle_phase: getPhase()?.name || null, entry_type: 'log'
+        alcohol_drinks: n, cycle_phase: getPhaseForDate(la)?.name||null, entry_type:'log', logged_at: la
       }).select().single();
-      if (!error) { entries.unshift(data); return true; }
+      if (!error) { entries.unshift(data); entries.sort((a,b)=>sortTs(b)-sortTs(a)); return true; }
       return false;
     }
   },
   weighing: {
     title: "What's weighing on me",
     render() {
-      return `<textarea id="weighingInput" rows="5" placeholder="What's on your mind..."></textarea>`;
+      return `${datetimePicker()}<textarea id="weighingInput" rows="5" placeholder="What's on your mind..."></textarea>`;
     },
     async save() {
       const text = document.getElementById('weighingInput').value.trim();
       if (!text) { toast('Write something first'); return false; }
+      const la = buildLoggedAt();
       const { data, error } = await sb.from('entries').insert({
-        weighing_on_me: text, cycle_phase: getPhase()?.name || null, entry_type: 'log'
+        weighing_on_me: text, cycle_phase: getPhaseForDate(la)?.name||null, entry_type:'log', logged_at: la
       }).select().single();
-      if (!error) { entries.unshift(data); return true; }
+      if (!error) { entries.unshift(data); entries.sort((a,b)=>sortTs(b)-sortTs(a)); return true; }
       return false;
     }
   },
   happy: {
-    title: 'Something made me happy',
+    title: 'Something made me happy ✦',
     render() {
       return `<textarea id="happyInput" rows="5" placeholder="What happened?"></textarea>`;
     },
@@ -563,19 +593,12 @@ function openSheet(key) {
       <button class="btn-cancel" onclick="closeSheet()">cancel</button>
     </div>`;
   document.getElementById('sheetBg').classList.add('open');
-  // small delay for animation
-  setTimeout(() => {}, 10);
 }
 
 async function saveSheet() {
   if (!currentSheet) return;
-  const def = SHEET_DEFS[currentSheet];
-  const ok = await def.save();
-  if (ok) {
-    closeSheet();
-    toast('Saved');
-    renderDashboard();
-  }
+  const ok = await SHEET_DEFS[currentSheet].save();
+  if (ok) { closeSheet(); toast('Saved'); renderDashboard(); }
 }
 
 function closeSheet() {
@@ -590,49 +613,52 @@ function closeSheetOnBg(e) {
 
 // ── SELECTORS ─────────────────────────────────────────────────────────
 function selMood(el, word, quad) {
-  document.querySelectorAll('.mood-cell').forEach(c => c.classList.remove('sel'));
+  document.querySelectorAll('.mood-cell').forEach(c=>c.classList.remove('sel'));
   el.classList.add('sel');
   sheetState.moodWord = word;
   sheetState.moodQuadrant = quad;
-  const colors = { red:'#7a3d36', yellow:'#6b5010', blue:'#2d5570', green:'#2d5e33' };
+  const colors = {red:'#7a3d36',yellow:'#6b5010',blue:'#2d5570',green:'#2d5e33'};
   const sel = document.getElementById('moodSelected');
   sel.textContent = word;
-  sel.style.color = colors[quad] || 'var(--brown)';
+  sel.style.color = colors[quad]||'var(--brown)';
 }
 
 function selPill(key, el) {
-  el.closest('.pill-row').querySelectorAll('.pill').forEach(p => p.classList.remove('sel'));
+  el.closest('.pill-row').querySelectorAll('.pill').forEach(p=>p.classList.remove('sel'));
   el.classList.add('sel');
   sheetState[key] = el.dataset.val;
 }
 
 function selScale(key, el) {
-  el.closest('.scale-btns').querySelectorAll('.scale-btn').forEach(b => b.classList.remove('sel'));
+  el.closest('.scale-btns').querySelectorAll('.scale-btn').forEach(b=>b.classList.remove('sel'));
   el.classList.add('sel');
   sheetState[key] = parseInt(el.dataset.val);
 }
 
 // ── CYCLE ─────────────────────────────────────────────────────────────
-function getPhase() {
+function getPhaseForDate(isoStr) {
   if (!cycleSettings.start) return null;
   const start = new Date(cycleSettings.start);
-  const today = new Date();
-  const diff = Math.floor((today - start) / 86400000);
+  const d = new Date(isoStr);
+  const diff = Math.floor((d - start) / 86400000);
   const len = cycleSettings.length;
   const day = ((diff % len) + len) % len + 1;
-  if (day <= 5)  return { name:'menstrual',  day, color:'#c17f74', bg:'#f5ebe9', text:'#7a3d36', desc:'Estrogen and progesterone are lowest. Energy dips, emotions can feel raw.' };
-  if (day <= 13) return { name:'follicular', day, color:'#7a9db5', bg:'#e8eff4', text:'#2d5570', desc:'Rising estrogen. Energy, clarity, and social drive often increase.' };
-  if (day <= 16) return { name:'ovulation',  day, color:'#7a9e7e', bg:'#e8f0e9', text:'#2d5e33', desc:'Estrogen peaks. Often the highest energy and mood of the cycle.' };
-  return { name:'luteal', day, color:'#a07ab5', bg:'#f0eaf5', text:'#4a2d5e', desc:'Progesterone rises then falls. Irritability, anxiety, and fatigue are more common. Your feelings are valid and cyclical.' };
+  if (day<=5)  return {name:'menstrual', day, color:'#c17f74', bg:'#f5ebe9', text:'#7a3d36', desc:'Estrogen and progesterone are lowest. Energy dips, emotions can feel raw.'};
+  if (day<=13) return {name:'follicular',day, color:'#7a9db5', bg:'#e8eff4', text:'#2d5570', desc:'Rising estrogen. Energy, clarity, and social drive often increase.'};
+  if (day<=16) return {name:'ovulation', day, color:'#7a9e7e', bg:'#e8f0e9', text:'#2d5e33', desc:'Estrogen peaks. Often the highest energy and mood of the cycle.'};
+  return {name:'luteal', day, color:'#a07ab5', bg:'#f0eaf5', text:'#4a2d5e', desc:'Progesterone rises then falls. Irritability, anxiety, and fatigue are more common.'};
 }
+
+function getPhase() { return getPhaseForDate(new Date().toISOString()); }
 
 function updatePhaseChip() {
   const phase = getPhase();
   const chip = document.getElementById('phaseChip');
-  if (chip) chip.textContent = phase ? phase.name + ' · day ' + phase.day : '';
+  if (chip) chip.textContent = phase ? phase.name+' · day '+phase.day : '';
 }
 
-// ── DASHBOARD ─────────────────────────────────────────────────────────
+// ── HELPERS ───────────────────────────────────────────────────────────
+function sortTs(e) { return new Date(e.logged_at || e.created_at).getTime(); }
 function avg(arr) { return arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : 0; }
 function tod(ts) {
   const h = new Date(ts).getHours();
@@ -641,285 +667,280 @@ function tod(ts) {
   if (h>=17&&h<21) return 'evening';
   return 'night';
 }
-function irritNum(v) { return (v===null||v===undefined) ? null : parseInt(v); }
+function irritNum(v) { return (v===null||v===undefined)?null:parseInt(v); }
+function fmtDate(ts) {
+  return new Date(ts).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
+}
 
+// ── DASHBOARD ─────────────────────────────────────────────────────────
 function renderDashboard() {
   const el = document.getElementById('dashContent');
   if (!el) return;
-  const real = entries.filter(e => e.entry_type !== 'happy');
-  if (real.length === 0 && happyEntries.length === 0) {
-    el.innerHTML = '<div class="empty"><div class="empty-big">◦</div>log a few entries<br>to see your patterns</div>';
+  const real = entries.filter(e=>e.entry_type!=='happy');
+  if (!real.length && !happyEntries.length) {
+    el.innerHTML='<div class="empty"><div class="empty-big">◦</div>log a few entries<br>to see your patterns</div>';
     return;
   }
 
   const now = Date.now();
-  const week = real.filter(e => new Date(e.created_at).getTime() > now - 7*86400000);
+  const week = real.filter(e=>sortTs(e)>now-7*86400000);
   const phase = getPhase();
   let html = '';
 
-  // Phase card
   if (phase) {
     html += `<div class="phase-card" style="background:${phase.bg};border:1px solid ${phase.color}40">
       <div class="phase-name" style="color:${phase.color}">${phase.name}</div>
       <div class="phase-day" style="color:${phase.text}">day ${phase.day} of your cycle</div>
       <div class="phase-desc" style="color:${phase.text}">${phase.desc}</div>`;
-    const phaseData = real.filter(e => e.cycle_phase === phase.name);
-    if (phaseData.length >= 3) {
-      const ai = phaseData.map(e=>irritNum(e.irritability)).filter(v=>v!==null);
-      const aa = phaseData.map(e=>e.anxiety).filter(Boolean);
-      html += `<div style="margin-top:8px;font-size:12px;color:${phase.text};opacity:.7">${phaseData.length} past entries in this phase · avg irritability ${ai.length?avg(ai).toFixed(1):'—'}/3 · avg anxiety ${aa.length?avg(aa).toFixed(1):'—'}/5</div>`;
+    const phaseData = real.filter(e=>e.cycle_phase===phase.name);
+    if (phaseData.length>=3) {
+      const ai=phaseData.map(e=>irritNum(e.irritability)).filter(v=>v!==null);
+      const aa=phaseData.map(e=>e.anxiety).filter(Boolean);
+      html+=`<div style="margin-top:8px;font-size:12px;color:${phase.text};opacity:.7">${phaseData.length} past entries in this phase · avg irritability ${ai.length?avg(ai).toFixed(1):'—'}/3 · avg anxiety ${aa.length?avg(aa).toFixed(1):'—'}/5</div>`;
     }
-    html += '</div>';
+    html+='</div>';
   }
 
-  // Metrics
-  if (week.length > 0) {
-    html += '<div class="metric-grid">';
-    html += `<div class="metric-card"><div class="metric-val">${week.length}</div><div class="metric-lbl">entries this week</div></div>`;
-    const ia = week.map(e=>irritNum(e.irritability)).filter(v=>v!==null);
-    html += `<div class="metric-card"><div class="metric-val">${ia.length?avg(ia).toFixed(1):'—'}</div><div class="metric-lbl">avg irritability</div></div>`;
-    const aa = week.map(e=>e.anxiety).filter(Boolean);
-    html += `<div class="metric-card"><div class="metric-val">${aa.length?avg(aa).toFixed(1):'—'}</div><div class="metric-lbl">avg anxiety</div></div>`;
-    const sa = week.map(e=>e.sleep_hours).filter(Boolean);
-    html += `<div class="metric-card"><div class="metric-val">${sa.length?avg(sa).toFixed(1)+'h':'—'}</div><div class="metric-lbl">avg sleep</div></div>`;
-    html += '</div>';
+  if (week.length>0) {
+    html+='<div class="metric-grid">';
+    html+=`<div class="metric-card"><div class="metric-val">${week.length}</div><div class="metric-lbl">entries this week</div></div>`;
+    const ia=week.map(e=>irritNum(e.irritability)).filter(v=>v!==null);
+    html+=`<div class="metric-card"><div class="metric-val">${ia.length?avg(ia).toFixed(1):'—'}</div><div class="metric-lbl">avg irritability</div></div>`;
+    const aa=week.map(e=>e.anxiety).filter(Boolean);
+    html+=`<div class="metric-card"><div class="metric-val">${aa.length?avg(aa).toFixed(1):'—'}</div><div class="metric-lbl">avg anxiety</div></div>`;
+    const sa=week.map(e=>e.sleep_hours).filter(Boolean);
+    html+=`<div class="metric-card"><div class="metric-val">${sa.length?avg(sa).toFixed(1)+'h':'—'}</div><div class="metric-lbl">avg sleep</div></div>`;
+    html+='</div>';
   }
 
-  // AI insights
-  html += `<button class="refresh-btn" id="refreshBtn" onclick="loadAIInsights()">
+  html+=`<button class="refresh-btn" id="refreshBtn" onclick="loadAIInsights()">
     <svg viewBox="0 0 24 24"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
     refresh AI insights
   </button>`;
-  html += '<div id="aiInsights">';
-  html += storedInsights ? storedInsights : '<div style="font-size:13px;color:var(--text3);text-align:center;padding:12px">tap refresh to generate insights</div>';
-  html += '</div>';
+  html+=`<div id="aiInsights">${storedInsights||'<div style="font-size:13px;color:var(--text3);text-align:center;padding:12px">tap refresh to generate insights</div>'}</div>`;
 
-  // Happy moments
   if (happyEntries.length) {
-    html += '<div class="section-label">recent happy moments</div><div class="card">';
-    happyEntries.slice(0,3).forEach((e,i) => {
-      html += `<div style="padding:9px 0;${i<Math.min(happyEntries.length,3)-1?'border-bottom:1px solid var(--border)':''}">
+    html+='<div class="section-label">recent happy moments</div><div class="card">';
+    happyEntries.slice(0,3).forEach((e,i)=>{
+      html+=`<div style="padding:9px 0;${i<Math.min(happyEntries.length,3)-1?'border-bottom:1px solid var(--border)':''}">
         <div style="font-size:11px;color:var(--text3);margin-bottom:3px">${fmtDate(e.created_at)}</div>
         <div style="font-size:14px;color:var(--text2)">${e.content}</div>
       </div>`;
     });
-    html += '</div>';
+    html+='</div>';
   }
 
-  // Charts
-  if (real.length >= 2) {
-    html += '<div class="section-label">irritability by time of day</div>';
-    html += '<div class="card"><div style="position:relative;height:110px"><canvas id="irritChart" role="img" aria-label="Irritability by time of day"></canvas></div></div>';
-    html += '<div class="section-label">self-harm thoughts over time</div>';
-    html += '<div class="card"><div style="position:relative;height:110px"><canvas id="shChart" role="img" aria-label="Self-harm thoughts over time"></canvas></div></div>';
+  if (real.length>=2) {
+    html+='<div class="section-label">irritability by time of day</div>';
+    html+='<div class="card"><div style="position:relative;height:110px"><canvas id="irritChart" role="img" aria-label="Irritability by time of day"></canvas></div></div>';
+    html+='<div class="section-label">self-harm thoughts over time</div>';
+    html+='<div class="card"><div style="position:relative;height:110px"><canvas id="shChart" role="img" aria-label="Self-harm thoughts over time"></canvas></div></div>';
   }
 
   el.innerHTML = html;
-
-  setTimeout(() => {
-    Object.values(chartInst).forEach(c => { try { c.destroy(); } catch(e){} });
-    chartInst = {};
-    if (real.length >= 2) {
-      drawIrritChart(real);
-      drawSHChart(real);
-    }
+  setTimeout(()=>{
+    Object.values(chartInst).forEach(c=>{try{c.destroy();}catch(e){}});
+    chartInst={};
+    if (real.length>=2) { drawIrritChart(real); drawSHChart(real); }
   }, 60);
 }
 
-let storedInsights = '';
-
+// ── AI INSIGHTS ───────────────────────────────────────────────────────
 async function loadAIInsights() {
-  if (!anthropicKey) {
-    toast('Add your Anthropic API key in settings');
-    return;
-  }
+  if (!anthropicKey) { toast('Add your Anthropic API key in settings'); return; }
   const aiEl = document.getElementById('aiInsights');
   const btn = document.getElementById('refreshBtn');
   if (!aiEl) return;
-  aiEl.innerHTML = '<div class="ai-loading">analyzing your patterns...</div>';
-  if (btn) btn.disabled = true;
+  aiEl.innerHTML='<div class="ai-loading">analyzing your patterns...</div>';
+  if (btn) btn.disabled=true;
 
-  const real = entries.filter(e => e.entry_type !== 'happy').slice(0, 30);
+  const real = entries.filter(e=>e.entry_type!=='happy').slice(0,60);
   const phase = getPhase();
 
-  const summary = real.map(e => {
-    const d = new Date(e.created_at);
-    const parts = [];
-    if (e.mood_word) parts.push(`mood: ${e.mood_word} (${e.mood_quadrant})`);
-    if (e.irritability !== null) parts.push(`irritability: ${['nothing','small things','snapped','explosive'][parseInt(e.irritability)]||e.irritability}`);
-    if (e.self_harm !== null) parts.push(`self-harm: ${['none','quiet','loud','specific'][parseInt(e.self_harm)]||e.self_harm}`);
-    if (e.anxiety) parts.push(`anxiety: ${e.anxiety}/5`);
-    if (e.energy) parts.push(`energy: ${e.energy}/5`);
-    if (e.social_battery) parts.push(`social: ${e.social_battery}/5`);
-    if (e.sleep_hours) parts.push(`sleep: ${e.sleep_hours}h`);
-    if (e.weed_amount && e.weed_amount !== 'none') parts.push(`weed: ${e.weed_amount}${e.weed_time?' ('+e.weed_time+')':''}`);
-    if (e.alcohol_drinks > 0) parts.push(`alcohol: ${e.alcohol_drinks} drinks`);
-    if (e.cycle_phase) parts.push(`cycle: ${e.cycle_phase}`);
-    if (e.weighing_on_me) parts.push(`weighing: "${e.weighing_on_me}"`);
-    return `${d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})} ${d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})}: ${parts.join(', ')}`;
-  }).join('\n');
+  // Build a concise but complete summary sorted oldest to newest for arc detection
+  const sorted = [...real].sort((a,b)=>sortTs(a)-sortTs(b));
+  const summary = sorted.map(e=>{
+    const d = new Date(e.logged_at||e.created_at);
+    const dateStr = d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+    const timeStr = d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+    const parts=[];
+    if (e.mood_word) parts.push(`mood:${e.mood_word}(${e.mood_quadrant})`);
+    if (e.irritability!==null&&e.irritability!==undefined) parts.push(`irrit:${['0-nothing','1-small','2-snapped','3-explosive'][parseInt(e.irritability)]||e.irritability}`);
+    if (e.self_harm!==null&&e.self_harm!==undefined) parts.push(`sh:${['none','quiet','loud','specific'][parseInt(e.self_harm)]||e.self_harm}`);
+    if (e.anxiety) parts.push(`anx:${e.anxiety}/5`);
+    if (e.energy) parts.push(`nrg:${e.energy}/5`);
+    if (e.social_battery) parts.push(`soc:${e.social_battery}/5`);
+    if (e.sleep_hours) parts.push(`slp:${e.sleep_hours}h`);
+    if (e.weed_amount&&e.weed_amount!=='none') parts.push(`weed:${e.weed_amount}${e.weed_time?'('+e.weed_time+')':''}`);
+    if (e.alcohol_drinks>0) parts.push(`alc:${e.alcohol_drinks}`);
+    if (e.cycle_phase) parts.push(`phase:${e.cycle_phase}`);
+    if (e.weighing_on_me) parts.push(`note:"${e.weighing_on_me.slice(0,60)}"`);
+    return parts.length ? `${dateStr} ${timeStr} — ${parts.join(', ')}` : null;
+  }).filter(Boolean).join('\n');
 
-  const prompt = `You are helping someone understand patterns in their mood, mental health, and daily habits. They are working with a therapist. Analyze this data and identify 3-5 meaningful patterns. Focus on: time-of-day patterns, cycle phase correlations, relationships between substances and mood/anxiety, self-harm thought patterns and context, sleep and energy connections, and social battery trends.
+  const totalDays = sorted.length>1
+    ? Math.round((sortTs(sorted[sorted.length-1])-sortTs(sorted[0]))/86400000)
+    : 0;
 
-Current cycle phase: ${phase ? phase.name + ' day ' + phase.day : 'unknown'}
+  const prompt = `You are a compassionate, sharp-eyed pattern analyst helping someone understand their mental health data to bring to therapy. They have been tracking mood, irritability, self-harm thoughts, anxiety, energy, social battery, sleep, marijuana, alcohol, and menstrual cycle phase.
 
-Recent entries (most recent first):
+Data spans approximately ${totalDays} days (${sorted.length} entries). Current cycle phase: ${phase?phase.name+' day '+phase.day:'unknown'}.
+
+Entries (oldest to newest):
 ${summary}
 
-Respond with 3-5 short insight paragraphs. Each should start with a bold title on its own line, then 2-3 sentences of plain, direct observation. Do not be clinical. Write like a thoughtful friend reviewing the data. Do not repeat the raw data back. Focus on what's actually notable. Use "you" language. Format each insight as:
+Write 4-6 pattern observations. Mix short-term and long-term patterns. Include both concerning patterns AND positive ones — if energy has been higher lately, say so. If they've been in the blue quadrant for weeks, say so. Note time-of-day patterns, cycle phase correlations, substance and mood relationships, and any trends over the full timespan.
 
+Each insight:
+- Bold title on its own line
+- 2-3 sentences of plain, warm, direct observation
+- Use "you" language
+- Do not be clinical or list raw numbers
+- Note whether something is improving, worsening, or stable over time when you can tell
+
+Format:
 **Title**
-Observation text here.
+Observation.
 
-Keep total response under 350 words.`;
+Keep total under 420 words.`;
 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': anthropicKey,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
+    const res = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':anthropicKey,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
       },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 600,
-        messages: [{ role: 'user', content: prompt }]
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:700,
+        messages:[{role:'user',content:prompt}]
       })
     });
     const data = await res.json();
-    if (data.content && data.content[0]) {
+    if (data.content&&data.content[0]) {
       const text = data.content[0].text;
       const rendered = text
-        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-        .split('\n\n')
-        .filter(p => p.trim())
-        .map(p => `<div class="insight-box"><div class="insight-text">${p.replace(/\n/g,'<br>')}</div></div>`)
+        .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+        .split('\n\n').filter(p=>p.trim())
+        .map(p=>`<div class="insight-box"><div class="insight-text">${p.replace(/\n/g,'<br>')}</div></div>`)
         .join('');
       storedInsights = rendered;
       aiEl.innerHTML = rendered;
     } else {
-      aiEl.innerHTML = '<div class="insight-box"><div class="insight-text">Could not generate insights. Check your API key in settings.</div></div>';
+      aiEl.innerHTML='<div class="insight-box"><div class="insight-text">Could not generate insights. Check your API key in settings.</div></div>';
     }
   } catch(e) {
-    aiEl.innerHTML = '<div class="insight-box"><div class="insight-text">Error connecting to Anthropic. Check your API key and connection.</div></div>';
+    aiEl.innerHTML='<div class="insight-box"><div class="insight-text">Error connecting. Check your API key and network connection.</div></div>';
   }
-  if (btn) btn.disabled = false;
+  if (btn) btn.disabled=false;
 }
 
 // ── CHARTS ────────────────────────────────────────────────────────────
 function drawIrritChart(data) {
-  const ctx = document.getElementById('irritChart'); if(!ctx) return;
-  const slots = {morning:[],afternoon:[],evening:[],night:[]};
-  data.forEach(e => {
-    const v = irritNum(e.irritability);
-    if (v !== null) slots[tod(new Date(e.created_at).getTime())].push(v);
+  const ctx=document.getElementById('irritChart'); if(!ctx) return;
+  const slots={morning:[],afternoon:[],evening:[],night:[]};
+  data.forEach(e=>{
+    const v=irritNum(e.irritability);
+    if(v!==null) slots[tod(sortTs(e))].push(v);
   });
-  chartInst.irrit = new Chart(ctx, {
+  chartInst.irrit=new Chart(ctx,{
     type:'bar',
-    data:{ labels:['Morning','Afternoon','Evening','Night'],
-      datasets:[{ data:Object.values(slots).map(a=>a.length?parseFloat(avg(a).toFixed(2)):0),
+    data:{labels:['Morning','Afternoon','Evening','Night'],
+      datasets:[{data:Object.values(slots).map(a=>a.length?parseFloat(avg(a).toFixed(2)):0),
         backgroundColor:['rgba(193,127,116,.45)','rgba(201,168,76,.45)','rgba(160,122,181,.45)','rgba(122,157,181,.45)'],
-        borderColor:['#c17f74','#c9a84c','#a07ab5','#7a9db5'],
-        borderWidth:1.5, borderRadius:4 }]
-    },
-    options:{ responsive:true, maintainAspectRatio:false,
+        borderColor:['#c17f74','#c9a84c','#a07ab5','#7a9db5'],borderWidth:1.5,borderRadius:4}]},
+    options:{responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false}},
-      scales:{ y:{min:0,max:3,ticks:{font:{size:10},color:'#9c8f85',stepSize:1},grid:{color:'rgba(224,216,207,.5)'}},
-        x:{ticks:{font:{size:10},color:'#9c8f85'},grid:{display:false}} }
-    }
+      scales:{y:{min:0,max:3,ticks:{font:{size:10},color:'#9c8f85',stepSize:1},grid:{color:'rgba(224,216,207,.5)'}},
+        x:{ticks:{font:{size:10},color:'#9c8f85'},grid:{display:false}}}}
   });
 }
 
 function drawSHChart(data) {
-  const ctx = document.getElementById('shChart'); if(!ctx) return;
-  const recent = data.filter(e=>e.self_harm!==null).slice(0,14).reverse();
-  if (!recent.length) return;
-  chartInst.sh = new Chart(ctx, {
+  const ctx=document.getElementById('shChart'); if(!ctx) return;
+  const recent=data.filter(e=>e.self_harm!==null&&e.self_harm!==undefined).slice(0,14).reverse();
+  if(!recent.length) return;
+  chartInst.sh=new Chart(ctx,{
     type:'line',
-    data:{ labels:recent.map(e=>{ const d=new Date(e.created_at); return (d.getMonth()+1)+'/'+d.getDate(); }),
-      datasets:[{ data:recent.map(e=>parseInt(e.self_harm)||0),
-        borderColor:'#c17f74', backgroundColor:'rgba(193,127,116,.1)',
-        borderWidth:2, pointRadius:4, pointBackgroundColor:'#c17f74', fill:true, tension:.3 }]
-    },
-    options:{ responsive:true, maintainAspectRatio:false,
+    data:{labels:recent.map(e=>{const d=new Date(e.logged_at||e.created_at);return(d.getMonth()+1)+'/'+d.getDate();}),
+      datasets:[{data:recent.map(e=>parseInt(e.self_harm)||0),
+        borderColor:'#c17f74',backgroundColor:'rgba(193,127,116,.1)',
+        borderWidth:2,pointRadius:4,pointBackgroundColor:'#c17f74',fill:true,tension:.3}]},
+    options:{responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false}},
-      scales:{ y:{min:0,max:3,ticks:{font:{size:10},color:'#9c8f85',stepSize:1,callback:v=>['none','quiet','loud','specific'][v]||v},grid:{color:'rgba(224,216,207,.5)'}},
-        x:{ticks:{font:{size:9},color:'#9c8f85',maxRotation:0,autoSkip:true,maxTicksLimit:7},grid:{display:false}} }
-    }
+      scales:{y:{min:0,max:3,ticks:{font:{size:10},color:'#9c8f85',stepSize:1,callback:v=>['none','quiet','loud','specific'][v]||v},grid:{color:'rgba(224,216,207,.5)'}},
+        x:{ticks:{font:{size:9},color:'#9c8f85',maxRotation:0,autoSkip:true,maxTicksLimit:7},grid:{display:false}}}}
   });
 }
 
 // ── HISTORY ───────────────────────────────────────────────────────────
 function renderHistory() {
-  const el = document.getElementById('histContent');
-  const all = [
-    ...entries.map(e=>({...e,_type:'log'})),
-    ...happyEntries.map(e=>({...e,_type:'happy'}))
-  ].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+  const el=document.getElementById('histContent');
+  const all=[
+    ...entries.map(e=>({...e,_type:'log',_ts:sortTs(e)})),
+    ...happyEntries.map(e=>({...e,_type:'happy',_ts:new Date(e.created_at).getTime()}))
+  ].sort((a,b)=>b._ts-a._ts);
 
-  if (!all.length) { el.innerHTML='<div class="empty"><div class="empty-big">◦</div>no entries yet</div>'; return; }
+  if(!all.length){el.innerHTML='<div class="empty"><div class="empty-big">◦</div>no entries yet</div>';return;}
 
-  const groups = {};
-  all.forEach(e => {
-    const key = new Date(e.created_at).toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
-    if (!groups[key]) groups[key] = [];
+  const groups={};
+  all.forEach(e=>{
+    const key=new Date(e._ts).toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+    if(!groups[key]) groups[key]=[];
     groups[key].push(e);
   });
 
-  let html = '';
-  Object.entries(groups).forEach(([date, items]) => {
-    html += `<div class="day-group"><div class="day-label">${date}</div>`;
-    items.forEach(e => {
-      const time = new Date(e.created_at).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
-      if (e._type==='happy') {
-        html += `<div class="entry-row happy-row"><div class="entry-time">${time} · happy moment</div><div style="font-size:14px;color:var(--text2);line-height:1.4">${e.content}</div></div>`;
+  let html='';
+  Object.entries(groups).forEach(([date,items])=>{
+    html+=`<div class="day-group"><div class="day-label">${date}</div>`;
+    items.forEach(e=>{
+      const time=new Date(e._ts).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+      if(e._type==='happy'){
+        html+=`<div class="entry-row happy-row"><div class="entry-time">${time} · happy moment</div><div style="font-size:14px;color:var(--text2);line-height:1.4">${e.content}</div></div>`;
       } else {
-        const tags = [];
-        if (e.mood_word) tags.push(`<span class="etag ${e.mood_quadrant||''}">${e.mood_word}</span>`);
-        const iL = ['nothing bothers me','small things','snapped','explosive'];
-        if (e.irritability!==null&&e.irritability!==undefined) tags.push(`<span class="etag">${iL[parseInt(e.irritability)]||e.irritability}</span>`);
-        const sL = ['no sh thoughts','quiet','loud','specific method'];
-        if (e.self_harm!==null&&e.self_harm!==undefined&&parseInt(e.self_harm)>0) tags.push(`<span class="etag red">${sL[parseInt(e.self_harm)]}</span>`);
-        if (e.anxiety) tags.push(`<span class="etag">anxiety ${e.anxiety}/5</span>`);
-        if (e.energy) tags.push(`<span class="etag">energy ${e.energy}/5</span>`);
-        if (e.sleep_hours) tags.push(`<span class="etag">${e.sleep_hours}h sleep</span>`);
-        if (e.weed_amount&&e.weed_amount!=='none') tags.push(`<span class="etag">${e.weed_amount} weed${e.weed_time?' ('+e.weed_time+')':''}</span>`);
-        if (e.alcohol_drinks>0) tags.push(`<span class="etag">${e.alcohol_drinks} drink${e.alcohol_drinks!==1?'s':''}</span>`);
-        if (e.cycle_phase) tags.push(`<span class="etag" style="background:var(--cream)">${e.cycle_phase}</span>`);
-        if (tags.length===0&&!e.weighing_on_me) return;
-        html += `<div class="entry-row"><div class="entry-time">${time}</div>`;
-        if (tags.length) html += `<div class="entry-tags">${tags.join('')}</div>`;
-        if (e.weighing_on_me) html += `<div class="entry-note">"${e.weighing_on_me}"</div>`;
-        html += '</div>';
+        const tags=[];
+        if(e.mood_word) tags.push(`<span class="etag ${e.mood_quadrant||''}">${e.mood_word}</span>`);
+        const iL=['nothing bothers me','small things','snapped','explosive'];
+        if(e.irritability!==null&&e.irritability!==undefined) tags.push(`<span class="etag">${iL[parseInt(e.irritability)]||e.irritability}</span>`);
+        const sL=['no sh thoughts','quiet','loud','specific method'];
+        if(e.self_harm!==null&&e.self_harm!==undefined&&parseInt(e.self_harm)>0) tags.push(`<span class="etag red">${sL[parseInt(e.self_harm)]}</span>`);
+        if(e.anxiety) tags.push(`<span class="etag">anxiety ${e.anxiety}/5</span>`);
+        if(e.energy) tags.push(`<span class="etag">energy ${e.energy}/5</span>`);
+        if(e.sleep_hours) tags.push(`<span class="etag">${e.sleep_hours}h sleep</span>`);
+        if(e.weed_amount&&e.weed_amount!=='none') tags.push(`<span class="etag">${e.weed_amount} weed${e.weed_time?' ('+e.weed_time+')':''}</span>`);
+        if(e.alcohol_drinks>0) tags.push(`<span class="etag">${e.alcohol_drinks} drink${e.alcohol_drinks!==1?'s':''}</span>`);
+        if(e.cycle_phase) tags.push(`<span class="etag" style="background:var(--cream)">${e.cycle_phase}</span>`);
+        if(!tags.length&&!e.weighing_on_me) return;
+        html+=`<div class="entry-row"><div class="entry-time">${time}</div>`;
+        if(tags.length) html+=`<div class="entry-tags">${tags.join('')}</div>`;
+        if(e.weighing_on_me) html+=`<div class="entry-note">"${e.weighing_on_me}"</div>`;
+        html+='</div>';
       }
     });
-    html += '</div>';
+    html+='</div>';
   });
-  el.innerHTML = html;
+  el.innerHTML=html;
 }
 
 // ── NAV ───────────────────────────────────────────────────────────────
-function goTo(name, btn) {
+function goTo(name,btn){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('screen-'+name).classList.add('active');
   btn.classList.add('active');
   closeFab();
-  if (name==='history') renderHistory();
-  if (name==='dash') renderDashboard();
+  if(name==='history') renderHistory();
+  if(name==='dash') renderDashboard();
 }
 
-function toast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
   t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 2200);
-}
-
-function fmtDate(ts) {
-  return new Date(ts).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
+  setTimeout(()=>t.classList.remove('show'),2200);
 }
 
 init();
