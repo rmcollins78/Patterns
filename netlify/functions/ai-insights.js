@@ -1,3 +1,5 @@
+const https = require('https');
+
 exports.handler = async function(event, context) {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
@@ -18,31 +20,53 @@ exports.handler = async function(event, context) {
     return { statusCode: 400, body: JSON.stringify({ error: 'Invalid request body' }) };
   }
 
-  try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+  const payload = JSON.stringify({
+    model: 'claude-sonnet-4-20250514',
+    max_tokens: 700,
+    messages: body.messages
+  });
+
+  return new Promise((resolve) => {
+    const options = {
+      hostname: 'api.anthropic.com',
+      path: '/v1/messages',
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(payload),
         'x-api-key': apiKey,
         'anthropic-version': '2023-06-01'
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 700,
-        messages: body.messages
-      })
+      }
+    };
+
+    const req = https.request(options, (res) => {
+      let data = '';
+      res.on('data', (chunk) => { data += chunk; });
+      res.on('end', () => {
+        try {
+          const parsed = JSON.parse(data);
+          resolve({
+            statusCode: 200,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(parsed)
+          });
+        } catch (e) {
+          resolve({
+            statusCode: 500,
+            body: JSON.stringify({ error: 'Failed to parse Anthropic response' })
+          });
+        }
+      });
     });
 
-    const data = await response.json();
-    return {
-      statusCode: 200,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    };
-  } catch (e) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: e.message })
-    };
-  }
+    req.on('error', (e) => {
+      resolve({
+        statusCode: 500,
+        body: JSON.stringify({ error: e.message })
+      });
+    });
+
+    req.write(payload);
+    req.end();
+  });
 };
