@@ -31,17 +31,15 @@ h1{font-family:'Lora',serif;font-size:24px;font-weight:400;color:var(--text);mar
 .section-label{font-size:10px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin:20px 0 8px}
 .section-label:first-child{margin-top:0}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:10px}
-
 /* FAB */
 .fab-wrap{position:fixed;bottom:80px;right:16px;z-index:500;display:flex;flex-direction:column;align-items:flex-end;gap:10px;pointer-events:none}
-.fab{width:52px;height:52px;border-radius:50%;background:var(--brown);border:none;color:#fff;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(74,55,40,.35);transition:transform .2s;flex-shrink:0}
+.fab{width:52px;height:52px;border-radius:50%;background:var(--brown);border:none;color:#fff;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(74,55,40,.35);transition:transform .2s;flex-shrink:0;pointer-events:auto}
 .fab.open{transform:rotate(45deg)}
 .fab-actions{display:flex;flex-direction:column;gap:8px;align-items:flex-end;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .2s,transform .2s}
-.fab-actions.open{opacity:1;pointer-events:all;transform:translateY(0)}
+.fab-actions.open{opacity:1;pointer-events:auto;transform:translateY(0)}
 .fab-action{display:flex;align-items:center;gap:10px;cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif}
 .fab-action-label{background:var(--brown-dark);color:#fff;font-size:13px;padding:7px 14px;border-radius:20px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.2)}
 .fab-action-icon{width:40px;height:40px;border-radius:50%;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 2px 8px rgba(0,0,0,.1);flex-shrink:0}
-
 /* Sheets */
 .sheet-bg{position:fixed;inset:0;background:rgba(44,37,32,0);z-index:200;display:none;align-items:flex-end;justify-content:center;transition:background .25s}
 .sheet-bg.open{display:flex;background:rgba(44,37,32,.5)}
@@ -52,7 +50,6 @@ h1{font-family:'Lora',serif;font-size:24px;font-weight:400;color:var(--text);mar
 .sheet-actions{display:flex;gap:8px;margin-top:20px}
 .btn-save{flex:1;padding:14px;border-radius:var(--r);border:none;background:var(--brown);color:#fff;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif}
 .btn-cancel{padding:14px 20px;border-radius:var(--r);border:1px solid var(--border2);background:var(--surface);color:var(--text2);font-size:15px;cursor:pointer;font-family:'DM Sans',sans-serif}
-
 /* When picker */
 .when-row{margin-bottom:18px}
 .when-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
@@ -63,7 +60,6 @@ h1{font-family:'Lora',serif;font-size:24px;font-weight:400;color:var(--text);mar
 .date-row label{font-size:12px;color:var(--text3);white-space:nowrap}
 .date-input{flex:1;padding:9px 10px;border-radius:var(--rs);border:1px solid var(--border);background:var(--surface2);font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif}
 .date-input:focus{outline:none;border-color:var(--brown-light)}
-
 /* Pills & scales */
 .pill-row{display:flex;flex-wrap:wrap;gap:7px}
 .pill{padding:9px 16px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);font-size:14px;color:var(--text2);cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
@@ -80,7 +76,6 @@ input[type=number]{padding:10px;border-radius:var(--rs);border:1px solid var(--b
 input[type=number]:focus{outline:none;border-color:var(--brown-light)}
 input[type=date]{padding:9px 10px;border-radius:var(--rs);border:1px solid var(--border);background:var(--surface2);font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif}
 input[type=date]:focus{outline:none;border-color:var(--brown-light)}
-
 /* Mood meter */
 .mood-quadrants{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
 .mood-quadrant-btn{padding:22px 12px;border-radius:var(--r);border:2px solid transparent;cursor:pointer;text-align:center;font-family:'DM Sans',sans-serif;transition:all .2s}
@@ -103,7 +98,6 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
 .mood-word.blue{background:#cfe0ec;color:#2d5570}.mood-word.sel.blue{border-color:#2d5570}
 .mood-word.green{background:#cde4cf;color:#2d5e33}.mood-word.sel.green{border-color:#2d5e33}
 .mood-selected{text-align:center;font-family:'Lora',serif;font-style:italic;font-size:15px;color:var(--brown);min-height:22px;margin-top:4px}
-
 /* Dashboard */
 .phase-card{border-radius:var(--r);padding:16px;margin-bottom:10px;cursor:pointer;transition:all .2s}
 .phase-name{font-family:'Lora',serif;font-size:22px;font-weight:400;margin-bottom:2px}
@@ -125,7 +119,6 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
 .refresh-btn:active{background:var(--surface2)}
 .refresh-btn:disabled{opacity:.5;cursor:default}
 .refresh-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-
 /* Calendar */
 .cal-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
 .cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
@@ -144,28 +137,29 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
 .cal-day-num{font-size:12px;color:var(--text2);line-height:1.4}
 .cal-day-dot{width:6px;height:6px;border-radius:50%;background:#c17f74;margin-top:2px}
 .cal-day-period{width:6px;height:6px;border-radius:50%;background:#a07ab5;margin-top:2px}
-
-/* Metric chart popup */
+/* Metric popup */
 .metric-popup-bg{position:fixed;inset:0;background:rgba(44,37,32,.5);z-index:300;display:none;align-items:flex-end;justify-content:center}
-.metric-popup-bg.open{display:flex}
 .metric-popup-bg.open{display:flex}
 .metric-popup{background:var(--surface);border-radius:20px 20px 0 0;padding:0 20px 40px;width:100%;max-width:480px;max-height:70vh;overflow:hidden}
 .metric-popup-handle{width:36px;height:4px;background:var(--border2);border-radius:2px;margin:12px auto 16px}
 .metric-popup-title{font-family:'Lora',serif;font-size:18px;font-weight:400;color:var(--text);margin-bottom:4px}
 .metric-popup-sub{font-size:12px;color:var(--text3);margin-bottom:16px}
-.chart-swipe-wrap{display:flex;overflow:hidden;width:100%}
+.chart-swipe-wrap{display:flex;overflow:hidden;width:100%;transition:transform .3s}
 .chart-slide{flex:0 0 100%;position:relative;height:160px}
 .chart-slide canvas{width:100%!important;height:160px!important}
 .chart-tabs{display:flex;gap:8px;margin-top:12px;justify-content:center}
 .chart-tab{padding:6px 16px;border-radius:20px;font-size:12px;cursor:pointer;border:1px solid var(--border);background:var(--surface2);color:var(--text2);font-family:'DM Sans',sans-serif;transition:all .15s}
 .chart-tab.active{background:var(--brown);border-color:var(--brown);color:#fff}
 .popup-close{width:100%;padding:13px;border-radius:var(--r);border:1px solid var(--border2);background:var(--surface);color:var(--text2);font-size:15px;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:16px}
-
 /* History */
-.hist-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.hist-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .hist-cal-btn{background:none;border:none;cursor:pointer;color:var(--text3);padding:4px}
 .hist-cal-btn svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.hist-filter-bar{display:flex;align-items:center;gap:8px;margin-bottom:14px;padding:10px 12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--rs)}
+.hist-type-filter{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.hist-type-filter::-webkit-scrollbar{display:none}
+.hist-type-btn{padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;flex-shrink:0;transition:all .15s}
+.hist-type-btn.active{background:var(--brown);border-color:var(--brown);color:#fff}
+.hist-filter-bar{display:none;align-items:center;gap:8px;margin-bottom:14px;padding:10px 12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--rs)}
 .hist-filter-text{font-size:13px;color:var(--text2);flex:1}
 .hist-clear-btn{font-size:12px;color:var(--brown);background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;padding:0}
 .day-group{margin-bottom:18px}
@@ -180,12 +174,11 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
 .etag.green{background:#e8f0e9;border-color:#96b89a;color:#2d5e33}
 .entry-note{font-size:13px;color:var(--text2);font-style:italic;margin-top:5px;line-height:1.4;padding-right:52px}
 .entry-icon-actions{position:absolute;top:10px;right:10px;display:flex;gap:6px}
-.icon-btn{background:none;border:none;cursor:pointer;padding:4px;color:var(--text3);display:flex;align-items:center;justify-content:center}
+.icon-btn{background:none;border:none;cursor:pointer;padding:4px;color:var(--text3);display:flex;align-items:center;justify-content:center;pointer-events:auto}
 .icon-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 .icon-btn.del{color:#c17f74}
 .icon-btn:active{opacity:.6}
 .happy-row{border-left:3px solid #c9a84c}
-
 /* Settings */
 .field-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--border)}
 .field-row:last-child{border-bottom:none;padding-bottom:0}
@@ -193,7 +186,6 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
 .field-name{font-size:14px;color:var(--text)}
 .btn-primary{width:100%;padding:14px;border-radius:var(--r);border:none;background:var(--brown);color:#fff;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:12px}
 .btn-danger{width:100%;padding:14px;border-radius:var(--r);border:1px solid #c17f74;background:var(--surface);color:#c17f74;font-size:15px;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:8px}
-
 /* Misc */
 .toast{position:fixed;bottom:calc(var(--nav-h)+16px);left:50%;transform:translateX(-50%);background:var(--brown-dark);color:#fff;padding:10px 20px;border-radius:20px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;white-space:nowrap}
 .toast.show{opacity:1}
@@ -221,8 +213,21 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
         <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
       </button>
     </div>
+    <div class="hist-type-filter" id="histTypeFilterRow">
+      <button class="hist-type-btn active" onclick="setTypeFilter(null,this)">all</button>
+      <button class="hist-type-btn" onclick="setTypeFilter('mood',this)">mood</button>
+      <button class="hist-type-btn" onclick="setTypeFilter('irrit',this)">irritability</button>
+      <button class="hist-type-btn" onclick="setTypeFilter('sh',this)">self-harm</button>
+      <button class="hist-type-btn" onclick="setTypeFilter('energy',this)">energy</button>
+      <button class="hist-type-btn" onclick="setTypeFilter('sleep',this)">sleep</button>
+      <button class="hist-type-btn" onclick="setTypeFilter('weed',this)">marijuana</button>
+      <button class="hist-type-btn" onclick="setTypeFilter('alcohol',this)">alcohol</button>
+      <button class="hist-type-btn" onclick="setTypeFilter('weighing',this)">weighing</button>
+      <button class="hist-type-btn" onclick="setTypeFilter('negthoughts',this)">neg thoughts</button>
+      <button class="hist-type-btn" onclick="setTypeFilter('happy',this)">happy</button>
+    </div>
     <div id="histCalWrap" style="display:none;margin-bottom:12px"></div>
-    <div id="histFilterBar" style="display:none" class="hist-filter-bar">
+    <div class="hist-filter-bar" id="histFilterBar">
       <span class="hist-filter-text" id="histFilterText"></span>
       <button class="hist-clear-btn" onclick="clearHistFilter()">show all</button>
     </div>
@@ -232,7 +237,7 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
     <h1 style="margin-bottom:20px">settings</h1>
     <div class="section-label">AI insights</div>
     <div class="card">
-      <p style="font-size:13px;color:var(--text2);line-height:1.6">AI insights use your Anthropic API key stored securely on the server. Set it in Netlify environment variables as <code style="font-size:12px;background:var(--surface2);padding:1px 5px;border-radius:4px">ANTHROPIC_API_KEY</code>.</p>
+      <p style="font-size:13px;color:var(--text2);line-height:1.6">AI insights use your Anthropic API key stored in Netlify environment variables as <code style="font-size:12px;background:var(--surface2);padding:1px 5px;border-radius:4px">ANTHROPIC_API_KEY</code>.</p>
     </div>
     <div class="section-label" style="margin-top:24px">Data</div>
     <div class="card"><p style="font-size:13px;color:var(--text2);line-height:1.6">Stored in Supabase. Persists indefinitely.</p></div>
@@ -254,7 +259,6 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
     </button>
   </nav>
 </div>
-
 <!-- FAB -->
 <div class="fab-wrap" id="fabWrap">
   <div class="fab-actions" id="fabActions">
@@ -266,17 +270,16 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
     <div class="fab-action" onclick="openSheet('weed')"><span class="fab-action-label">marijuana</span><span class="fab-action-icon">🌿</span></div>
     <div class="fab-action" onclick="openSheet('alcohol')"><span class="fab-action-label">alcohol</span><span class="fab-action-icon">🥃</span></div>
     <div class="fab-action" onclick="openSheet('weighing')"><span class="fab-action-label">what's weighing on me</span><span class="fab-action-icon">💭</span></div>
+    <div class="fab-action" onclick="openSheet('negthoughts')"><span class="fab-action-label">compulsive negative thoughts</span><span class="fab-action-icon">🌀</span></div>
     <div class="fab-action" onclick="openSheet('period')"><span class="fab-action-label">start of period</span><span class="fab-action-icon">🌸</span></div>
     <div class="fab-action" onclick="openSheet('happy')"><span class="fab-action-label">something made me happy</span><span class="fab-action-icon">✦</span></div>
   </div>
   <button class="fab" id="fab" onclick="toggleFab()">+</button>
 </div>
-
 <!-- Sheet -->
 <div class="sheet-bg" id="sheetBg" onclick="closeSheetOnBg(event)">
   <div class="sheet" id="sheet"><div class="sheet-handle"></div><div id="sheetInner"></div></div>
 </div>
-
 <!-- Metric popup -->
 <div class="metric-popup-bg" id="metricPopupBg" onclick="closeMetricPopupOnBg(event)">
   <div class="metric-popup" id="metricPopup">
@@ -284,19 +287,15 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
     <div id="metricPopupInner"></div>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
-
 <script>
-const SUPABASE_URL = 'https://zslmaqrvsebxhtjirqgf.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_Er0_gJ3ZJcSnqDWGgXWsRA_6dEq0Rr5';
+const SUPABASE_URL = 'REPLACE_WITH_YOUR_PROJECT_URL';
+const SUPABASE_KEY = 'REPLACE_WITH_YOUR_ANON_KEY';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {auth:{persistSession:false}});
 
-// ── MOON PHASES (manually compiled 2025-2027) ─────────────────────────
-// Format: 'YYYY-MM-DD': symbol
+// ── MOON PHASES 2025-2027 ─────────────────────────────────────────────
 const MOON_PHASES = {};
 [
-  // 2025
   ['2025-01-06','🌑'],['2025-01-13','🌓'],['2025-01-29','🌕'],['2025-02-05','🌗'],
   ['2025-02-20','🌑'],['2025-02-28','🌓'],['2025-03-14','🌕'],['2025-03-22','🌗'],
   ['2025-03-29','🌑'],['2025-04-05','🌓'],['2025-04-13','🌕'],['2025-04-21','🌗'],
@@ -309,7 +308,6 @@ const MOON_PHASES = {};
   ['2025-10-21','🌑'],['2025-10-29','🌓'],['2025-11-05','🌕'],['2025-11-12','🌗'],
   ['2025-11-20','🌑'],['2025-11-28','🌓'],['2025-12-04','🌕'],['2025-12-11','🌗'],
   ['2025-12-20','🌑'],['2025-12-28','🌓'],
-  // 2026
   ['2026-01-03','🌕'],['2026-01-10','🌗'],['2026-01-18','🌑'],['2026-01-26','🌓'],
   ['2026-02-01','🌕'],['2026-02-09','🌗'],['2026-02-17','🌑'],['2026-02-25','🌓'],
   ['2026-03-03','🌕'],['2026-03-11','🌗'],['2026-03-19','🌑'],['2026-03-26','🌓'],
@@ -323,7 +321,6 @@ const MOON_PHASES = {};
   ['2026-10-26','🌕'],['2026-11-02','🌗'],['2026-11-09','🌑'],['2026-11-18','🌓'],
   ['2026-11-24','🌕'],['2026-12-01','🌗'],['2026-12-09','🌑'],['2026-12-18','🌓'],
   ['2026-12-24','🌕'],
-  // 2027
   ['2027-01-01','🌗'],['2027-01-07','🌑'],['2027-01-16','🌓'],['2027-01-22','🌕'],
   ['2027-01-30','🌗'],['2027-02-06','🌑'],['2027-02-15','🌓'],['2027-02-20','🌕'],
   ['2027-03-01','🌗'],['2027-03-08','🌑'],['2027-03-17','🌓'],['2027-03-22','🌕'],
@@ -348,30 +345,10 @@ const MOOD_WORDS = {
 const TOD_OPTIONS = ['morning','afternoon','evening','night'];
 
 const PHASE_DETAILS = {
-  menstrual: {
-    hormone: 'Estrogen and progesterone are at their lowest. The uterine lining sheds.',
-    emotional: 'You may feel more introspective, sensitive, or low-energy. Fatigue and physical discomfort are common. This is a natural time to rest and turn inward.',
-    physical: 'Cramping, bloating, fatigue, lower back pain, and headaches are typical. Iron-rich foods and gentle movement can help.',
-    tip: 'Honor your need for rest. Reduce obligations where you can. Warmth, hydration, and light walks tend to help more than intense exercise.'
-  },
-  follicular: {
-    hormone: 'Estrogen rises steadily as follicles in the ovaries develop. FSH triggers egg maturation.',
-    emotional: 'Many people experience a natural lift in mood, motivation, and social energy during this phase. Creativity and focus often increase.',
-    physical: 'Energy levels rise. You may notice improved sleep, clearer skin, and more stamina for exercise.',
-    tip: 'This is a good time to start new projects, schedule social commitments, and push yourself physically if that feels right.'
-  },
-  ovulation: {
-    hormone: 'LH surges and estrogen peaks, triggering egg release. Testosterone also rises briefly.',
-    emotional: 'Typically the phase with the highest social drive, confidence, and emotional warmth. Communication tends to feel easier.',
-    physical: 'You may notice increased libido, a slight rise in body temperature, and sometimes mild pelvic discomfort around ovulation day.',
-    tip: 'Your energy is at its peak. This is a strong window for important conversations, presentations, or intense workouts.'
-  },
-  luteal: {
-    hormone: 'Progesterone rises significantly after ovulation then drops sharply before menstruation. Estrogen dips in the second half.',
-    emotional: 'Irritability, anxiety, emotional sensitivity, and low mood are common -- especially in the final days. These are driven by real hormonal shifts, not personal weakness.',
-    physical: 'Bloating, breast tenderness, fatigue, increased appetite, and disrupted sleep are typical. PMS symptoms peak in the last week.',
-    tip: 'Reduce caffeine and alcohol, prioritize sleep, and lower expectations of yourself. Your nervous system is more reactive right now. That context matters for therapy work.'
-  }
+  menstrual:{hormone:'Estrogen and progesterone are at their lowest. The uterine lining sheds.',emotional:'You may feel more introspective, sensitive, or low-energy. Fatigue and physical discomfort are common. This is a natural time to rest and turn inward.',physical:'Cramping, bloating, fatigue, lower back pain, and headaches are typical. Iron-rich foods and gentle movement can help.',tip:'Honor your need for rest. Reduce obligations where you can. Warmth, hydration, and light walks tend to help more than intense exercise.'},
+  follicular:{hormone:'Estrogen rises steadily as follicles in the ovaries develop. FSH triggers egg maturation.',emotional:'Many people experience a natural lift in mood, motivation, and social energy during this phase. Creativity and focus often increase.',physical:'Energy levels rise. You may notice improved sleep, clearer skin, and more stamina for exercise.',tip:'This is a good time to start new projects, schedule social commitments, and push yourself physically if that feels right.'},
+  ovulation:{hormone:'LH surges and estrogen peaks, triggering egg release. Testosterone also rises briefly.',emotional:'Typically the phase with the highest social drive, confidence, and emotional warmth. Communication tends to feel easier.',physical:'You may notice increased libido, a slight rise in body temperature, and sometimes mild pelvic discomfort around ovulation day.',tip:'Your energy is at its peak. This is a strong window for important conversations, presentations, or intense workouts.'},
+  luteal:{hormone:'Progesterone rises significantly after ovulation then drops sharply before menstruation. Estrogen dips in the second half.',emotional:'Irritability, anxiety, emotional sensitivity, and low mood are common -- especially in the final days. These are driven by real hormonal shifts, not personal weakness.',physical:'Bloating, breast tenderness, fatigue, increased appetite, and disrupted sleep are typical. PMS symptoms peak in the last week.',tip:'Reduce caffeine and alcohol, prioritize sleep, and lower expectations of yourself. Your nervous system is more reactive right now. That context matters for therapy work.'}
 };
 
 let cycleSettings = {start:null,length:28};
@@ -381,17 +358,17 @@ let fabOpen = false;
 let currentSheet = null;
 let sheetState = {};
 let metricChartInsts = {};
-let anthropicKey = '';
 let storedInsights = '';
 let calMonth = new Date();
 let histFilterDate = null;
+let histTypeFilter = null;
 let histCalOpen = false;
 let histCalMonth = new Date();
 let phaseCardExpanded = false;
 
 // ── DATE HELPERS ──────────────────────────────────────────────────────
 function localDateStr(d) {
-  const dt = d || new Date();
+  const dt=d||new Date();
   return dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');
 }
 function autoTOD() {
@@ -409,46 +386,37 @@ function buildLoggedAt() {
   const d=new Date(dateStr+'T'+(hm[t]||'12:00'));
   return isNaN(d.getTime())?new Date().toISOString():d.toISOString();
 }
-function sortTs(e) { return new Date(e.logged_at||e.created_at).getTime(); }
-function tod(ts) {
-  const h=new Date(ts).getHours();
-  if(h>=5&&h<12) return 'morning';
-  if(h>=12&&h<17) return 'afternoon';
-  if(h>=17&&h<21) return 'evening';
-  return 'night';
-}
-function avg(arr) { return arr.length?arr.reduce((a,b)=>a+b,0)/arr.length:0; }
-function irritNum(v) { return (v===null||v===undefined)?null:parseInt(v); }
-function fmtDate(ts) { return new Date(ts).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}); }
+function sortTs(e){return new Date(e.logged_at||e.created_at).getTime();}
+function tod(ts){const h=new Date(ts).getHours();if(h>=5&&h<12)return 'morning';if(h>=12&&h<17)return 'afternoon';if(h>=17&&h<21)return 'evening';return 'night';}
+function avg(arr){return arr.length?arr.reduce((a,b)=>a+b,0)/arr.length:0;}
+function irritNum(v){return(v===null||v===undefined)?null:parseInt(v);}
+function fmtDate(ts){return new Date(ts).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});}
 
 // ── INIT ─────────────────────────────────────────────────────────────
 async function init() {
-  try { await loadCycle(); } catch(e) { console.error('cycle:',e); }
-  try { await loadEntries(); } catch(e) { console.error('entries:',e); }
+  try{await loadCycle();}catch(e){console.error('cycle:',e);}
+  try{await loadEntries();}catch(e){console.error('entries:',e);}
   updatePhaseChip();
   renderDashboard();
   document.getElementById('loading').style.display='none';
   document.getElementById('app').style.display='flex';
 }
-
 async function loadEntries() {
   const [{data:logs,error:e1},{data:happy,error:e2}]=await Promise.all([
     sb.from('entries').select('*').order('logged_at',{ascending:false,nullsFirst:false}).order('created_at',{ascending:false}).limit(300),
     sb.from('happy_moments').select('*').order('created_at',{ascending:false}).limit(100)
   ]);
-  if(e1) console.error('entries:',e1);
-  if(e2) console.error('happy:',e2);
+  if(e1)console.error('entries:',e1);
+  if(e2)console.error('happy:',e2);
   entries=logs||[];
   happyEntries=happy||[];
 }
-
 async function loadCycle() {
-  const {data}=await sb.from('cycle_settings').select('*').eq('id',1).maybeSingle();
-  if(data) cycleSettings={start:data.cycle_start,length:data.cycle_length||28};
+  const{data}=await sb.from('cycle_settings').select('*').eq('id',1).maybeSingle();
+  if(data)cycleSettings={start:data.cycle_start,length:data.cycle_length||28};
 }
-
 async function confirmClear() {
-  if(!confirm('Delete all entries permanently?')) return;
+  if(!confirm('Delete all entries permanently?'))return;
   await Promise.all([
     sb.from('entries').delete().neq('id','00000000-0000-0000-0000-000000000000'),
     sb.from('happy_moments').delete().neq('id','00000000-0000-0000-0000-000000000000')
@@ -458,12 +426,12 @@ async function confirmClear() {
 }
 
 // ── FAB ───────────────────────────────────────────────────────────────
-function toggleFab() {
+function toggleFab(){
   fabOpen=!fabOpen;
   document.getElementById('fab').classList.toggle('open',fabOpen);
   document.getElementById('fabActions').classList.toggle('open',fabOpen);
 }
-function closeFab() {
+function closeFab(){
   fabOpen=false;
   document.getElementById('fab').classList.remove('open');
   document.getElementById('fabActions').classList.remove('open');
@@ -471,33 +439,33 @@ function closeFab() {
 
 // ── CYCLE ─────────────────────────────────────────────────────────────
 function getPhaseForDate(isoStr) {
-  if(!cycleSettings.start) return null;
+  if(!cycleSettings.start)return null;
   const start=new Date(cycleSettings.start);
   const d=new Date(isoStr);
   const diff=Math.floor((d-start)/86400000);
   const len=cycleSettings.length;
   const day=((diff%len)+len)%len+1;
-  if(day<=5)  return {name:'menstrual', day,color:'#c17f74',bg:'#f5ebe9',text:'#7a3d36'};
-  if(day<=13) return {name:'follicular',day,color:'#7a9db5',bg:'#e8eff4',text:'#2d5570'};
-  if(day<=16) return {name:'ovulation', day,color:'#7a9e7e',bg:'#e8f0e9',text:'#2d5e33'};
-  return        {name:'luteal',     day,color:'#a07ab5',bg:'#f0eaf5',text:'#4a2d5e'};
+  if(day<=5) return{name:'menstrual',day,color:'#c17f74',bg:'#f5ebe9',text:'#7a3d36'};
+  if(day<=13)return{name:'follicular',day,color:'#7a9db5',bg:'#e8eff4',text:'#2d5570'};
+  if(day<=16)return{name:'ovulation',day,color:'#7a9e7e',bg:'#e8f0e9',text:'#2d5e33'};
+  return{name:'luteal',day,color:'#a07ab5',bg:'#f0eaf5',text:'#4a2d5e'};
 }
-function getPhase() { return getPhaseForDate(new Date().toISOString()); }
-function updatePhaseChip() {
+function getPhase(){return getPhaseForDate(new Date().toISOString());}
+function updatePhaseChip(){
   const phase=getPhase();
   const chip=document.getElementById('phaseChip');
-  if(chip) chip.textContent=phase?phase.name+' · day '+phase.day:'';
+  if(chip)chip.textContent=phase?phase.name+' · day '+phase.day:'';
 }
 
 // ── SHEET BUILDER ─────────────────────────────────────────────────────
-function sheetHTML(title,body) {
+function sheetHTML(title,body){
   return `<div class="sheet-title">${title}</div>${body}
     <div class="sheet-actions">
       <button class="btn-save" onclick="saveSheet()">save</button>
       <button class="btn-cancel" onclick="closeSheet()">cancel</button>
     </div>`;
 }
-function whenPickerHTML(pd,pt) {
+function whenPickerHTML(pd,pt){
   const def=pt||autoTOD();
   sheetState._tod=def;
   return `<div class="when-row">
@@ -509,7 +477,7 @@ function whenPickerHTML(pd,pt) {
       <input type="date" id="entryDate" class="date-input" value="${pd||localDateStr()}">
     </div></div>`;
 }
-function moodBody(pd,pt) {
+function moodBody(pd,pt){
   return `${whenPickerHTML(pd,pt)}
     <div style="font-size:11px;color:var(--text3);margin-bottom:10px">tap a quadrant · tap a word to select</div>
     <div class="mood-quadrants">
@@ -524,32 +492,32 @@ function moodBody(pd,pt) {
     <div class="mood-word-grid" id="wordGrid-green">${MOOD_WORDS.green.map(w=>`<div class="mood-word green" onclick="selMood(this,'${w}','green')">${w}</div>`).join('')}</div>
     <div class="mood-selected" id="moodSelected">tap a quadrant to begin</div>`;
 }
-function getSheetContent(key,pd,pt) {
-  const p=pd||localDateStr(); const t=pt||autoTOD();
+function getSheetContent(key,pd,pt){
+  const p=pd||localDateStr();const t=pt||autoTOD();
   const wp=()=>whenPickerHTML(p,t);
   const sheets={
-    mood:    ()=>sheetHTML('How are you feeling?',moodBody(p,t)),
-    irrit:   ()=>sheetHTML('Irritability',`${wp()}<div class="pill-row" id="irritPills">
+    mood:       ()=>sheetHTML('How are you feeling?',moodBody(p,t)),
+    irrit:      ()=>sheetHTML('Irritability',`${wp()}<div class="pill-row" id="irritPills">
       <div class="pill" data-val="0" onclick="selPill('irrit',this)">nothing bothers me</div>
       <div class="pill" data-val="1" onclick="selPill('irrit',this)">small things are annoying</div>
       <div class="pill" data-val="2" onclick="selPill('irrit',this)">I snapped or almost snapped</div>
       <div class="pill" data-val="3" onclick="selPill('irrit',this)">I feel like I'll explode</div></div>`),
-    sh:      ()=>sheetHTML('Self-harm thoughts',`${wp()}<div class="pill-row" id="shPills">
+    sh:         ()=>sheetHTML('Self-harm thoughts',`${wp()}<div class="pill-row" id="shPills">
       <div class="pill" data-val="0" onclick="selPill('sh',this)">none</div>
       <div class="pill" data-val="1" onclick="selPill('sh',this)">quiet</div>
       <div class="pill" data-val="2" onclick="selPill('sh',this)">loud</div>
       <div class="pill" data-val="3" onclick="selPill('sh',this)">specific method</div></div>`),
-    energy:  ()=>sheetHTML('Energy, anxiety & social',`${wp()}<div class="scale-wrap">
+    energy:     ()=>sheetHTML('Energy, anxiety & social',`${wp()}<div class="scale-wrap">
       <div><div class="scale-lbl-row"><span>Energy</span><span>drained → wired</span></div>
         <div class="scale-btns" id="energyScale">${[1,2,3,4,5].map(v=>`<div class="scale-btn" data-val="${v}" onclick="selScale('energy',this)">${v}</div>`).join('')}</div></div>
       <div><div class="scale-lbl-row"><span>Anxiety</span><span>calm → spiral</span></div>
         <div class="scale-btns" id="anxietyScale">${[1,2,3,4,5].map(v=>`<div class="scale-btn" data-val="${v}" onclick="selScale('anxiety',this)">${v}</div>`).join('')}</div></div>
       <div><div class="scale-lbl-row"><span>Social battery</span><span>hide → connect</span></div>
         <div class="scale-btns" id="socialScale">${[1,2,3,4,5].map(v=>`<div class="scale-btn" data-val="${v}" onclick="selScale('social',this)">${v}</div>`).join('')}</div></div></div>`),
-    sleep:   ()=>sheetHTML('Sleep',`${wp()}<div style="display:flex;align-items:center;gap:16px;justify-content:center;padding:16px 0">
+    sleep:      ()=>sheetHTML('Sleep',`${wp()}<div style="display:flex;align-items:center;gap:16px;justify-content:center;padding:16px 0">
       <input type="number" id="sleepInput" min="0" max="24" step="0.5" placeholder="0" style="width:100px;font-size:28px;text-align:center;padding:12px">
       <span style="font-size:18px;color:var(--text2)">hours</span></div>`),
-    weed:    ()=>sheetHTML('Marijuana',`<div style="display:flex;flex-direction:column;gap:16px">
+    weed:       ()=>sheetHTML('Marijuana',`<div style="display:flex;flex-direction:column;gap:16px">
       <div><div style="font-size:11px;color:var(--text3);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Time of use</div>
         <div class="pill-row" id="weedTimePills">${TOD_OPTIONS.map(v=>`<div class="pill" data-val="${v}" onclick="selPillWeedTime(this,'${v}')">${v}</div>`).join('')}</div></div>
       <div><div style="font-size:11px;color:var(--text3);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Why I used</div>
@@ -557,29 +525,30 @@ function getSheetContent(key,pd,pt) {
       <div><div style="font-size:11px;color:var(--text3);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Amount</div>
         <div class="pill-row" id="weedAmtPills">${['none','a little','moderate','a lot'].map(v=>`<div class="pill" data-val="${v}" onclick="selPill('weedAmt',this)">${v}</div>`).join('')}</div></div>
       <div class="date-row"><label>date</label><input type="date" id="entryDate" class="date-input" value="${p}"></div></div>`),
-    alcohol: ()=>sheetHTML('Alcohol',`${wp()}<div style="display:flex;align-items:center;gap:16px;justify-content:center;padding:16px 0">
+    alcohol:    ()=>sheetHTML('Alcohol',`${wp()}<div style="display:flex;align-items:center;gap:16px;justify-content:center;padding:16px 0">
       <input type="number" id="alcoholInput" min="0" max="30" step="1" placeholder="0" style="width:100px;font-size:28px;text-align:center;padding:12px">
       <span style="font-size:18px;color:var(--text2)">drinks</span></div>`),
-    weighing:()=>sheetHTML("What's weighing on me",`${wp()}<textarea id="weighingInput" rows="5" placeholder="What's on your mind..."></textarea>`),
-    period:  ()=>sheetHTML('Start of period 🌸',`<div class="date-row" style="margin-bottom:16px"><label>date</label>
+    weighing:   ()=>sheetHTML("What's weighing on me",`${wp()}<textarea id="weighingInput" rows="5" placeholder="What's on your mind..."></textarea>`),
+    negthoughts:()=>sheetHTML('Compulsive negative thoughts',`${wp()}<textarea id="negthoughtsInput" rows="5" placeholder="What kept coming up..."></textarea>`),
+    period:     ()=>sheetHTML('Start of period 🌸',`<div class="date-row" style="margin-bottom:16px"><label>date</label>
       <input type="date" id="entryDate" class="date-input" value="${p}"></div>
       <p style="font-size:14px;color:var(--text2);line-height:1.6">This marks day 1 of your cycle and updates your phase tracking automatically.</p>`),
-    happy:   ()=>sheetHTML('Something made me happy ✦',`<textarea id="happyInput" rows="5" placeholder="What happened?"></textarea>`)
+    happy:      ()=>sheetHTML('Something made me happy ✦',`<textarea id="happyInput" rows="5" placeholder="What happened?"></textarea>`)
   };
   return sheets[key]?sheets[key]():'';
 }
 
-function openSheet(key) {
+function openSheet(key){
   closeFab();
-  currentSheet=key;
-  sheetState={};
+  currentSheet=key;sheetState={};
   document.getElementById('sheetInner').innerHTML=getSheetContent(key);
   document.getElementById('sheetBg').classList.add('open');
+  document.getElementById('fabWrap').style.display='none';
 }
 
 // ── SAVE SHEET ─────────────────────────────────────────────────────────
-async function saveSheet() {
-  if(!currentSheet) return;
+async function saveSheet(){
+  if(!currentSheet)return;
   const isEdit=!!sheetState._editId;
   const editId=sheetState._editId;
   const la=buildLoggedAt();
@@ -591,32 +560,36 @@ async function saveSheet() {
     if(!sheetState.moodWord){toast('Tap a feeling first');return;}
     payload.mood_word=sheetState.moodWord;
     payload.mood_quadrant=sheetState.moodQuadrant;
-  } else if(currentSheet==='irrit'){
+  }else if(currentSheet==='irrit'){
     if(sheetState.irrit===undefined||sheetState.irrit===null){toast('Make a selection');return;}
     payload.irritability=sheetState.irrit;
-  } else if(currentSheet==='sh'){
+  }else if(currentSheet==='sh'){
     if(sheetState.sh===undefined||sheetState.sh===null){toast('Make a selection');return;}
     payload.self_harm=sheetState.sh;
-  } else if(currentSheet==='energy'){
+  }else if(currentSheet==='energy'){
     if(!sheetState.energy&&!sheetState.anxiety&&!sheetState.social){toast('Make at least one selection');return;}
     payload.energy=sheetState.energy||null;
     payload.anxiety=sheetState.anxiety||null;
     payload.social_battery=sheetState.social||null;
-  } else if(currentSheet==='sleep'){
+  }else if(currentSheet==='sleep'){
     const hrs=parseFloat(document.getElementById('sleepInput').value);
     if(isNaN(hrs)){toast('Enter hours');return;}
     payload.sleep_hours=hrs;
-  } else if(currentSheet==='weed'){
+  }else if(currentSheet==='weed'){
     payload.weed_time=sheetState.weedTime||null;
     payload.weed_why=sheetState.weedWhy||null;
     payload.weed_amount=sheetState.weedAmt||null;
-  } else if(currentSheet==='alcohol'){
+  }else if(currentSheet==='alcohol'){
     payload.alcohol_drinks=parseInt(document.getElementById('alcoholInput').value)||0;
-  } else if(currentSheet==='weighing'){
+  }else if(currentSheet==='weighing'){
     const text=document.getElementById('weighingInput').value.trim();
     if(!text){toast('Write something first');return;}
     payload.weighing_on_me=text;
-  } else if(currentSheet==='period'){
+  }else if(currentSheet==='negthoughts'){
+    const text=document.getElementById('negthoughtsInput').value.trim();
+    if(!text){toast('Write something first');return;}
+    payload.negative_thoughts=text;
+  }else if(currentSheet==='period'){
     const dateEl=document.getElementById('entryDate');
     const dateOnly=(dateEl&&dateEl.value)?dateEl.value:localDateStr();
     cycleSettings.start=dateOnly;
@@ -628,8 +601,8 @@ async function saveSheet() {
       const{error}=await sb.from('entries').update(payload).eq('id',editId);
       if(error){toast('Error: '+(error.message||error.code));return;}
       const i=entries.findIndex(e=>e.id===editId);
-      if(i>=0) entries[i]={...entries[i],...payload};
-    } else {
+      if(i>=0)entries[i]={...entries[i],...payload};
+    }else{
       const{data,error}=await sb.from('entries').insert(payload).select().single();
       if(error){toast('Error: '+(error.message||error.code));return;}
       entries.unshift(data);
@@ -637,7 +610,7 @@ async function saveSheet() {
     entries.sort((a,b)=>sortTs(b)-sortTs(a));
     closeSheet();toast(isEdit?'Updated':'Period logged · cycle reset to day 1');
     renderDashboard();renderHistory();return;
-  } else if(currentSheet==='happy'){
+  }else if(currentSheet==='happy'){
     happyText=document.getElementById('happyInput').value.trim();
     if(!happyText){toast('Write something first');return;}
     isHappy=true;
@@ -648,19 +621,19 @@ async function saveSheet() {
       const{error}=await sb.from('happy_moments').update({content:happyText}).eq('id',editId);
       if(error){toast('Error saving');return;}
       const i=happyEntries.findIndex(e=>e.id===editId);
-      if(i>=0) happyEntries[i]={...happyEntries[i],content:happyText};
-    } else {
+      if(i>=0)happyEntries[i]={...happyEntries[i],content:happyText};
+    }else{
       const{data,error}=await sb.from('happy_moments').insert({content:happyText}).select().single();
       if(error){toast('Error saving');return;}
       happyEntries.unshift(data);
     }
-  } else {
+  }else{
     if(isEdit){
       const{error}=await sb.from('entries').update(payload).eq('id',editId);
       if(error){console.error(error);toast('Error: '+(error.message||error.code));return;}
       const i=entries.findIndex(e=>e.id===editId);
-      if(i>=0) entries[i]={...entries[i],...payload};
-    } else {
+      if(i>=0)entries[i]={...entries[i],...payload};
+    }else{
       const{data,error}=await sb.from('entries').insert(payload).select().single();
       if(error){console.error(error);toast('Error: '+(error.message||error.code));return;}
       entries.unshift(data);
@@ -672,17 +645,19 @@ async function saveSheet() {
   renderDashboard();renderHistory();
 }
 
-function closeSheet() {
+function closeSheet(){
   document.getElementById('sheetBg').classList.remove('open');
   currentSheet=null;sheetState={};
+  const fw=document.getElementById('fabWrap');
+  if(fw)fw.style.display='flex';
 }
-function closeSheetOnBg(e) { if(e.target===document.getElementById('sheetBg')) closeSheet(); }
+function closeSheetOnBg(e){if(e.target===document.getElementById('sheetBg'))closeSheet();}
 
 // ── EDIT & DELETE ─────────────────────────────────────────────────────
-function editEntry(type,id) {
+function editEntry(type,id){
   if(type==='happy'){
     const e=happyEntries.find(x=>x.id===id);
-    if(!e) return;
+    if(!e)return;
     currentSheet='happy';
     sheetState={_editId:id,_editType:'happy'};
     document.getElementById('sheetInner').innerHTML=sheetHTML('Edit happy moment ✦',`<textarea id="happyInput" rows="5">${e.content}</textarea>`);
@@ -691,24 +666,26 @@ function editEntry(type,id) {
     return;
   }
   const e=entries.find(x=>x.id===id);
-  if(!e) return;
+  if(!e)return;
   const la=new Date(e.logged_at||e.created_at);
   const pd=localDateStr(la);
   const pt=tod(la.getTime());
   let key='mood';
-  if(e.mood_word) key='mood';
-  else if(e.irritability!==null&&e.irritability!==undefined) key='irrit';
-  else if(e.self_harm!==null&&e.self_harm!==undefined) key='sh';
-  else if(e.energy||e.anxiety||e.social_battery) key='energy';
-  else if(e.sleep_hours!=null) key='sleep';
-  else if(e.weed_amount||e.weed_time||e.weed_why) key='weed';
-  else if(e.alcohol_drinks!=null) key='alcohol';
-  else if(e.weighing_on_me) key='weighing';
-  else if(e.is_period_start) key='period';
+  if(e.mood_word)key='mood';
+  else if(e.irritability!==null&&e.irritability!==undefined)key='irrit';
+  else if(e.self_harm!==null&&e.self_harm!==undefined)key='sh';
+  else if(e.energy||e.anxiety||e.social_battery)key='energy';
+  else if(e.sleep_hours!=null)key='sleep';
+  else if(e.weed_amount||e.weed_time||e.weed_why)key='weed';
+  else if(e.alcohol_drinks!=null)key='alcohol';
+  else if(e.weighing_on_me)key='weighing';
+  else if(e.negative_thoughts)key='negthoughts';
+  else if(e.is_period_start)key='period';
   currentSheet=key;
   sheetState={_editId:id,_editType:'log',_tod:pt};
   document.getElementById('sheetInner').innerHTML=getSheetContent(key,pd,pt);
   document.getElementById('sheetBg').classList.add('open');
+  document.getElementById('fabWrap').style.display='none';
   requestAnimationFrame(()=>{
     if(key==='mood'&&e.mood_word){
       const cell=[...document.querySelectorAll('.mood-word')].find(el=>el.textContent.trim()===e.mood_word);
@@ -735,16 +712,17 @@ function editEntry(type,id) {
     }
     if(key==='alcohol'&&e.alcohol_drinks!=null){const i=document.getElementById('alcoholInput');if(i)i.value=e.alcohol_drinks;}
     if(key==='weighing'&&e.weighing_on_me){const ta=document.getElementById('weighingInput');if(ta)ta.value=e.weighing_on_me;}
+    if(key==='negthoughts'&&e.negative_thoughts){const ta=document.getElementById('negthoughtsInput');if(ta)ta.value=e.negative_thoughts;}
   });
 }
 
-async function deleteEntry(type,id) {
-  if(!confirm('Delete this entry?')) return;
+async function deleteEntry(type,id){
+  if(!confirm('Delete this entry?'))return;
   if(type==='happy'){
     const{error}=await sb.from('happy_moments').delete().eq('id',id);
     if(error){toast('Error deleting');return;}
     happyEntries=happyEntries.filter(e=>e.id!==id);
-  } else {
+  }else{
     const{error}=await sb.from('entries').delete().eq('id',id);
     if(error){toast('Error deleting');return;}
     entries=entries.filter(e=>e.id!==id);
@@ -754,24 +732,14 @@ async function deleteEntry(type,id) {
 }
 
 // ── SELECTORS ─────────────────────────────────────────────────────────
-function selTOD(el,val){
-  document.querySelectorAll('.when-btn').forEach(b=>b.classList.remove('sel'));
-  el.classList.add('sel');sheetState._tod=val;
-}
+function selTOD(el,val){document.querySelectorAll('.when-btn').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');sheetState._tod=val;}
 function toggleQuadrant(quad){
   const quads=['red','yellow','blue','green'];
   const grid=document.getElementById('wordGrid-'+quad);
-  if(!grid) return;
+  if(!grid)return;
   const isOpen=grid.classList.contains('open');
-  quads.forEach(q=>{
-    const g=document.getElementById('wordGrid-'+q);
-    if(g) g.classList.remove('open');
-    document.querySelectorAll('.mood-quadrant-btn.'+q).forEach(b=>b.classList.remove('active-q'));
-  });
-  if(!isOpen){
-    grid.classList.add('open');
-    document.querySelectorAll('.mood-quadrant-btn.'+quad).forEach(b=>b.classList.add('active-q'));
-  }
+  quads.forEach(q=>{const g=document.getElementById('wordGrid-'+q);if(g)g.classList.remove('open');document.querySelectorAll('.mood-quadrant-btn.'+q).forEach(b=>b.classList.remove('active-q'));});
+  if(!isOpen){grid.classList.add('open');document.querySelectorAll('.mood-quadrant-btn.'+quad).forEach(b=>b.classList.add('active-q'));}
 }
 function selMood(el,word,quad){
   document.querySelectorAll('.mood-word').forEach(c=>c.classList.remove('sel'));
@@ -782,42 +750,29 @@ function selMood(el,word,quad){
   if(sel){sel.textContent=word;sel.style.color=colors[quad]||'var(--brown)';}
   setTimeout(()=>toggleQuadrant(quad),300);
 }
-function selPillWeedTime(el,val){
-  el.closest('.pill-row').querySelectorAll('.pill').forEach(p=>p.classList.remove('sel'));
-  el.classList.add('sel');sheetState.weedTime=val;sheetState._tod=val;
-}
-function selPill(key,el){
-  el.closest('.pill-row').querySelectorAll('.pill').forEach(p=>p.classList.remove('sel'));
-  el.classList.add('sel');sheetState[key]=el.dataset.val;
-}
-function selScale(key,el){
-  el.closest('.scale-btns').querySelectorAll('.scale-btn').forEach(b=>b.classList.remove('sel'));
-  el.classList.add('sel');sheetState[key]=parseInt(el.dataset.val);
-}
+function selPillWeedTime(el,val){el.closest('.pill-row').querySelectorAll('.pill').forEach(p=>p.classList.remove('sel'));el.classList.add('sel');sheetState.weedTime=val;sheetState._tod=val;}
+function selPill(key,el){el.closest('.pill-row').querySelectorAll('.pill').forEach(p=>p.classList.remove('sel'));el.classList.add('sel');sheetState[key]=el.dataset.val;}
+function selScale(key,el){el.closest('.scale-btns').querySelectorAll('.scale-btn').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');sheetState[key]=parseInt(el.dataset.val);}
 
 // ── DASHBOARD ─────────────────────────────────────────────────────────
-function togglePhaseCard() {
+function togglePhaseCard(){
   phaseCardExpanded=!phaseCardExpanded;
   const exp=document.getElementById('phaseExpandedContent');
-  if(exp) exp.classList.toggle('open',phaseCardExpanded);
+  if(exp)exp.classList.toggle('open',phaseCardExpanded);
   const arrow=document.getElementById('phaseArrow');
-  if(arrow) arrow.style.transform=phaseCardExpanded?'rotate(180deg)':'';
+  if(arrow)arrow.style.transform=phaseCardExpanded?'rotate(180deg)':'';
 }
 
-function renderDashboard() {
+function renderDashboard(){
   const el=document.getElementById('dashContent');
-  if(!el) return;
+  if(!el)return;
   const real=entries.filter(e=>e.entry_type!=='happy');
-  if(!real.length&&!happyEntries.length){
-    el.innerHTML='<div class="empty"><div class="empty-big">◦</div>log a few entries<br>to see your patterns</div>';
-    return;
-  }
+  if(!real.length&&!happyEntries.length){el.innerHTML='<div class="empty"><div class="empty-big">◦</div>log a few entries<br>to see your patterns</div>';return;}
   const now=Date.now();
   const week=real.filter(e=>sortTs(e)>now-7*86400000);
   const phase=getPhase();
   let html='';
 
-  // Phase card (expandable)
   if(phase){
     const det=PHASE_DETAILS[phase.name]||{};
     const pd=real.filter(e=>{const p=getPhaseForDate(new Date(e.logged_at||e.created_at).toISOString());return p&&p.name===phase.name;});
@@ -831,7 +786,7 @@ function renderDashboard() {
           <div class="phase-desc" style="color:${phase.text}">${det.emotional||''}</div>
           ${pd.length>=3?`<div style="margin-top:8px;font-size:12px;color:${phase.text};opacity:.7">${pd.length} past entries in this phase · avg irritability ${ai.length?avg(ai).toFixed(1):'—'}/3 · avg anxiety ${aa.length?avg(aa).toFixed(1):'—'}/5</div>`:''}
         </div>
-        <div id="phaseArrow" style="color:${phase.color};font-size:16px;margin-left:8px;flex-shrink:0;transition:transform .2s">▾</div>
+        <div id="phaseArrow" style="color:${phase.color};font-size:16px;margin-left:8px;flex-shrink:0;transition:transform .2s;${phaseCardExpanded?'transform:rotate(180deg)':''}">▾</div>
       </div>
       <div class="phase-expanded${phaseCardExpanded?' open':''}" id="phaseExpandedContent">
         <div class="phase-expanded-section"><h4 style="color:${phase.text}">What's happening hormonally</h4><p style="color:${phase.text}">${det.hormone||''}</p></div>
@@ -841,13 +796,11 @@ function renderDashboard() {
     </div>`;
   }
 
-  // AI insights
   html+=`<button class="refresh-btn" id="refreshBtn" onclick="loadAIInsights()">
     <svg viewBox="0 0 24 24"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
     refresh AI insights</button>`;
   html+=`<div id="aiInsights">${storedInsights||'<div style="font-size:13px;color:var(--text3);text-align:center;padding:12px">tap refresh to generate insights</div>'}</div>`;
 
-  // Week averages (tappable)
   if(week.length>0){
     const ia=week.map(e=>irritNum(e.irritability)).filter(v=>v!==null);
     const aa=week.map(e=>e.anxiety).filter(Boolean);
@@ -860,7 +813,6 @@ function renderDashboard() {
     html+='</div>';
   }
 
-  // Happy moments
   if(happyEntries.length){
     html+='<div class="section-label">recent happy moments</div><div class="card">';
     happyEntries.slice(0,3).forEach((e,i)=>{
@@ -871,126 +823,80 @@ function renderDashboard() {
     html+='</div>';
   }
 
-  // Calendar
   html+='<div class="section-label">calendar</div>';
   html+=renderCalendarHTML(calMonth);
-
   el.innerHTML=html;
 }
 
 // ── CALENDAR ─────────────────────────────────────────────────────────
-function renderCalendarHTML(month) {
-  const y=month.getFullYear(), m=month.getMonth();
+function renderCalendarHTML(month){
+  const y=month.getFullYear(),m=month.getMonth();
   const monthName=month.toLocaleDateString('en-US',{month:'long',year:'numeric'});
-  // build set of date strings that have entries
-  const entryDates={};
-  const shDates={};
+  const entryDates={};const shDates={};const periodDates={};
   entries.forEach(e=>{
-    const d=new Date(e.logged_at||e.created_at);
-    const ds=localDateStr(d);
+    const ds=localDateStr(new Date(e.logged_at||e.created_at));
     entryDates[ds]=true;
-    if(e.self_harm!==null&&e.self_harm!==undefined&&parseInt(e.self_harm)>0) shDates[ds]=true;
+    if(e.self_harm!==null&&e.self_harm!==undefined&&parseInt(e.self_harm)>0)shDates[ds]=true;
+    if(e.is_period_start)periodDates[ds]=true;
   });
-  happyEntries.forEach(e=>{
-    const ds=localDateStr(new Date(e.created_at));
-    entryDates[ds]=true;
-  });
-
-  // period start dates
-  const periodDates={};
-  entries.filter(e=>e.is_period_start).forEach(e=>{
-    periodDates[localDateStr(new Date(e.logged_at||e.created_at))]=true;
-  });
-
-  // first day of month, start on sunday
-  const firstDay=new Date(y,m,1).getDay(); // 0=sun
+  happyEntries.forEach(e=>{entryDates[localDateStr(new Date(e.created_at))]=true;});
+  const firstDay=new Date(y,m,1).getDay();
   const daysInMonth=new Date(y,m+1,0).getDate();
   const prevDays=new Date(y,m,0).getDate();
   const todayStr=localDateStr();
-
   let html=`<div class="cal-wrap">
     <div class="cal-header">
       <button class="cal-nav" onclick="calPrev()">‹</button>
       <div class="cal-title">${monthName}</div>
       <button class="cal-nav" onclick="calNext()">›</button>
     </div>
-    <div class="cal-dow">
-      ${['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>`<div class="cal-dow-cell">${d}</div>`).join('')}
-    </div>
+    <div class="cal-dow">${['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>`<div class="cal-dow-cell">${d}</div>`).join('')}</div>
     <div class="cal-grid">`;
-
-  // prev month padding
   for(let i=firstDay-1;i>=0;i--){
-    const dayNum=prevDays-i;
-    const ds=`${y}-${String(m===0?12:m).padStart(2,'0')}-${String(dayNum).padStart(2,'0')}`;
-    // actually use proper prev month year
-    const prevDate=new Date(y,m-1,dayNum);
+    const prevDate=new Date(y,m-1,prevDays-i);
     const pds=localDateStr(prevDate);
-    const moon=MOON_PHASES[pds]||'';
-    html+=`<div class="cal-day other-month" onclick="calDayTap('${pds}')">
-      <div class="cal-day-moon">${moon}</div>
-      <div class="cal-day-num">${dayNum}</div>
-    </div>`;
+    html+=`<div class="cal-day other-month" onclick="calDayTap('${pds}')"><div class="cal-day-moon">${MOON_PHASES[pds]||''}</div><div class="cal-day-num">${prevDays-i}</div></div>`;
   }
-
-  // current month
   for(let day=1;day<=daysInMonth;day++){
     const ds=`${y}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
     const isToday=ds===todayStr;
-    const hasEntries=entryDates[ds];
-    const hasSH=shDates[ds];
-    const hasPeriod=periodDates[ds];
-    const moon=MOON_PHASES[ds]||'';
     let cls='cal-day';
-    if(isToday) cls+=' today';
-    if(hasEntries) cls+=' has-entries';
+    if(isToday)cls+=' today';
+    if(entryDates[ds])cls+=' has-entries';
     html+=`<div class="${cls}" onclick="calDayTap('${ds}')">
-      <div class="cal-day-moon">${moon}</div>
+      <div class="cal-day-moon">${MOON_PHASES[ds]||''}</div>
       <div class="cal-day-num">${day}</div>
-      ${hasSH?'<div class="cal-day-dot"></div>':''}
-      ${hasPeriod?'<div class="cal-day-period"></div>':''}
+      ${shDates[ds]?'<div class="cal-day-dot"></div>':''}
+      ${periodDates[ds]?'<div class="cal-day-period"></div>':''}
     </div>`;
   }
-
-  // next month padding to fill grid
   const totalCells=Math.ceil((firstDay+daysInMonth)/7)*7;
   const remaining=totalCells-(firstDay+daysInMonth);
   for(let day=1;day<=remaining;day++){
     const nextDate=new Date(y,m+1,day);
     const nds=localDateStr(nextDate);
-    const moon=MOON_PHASES[nds]||'';
-    html+=`<div class="cal-day other-month" onclick="calDayTap('${nds}')">
-      <div class="cal-day-moon">${moon}</div>
-      <div class="cal-day-num">${day}</div>
-    </div>`;
+    html+=`<div class="cal-day other-month" onclick="calDayTap('${nds}')"><div class="cal-day-moon">${MOON_PHASES[nds]||''}</div><div class="cal-day-num">${day}</div></div>`;
   }
-
   html+='</div></div>';
   return html;
 }
 
-function calPrev() {
+function calPrev(){
   calMonth=new Date(calMonth.getFullYear(),calMonth.getMonth()-1,1);
   const calWrap=document.querySelector('.cal-wrap');
-  if(calWrap) {
-    const tmp=document.createElement('div');
-    tmp.innerHTML=renderCalendarHTML(calMonth);
-    calWrap.parentNode.replaceChild(tmp.firstChild,calWrap);
-  } else renderDashboard();
+  if(calWrap){const tmp=document.createElement('div');tmp.innerHTML=renderCalendarHTML(calMonth);calWrap.parentNode.replaceChild(tmp.firstChild,calWrap);}
+  else renderDashboard();
 }
-function calNext() {
+function calNext(){
   calMonth=new Date(calMonth.getFullYear(),calMonth.getMonth()+1,1);
   const calWrap=document.querySelector('.cal-wrap');
-  if(calWrap) {
-    const tmp=document.createElement('div');
-    tmp.innerHTML=renderCalendarHTML(calMonth);
-    calWrap.parentNode.replaceChild(tmp.firstChild,calWrap);
-  } else renderDashboard();
+  if(calWrap){const tmp=document.createElement('div');tmp.innerHTML=renderCalendarHTML(calMonth);calWrap.parentNode.replaceChild(tmp.firstChild,calWrap);}
+  else renderDashboard();
 }
-function calDayTap(dateStr) {
+function calDayTap(dateStr){
   histFilterDate=dateStr;
   const btns=document.querySelectorAll('.nav-btn');
-  goTo('history', btns[1]||null);
+  goTo('history',btns[1]||null);
 }
 
 // ── METRIC POPUP ──────────────────────────────────────────────────────
@@ -998,10 +904,9 @@ let metricPopupKey=null;
 let metricSwipeIdx=0;
 
 function openMetricPopup(key){
-  if(key==='entries') return;
+  if(key==='entries')return;
   ensureChartJS(()=>{
-    metricPopupKey=key;
-    metricSwipeIdx=0;
+    metricPopupKey=key;metricSwipeIdx=0;
     const labels={irrit:'Irritability',anxiety:'Anxiety',sleep:'Sleep'};
     const title=labels[key]||key;
     const inner=document.getElementById('metricPopupInner');
@@ -1021,152 +926,115 @@ function openMetricPopup(key){
     const wrap=document.getElementById('metricSwipeWrap');
     let startX=0;
     wrap.addEventListener('touchstart',e=>{startX=e.touches[0].clientX;},{passive:true});
-    wrap.addEventListener('touchend',e=>{
-      const dx=e.changedTouches[0].clientX-startX;
-      if(Math.abs(dx)>40) metricTabSwitch(dx<0?1:0);
-    },{passive:true});
+    wrap.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-startX;if(Math.abs(dx)>40)metricTabSwitch(dx<0?1:0);},{passive:true});
     setTimeout(()=>drawMetricCharts(key),60);
   });
 }
 
-function metricTabSwitch(idx) {
+function metricTabSwitch(idx){
   metricSwipeIdx=idx;
   const wrap=document.getElementById('metricSwipeWrap');
-  if(wrap) wrap.style.transform=`translateX(${-idx*100}%)`;
+  if(wrap)wrap.style.transform=`translateX(${-idx*100}%)`;
   document.querySelectorAll('.chart-tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
 }
 
-function drawMetricCharts(key) {
+function drawMetricCharts(key){
   const real=entries.filter(e=>e.entry_type!=='happy');
   const now=Date.now();
   const week=real.filter(e=>sortTs(e)>now-7*86400000).sort((a,b)=>sortTs(a)-sortTs(b));
   const all=real.filter(e=>{
-    if(key==='irrit') return e.irritability!==null&&e.irritability!==undefined;
-    if(key==='anxiety') return e.anxiety!==null&&e.anxiety!==undefined;
-    if(key==='sleep') return e.sleep_hours!=null;
+    if(key==='irrit')return e.irritability!==null&&e.irritability!==undefined;
+    if(key==='anxiety')return e.anxiety!==null&&e.anxiety!==undefined;
+    if(key==='sleep')return e.sleep_hours!=null;
     return false;
   }).sort((a,b)=>sortTs(a)-sortTs(b)).slice(-30);
-
-  function getVal(e) {
-    if(key==='irrit') return irritNum(e.irritability);
-    if(key==='anxiety') return e.anxiety;
-    if(key==='sleep') return e.sleep_hours;
-    return null;
-  }
-  function dayLabel(ts) {
-    const d=new Date(ts);
-    return (d.getMonth()+1)+'/'+d.getDate();
-  }
-
+  function getVal(e){if(key==='irrit')return irritNum(e.irritability);if(key==='anxiety')return e.anxiety;if(key==='sleep')return e.sleep_hours;return null;}
+  function dayLabel(ts){const d=new Date(ts);return(d.getMonth()+1)+'/'+d.getDate();}
   const colors={irrit:'#c17f74',anxiety:'#a07ab5',sleep:'#7a9db5'};
   const maxes={irrit:3,anxiety:5,sleep:12};
   const col=colors[key]||'#7c5c45';
   const mx=maxes[key]||5;
-
-  // week chart - daily averages
   const weekDays={};
-  week.forEach(e=>{
-    const v=getVal(e);
-    if(v===null||v===undefined) return;
-    const ds=localDateStr(new Date(sortTs(e)));
-    if(!weekDays[ds]) weekDays[ds]=[];
-    weekDays[ds].push(v);
-  });
+  week.forEach(e=>{const v=getVal(e);if(v===null||v===undefined)return;const ds=localDateStr(new Date(sortTs(e)));if(!weekDays[ds])weekDays[ds]=[];weekDays[ds].push(v);});
   const wLabels=Object.keys(weekDays).sort();
   const wData=wLabels.map(d=>parseFloat(avg(weekDays[d]).toFixed(2)));
-
-  // all time chart
   const aLabels=all.map(e=>dayLabel(sortTs(e)));
   const aData=all.map(e=>getVal(e)).filter(v=>v!==null);
-
-  // destroy old
   Object.values(metricChartInsts).forEach(c=>{try{c.destroy();}catch(e){}});
   metricChartInsts={};
-
-  function makeChart(id,labels,data) {
-    const ctx=document.getElementById(id);
-    if(!ctx) return;
-    // dynamically load chart.js if not present
-    if(typeof Chart==='undefined') return;
-    metricChartInsts[id]=new Chart(ctx,{
-      type:'line',
-      data:{labels,datasets:[{data,borderColor:col,backgroundColor:col+'22',borderWidth:2,pointRadius:3,pointBackgroundColor:col,fill:true,tension:.3}]},
+  function makeChart(id,labels,data){
+    const ctx=document.getElementById(id);if(!ctx)return;
+    if(typeof Chart==='undefined')return;
+    metricChartInsts[id]=new Chart(ctx,{type:'line',
+      data:{labels:labels.length?labels:['no data'],datasets:[{data:data.length?data:[0],borderColor:col,backgroundColor:col+'22',borderWidth:2,pointRadius:3,pointBackgroundColor:col,fill:true,tension:.3}]},
       options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
         scales:{y:{min:0,max:mx,ticks:{font:{size:10},color:'#9c8f85'},grid:{color:'rgba(224,216,207,.5)'}},
-          x:{ticks:{font:{size:9},color:'#9c8f85',maxRotation:0,autoSkip:true,maxTicksLimit:7},grid:{display:false}}}}
-    });
+          x:{ticks:{font:{size:9},color:'#9c8f85',maxRotation:0,autoSkip:true,maxTicksLimit:7},grid:{display:false}}}}});
   }
-
-  makeChart('metricChart0',wLabels.map(d=>{const dt=new Date(d);return['Su','Mo','Tu','We','Th','Fr','Sa'][dt.getDay()];}).length?wLabels.map(d=>{const dt=new Date(d);return['Su','Mo','Tu','We','Th','Fr','Sa'][dt.getDay()];}):['no data'],wData.length?wData:[0]);
+  const wDayLabels=wLabels.map(d=>{const dt=new Date(d);return['Su','Mo','Tu','We','Th','Fr','Sa'][dt.getDay()];});
+  makeChart('metricChart0',wDayLabels.length?wDayLabels:['no data'],wData.length?wData:[0]);
   makeChart('metricChart1',aLabels.length?aLabels:['no data'],aData.length?aData:[0]);
 }
 
-function closeMetricPopup() {
+function closeMetricPopup(){
   document.getElementById('metricPopupBg').classList.remove('open');
   Object.values(metricChartInsts).forEach(c=>{try{c.destroy();}catch(e){}});
-  metricChartInsts={};
-  metricPopupKey=null;
+  metricChartInsts={};metricPopupKey=null;
 }
-function closeMetricPopupOnBg(e) { if(e.target===document.getElementById('metricPopupBg')) closeMetricPopup(); }
+function closeMetricPopupOnBg(e){if(e.target===document.getElementById('metricPopupBg'))closeMetricPopup();}
+function ensureChartJS(cb){
+  if(typeof Chart!=='undefined'){cb();return;}
+  const s=document.createElement('script');
+  s.src='https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js';
+  s.onload=cb;document.head.appendChild(s);
+}
 
 // ── AI INSIGHTS ───────────────────────────────────────────────────────
-async function loadAIInsights() {
+async function loadAIInsights(){
   const aiEl=document.getElementById('aiInsights');
   const btn=document.getElementById('refreshBtn');
-  if(!aiEl) return;
+  if(!aiEl)return;
   aiEl.innerHTML='<div style="text-align:center;padding:24px;color:var(--text3);font-size:13px;font-style:italic">analyzing your patterns...</div>';
-  if(btn) btn.disabled=true;
-
+  if(btn)btn.disabled=true;
   const real=entries.filter(e=>e.entry_type!=='happy').slice(0,60);
   const sorted=[...real].sort((a,b)=>sortTs(a)-sortTs(b));
   const phase=getPhase();
-
   const summary=sorted.map(e=>{
     const d=new Date(e.logged_at||e.created_at);
     const ds=d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
     const ts=d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
     const ep=getPhaseForDate(d.toISOString());
     const parts=[];
-    if(e.mood_word) parts.push(`mood:${e.mood_word}(${e.mood_quadrant})`);
-    if(e.irritability!==null&&e.irritability!==undefined) parts.push(`irrit:${['nothing','small','snapped','explosive'][parseInt(e.irritability)]||e.irritability}`);
-    if(e.self_harm!==null&&e.self_harm!==undefined) parts.push(`sh:${['none','quiet','loud','specific'][parseInt(e.self_harm)]||e.self_harm}`);
-    if(e.anxiety) parts.push(`anx:${e.anxiety}/5`);
-    if(e.energy) parts.push(`nrg:${e.energy}/5`);
-    if(e.social_battery) parts.push(`soc:${e.social_battery}/5`);
-    if(e.sleep_hours) parts.push(`slp:${e.sleep_hours}h`);
-    if(e.weed_amount&&e.weed_amount!=='none') parts.push(`weed:${e.weed_amount}${e.weed_time?'('+e.weed_time+')':''}`);
-    if(e.alcohol_drinks>0) parts.push(`alc:${e.alcohol_drinks}`);
-    if(ep) parts.push(`phase:${ep.name}`);
-    if(e.weighing_on_me) parts.push(`note:"${e.weighing_on_me.slice(0,60)}"`);
+    if(e.mood_word)parts.push(`mood:${e.mood_word}(${e.mood_quadrant})`);
+    if(e.irritability!==null&&e.irritability!==undefined)parts.push(`irrit:${['nothing','small','snapped','explosive'][parseInt(e.irritability)]||e.irritability}`);
+    if(e.self_harm!==null&&e.self_harm!==undefined)parts.push(`sh:${['none','quiet','loud','specific'][parseInt(e.self_harm)]||e.self_harm}`);
+    if(e.anxiety)parts.push(`anx:${e.anxiety}/5`);
+    if(e.energy)parts.push(`nrg:${e.energy}/5`);
+    if(e.social_battery)parts.push(`soc:${e.social_battery}/5`);
+    if(e.sleep_hours)parts.push(`slp:${e.sleep_hours}h`);
+    if(e.weed_amount&&e.weed_amount!=='none')parts.push(`weed:${e.weed_amount}${e.weed_time?'('+e.weed_time+')':''}`);
+    if(e.alcohol_drinks>0)parts.push(`alc:${e.alcohol_drinks}`);
+    if(ep)parts.push(`phase:${ep.name}`);
+    if(e.weighing_on_me)parts.push(`weighing:"${e.weighing_on_me.slice(0,60)}"`);
+    if(e.negative_thoughts)parts.push(`negthought:"${e.negative_thoughts.slice(0,60)}"`);
     return parts.length?`${ds} ${ts}: ${parts.join(', ')}`:null;
   }).filter(Boolean).join('\n');
-
   const totalDays=sorted.length>1?Math.round((sortTs(sorted[sorted.length-1])-sortTs(sorted[0]))/86400000):0;
-
-  const prompt=`You are helping someone understand their mental health patterns to bring to therapy. They track mood, irritability, self-harm thoughts, anxiety, energy, social battery, sleep, marijuana, alcohol, and menstrual cycle phase.
+  const prompt=`You are helping someone understand their mental health patterns to bring to therapy. They track mood, irritability, self-harm thoughts, anxiety, energy, social battery, sleep, marijuana, alcohol, compulsive negative thoughts, and menstrual cycle phase.
 
 Data spans ~${totalDays} days (${sorted.length} entries). Current cycle phase: ${phase?phase.name+' day '+phase.day:'unknown'}.
 
 Entries oldest to newest:
 ${summary}
 
-Write 4-6 pattern observations. Mix short-term and long-term. Include positive trends alongside concerning ones. Note time-of-day patterns, cycle correlations, substance relationships, and arcs over the full timespan.
-
-Each insight: bold title, 2-3 sentences, warm and direct, use "you", no raw numbers, note direction (improving/worsening/stable) when visible.
+Write EXACTLY 3 insights. No more. Each insight: bold title, 2-3 sentences maximum. Include positive trends alongside concerning ones. Note time-of-day patterns, cycle correlations, and arcs over the full timespan. Use "you" language, warm and direct. Total response must be under 200 words.
 
 Format:
 **Title**
-Observation.
-
-Under 420 words total.`;
-
-  try {
-    const res=await fetch('/.netlify/functions/ai-insights',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({messages:[{role:'user',content:prompt}]})
-    });
-    if(!res.ok) throw new Error(`Server error ${res.status}`);
+Observation.`;
+  try{
+    const res=await fetch('/.netlify/functions/ai-insights',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:prompt}]})});
+    if(!res.ok)throw new Error(`Server error ${res.status}`);
     const data=await res.json();
     if(data.content&&data.content[0]&&data.content[0].text){
       const rendered=data.content[0].text
@@ -1174,45 +1042,36 @@ Under 420 words total.`;
         .split('\n\n').filter(p=>p.trim())
         .map(p=>`<div class="insight-box"><div class="insight-text">${p.replace(/\n/g,'<br>')}</div></div>`)
         .join('');
-      storedInsights=rendered;
-      aiEl.innerHTML=rendered;
-    } else if(data.error) {
+      storedInsights=rendered;aiEl.innerHTML=rendered;
+    }else if(data.error){
       aiEl.innerHTML=`<div class="insight-box"><div class="insight-text">Error: ${data.error}</div></div>`;
-    } else {
+    }else{
       aiEl.innerHTML='<div class="insight-box"><div class="insight-text">No insights returned. Try logging more entries first.</div></div>';
     }
-  } catch(e) {
-    aiEl.innerHTML=`<div class="insight-box"><div class="insight-text">Could not reach server. Check that your Netlify function is deployed and ANTHROPIC_API_KEY is set in environment variables.</div></div>`;
+  }catch(e){
+    aiEl.innerHTML=`<div class="insight-box"><div class="insight-text">Could not reach server. Check that your Netlify function is deployed and ANTHROPIC_API_KEY is set.</div></div>`;
   }
-  if(btn) btn.disabled=false;
+  if(btn)btn.disabled=false;
 }
 
 // ── HISTORY ───────────────────────────────────────────────────────────
-function toggleHistCal() {
+function toggleHistCal(){
   histCalOpen=!histCalOpen;
   const wrap=document.getElementById('histCalWrap');
-  if(!wrap) return;
-  if(histCalOpen){
-    histCalMonth=new Date();
-    wrap.style.display='block';
-    wrap.innerHTML=renderHistCalHTML(histCalMonth);
-  } else {
-    wrap.style.display='none';
-  }
+  if(!wrap)return;
+  if(histCalOpen){histCalMonth=new Date();wrap.style.display='block';wrap.innerHTML=renderHistCalHTML(histCalMonth);}
+  else wrap.style.display='none';
 }
-
-function renderHistCalHTML(month) {
+function renderHistCalHTML(month){
   const y=month.getFullYear(),m=month.getMonth();
   const monthName=month.toLocaleDateString('en-US',{month:'long',year:'numeric'});
   const firstDay=new Date(y,m,1).getDay();
   const daysInMonth=new Date(y,m+1,0).getDate();
   const prevDays=new Date(y,m,0).getDate();
   const todayStr=localDateStr();
-
   const entryDates={};
   entries.forEach(e=>{entryDates[localDateStr(new Date(e.logged_at||e.created_at))]=true;});
   happyEntries.forEach(e=>{entryDates[localDateStr(new Date(e.created_at))]=true;});
-
   let html=`<div class="cal-wrap" style="margin-bottom:0">
     <div class="cal-header">
       <button class="cal-nav" onclick="histCalPrev()">‹</button>
@@ -1221,26 +1080,20 @@ function renderHistCalHTML(month) {
     </div>
     <div class="cal-dow">${['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>`<div class="cal-dow-cell">${d}</div>`).join('')}</div>
     <div class="cal-grid">`;
-
   for(let i=firstDay-1;i>=0;i--){
     const prevDate=new Date(y,m-1,prevDays-i);
     const pds=localDateStr(prevDate);
-    html+=`<div class="cal-day other-month" onclick="histCalDayTap('${pds}')">
-      <div class="cal-day-moon"></div><div class="cal-day-num">${prevDays-i}</div></div>`;
+    html+=`<div class="cal-day other-month" onclick="histCalDayTap('${pds}')"><div class="cal-day-moon"></div><div class="cal-day-num">${prevDays-i}</div></div>`;
   }
   for(let day=1;day<=daysInMonth;day++){
     const ds=`${y}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
     const isToday=ds===todayStr;
     const isSelected=ds===histFilterDate;
-    const hasEntries=entryDates[ds];
-    let cls='cal-day';
-    if(isToday) cls+=' today';
-    if(hasEntries) cls+=' has-entries';
-    const selStyle=isSelected?`style="outline:2px solid var(--brown)"`:'';
-    html+=`<div class="${cls}" ${selStyle} onclick="histCalDayTap('${ds}')">
+    let cls='cal-day';if(isToday)cls+=' today';if(entryDates[ds])cls+=' has-entries';
+    html+=`<div class="${cls}" ${isSelected?'style="outline:2px solid var(--brown)"':''} onclick="histCalDayTap('${ds}')">
       <div class="cal-day-moon"></div>
       <div class="cal-day-num">${day}</div>
-      ${hasEntries?'<div class="cal-day-dot" style="background:var(--brown-light)"></div>':''}
+      ${entryDates[ds]?'<div class="cal-day-dot" style="background:var(--brown-light)"></div>':''}
     </div>`;
   }
   const totalCells=Math.ceil((firstDay+daysInMonth)/7)*7;
@@ -1248,27 +1101,19 @@ function renderHistCalHTML(month) {
   for(let day=1;day<=remaining;day++){
     const nextDate=new Date(y,m+1,day);
     const nds=localDateStr(nextDate);
-    html+=`<div class="cal-day other-month" onclick="histCalDayTap('${nds}')">
-      <div class="cal-day-moon"></div><div class="cal-day-num">${day}</div></div>`;
+    html+=`<div class="cal-day other-month" onclick="histCalDayTap('${nds}')"><div class="cal-day-moon"></div><div class="cal-day-num">${day}</div></div>`;
   }
   html+='</div></div>';
   return html;
 }
+function histCalPrev(){histCalMonth=new Date(histCalMonth.getFullYear(),histCalMonth.getMonth()-1,1);const wrap=document.getElementById('histCalWrap');if(wrap)wrap.innerHTML=renderHistCalHTML(histCalMonth);}
+function histCalNext(){histCalMonth=new Date(histCalMonth.getFullYear(),histCalMonth.getMonth()+1,1);const wrap=document.getElementById('histCalWrap');if(wrap)wrap.innerHTML=renderHistCalHTML(histCalMonth);}
+function histCalDayTap(ds){histFilterDate=ds;histCalOpen=false;document.getElementById('histCalWrap').style.display='none';renderHistory();}
 
-function histCalPrev(){
-  histCalMonth=new Date(histCalMonth.getFullYear(),histCalMonth.getMonth()-1,1);
-  const wrap=document.getElementById('histCalWrap');
-  if(wrap) wrap.innerHTML=renderHistCalHTML(histCalMonth);
-}
-function histCalNext(){
-  histCalMonth=new Date(histCalMonth.getFullYear(),histCalMonth.getMonth()+1,1);
-  const wrap=document.getElementById('histCalWrap');
-  if(wrap) wrap.innerHTML=renderHistCalHTML(histCalMonth);
-}
-function histCalDayTap(ds){
-  histFilterDate=ds;
-  histCalOpen=false;
-  document.getElementById('histCalWrap').style.display='none';
+function setTypeFilter(type,el){
+  histTypeFilter=type;
+  document.querySelectorAll('.hist-type-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
   renderHistory();
 }
 function clearHistFilter(){
@@ -1277,43 +1122,48 @@ function clearHistFilter(){
   renderHistory();
 }
 
-function renderHistory() {
+function renderHistory(){
   const el=document.getElementById('histContent');
   const all=[
     ...entries.map(e=>({...e,_type:'log',_ts:sortTs(e)})),
     ...happyEntries.map(e=>({...e,_type:'happy',_ts:new Date(e.created_at).getTime()}))
   ].sort((a,b)=>b._ts-a._ts);
 
-  // filter bar
   const filterBar=document.getElementById('histFilterBar');
   if(histFilterDate&&filterBar){
     filterBar.style.display='flex';
     const ft=document.getElementById('histFilterText');
-    if(ft){
-      const d=new Date(histFilterDate+'T12:00');
-      ft.textContent=d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
-    }
-  } else if(filterBar) {
-    filterBar.style.display='none';
+    if(ft){const d=new Date(histFilterDate+'T12:00');ft.textContent=d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});}
+  }else if(filterBar){filterBar.style.display='none';}
+
+  let filtered=histFilterDate?all.filter(e=>localDateStr(new Date(e._ts))===histFilterDate):all;
+  if(histTypeFilter){
+    filtered=filtered.filter(e=>{
+      if(histTypeFilter==='happy')return e._type==='happy';
+      if(histTypeFilter==='mood')return e.mood_word;
+      if(histTypeFilter==='irrit')return e.irritability!==null&&e.irritability!==undefined;
+      if(histTypeFilter==='sh')return e.self_harm!==null&&e.self_harm!==undefined;
+      if(histTypeFilter==='energy')return e.energy||e.anxiety||e.social_battery;
+      if(histTypeFilter==='sleep')return e.sleep_hours!=null;
+      if(histTypeFilter==='weed')return e.weed_amount||e.weed_time;
+      if(histTypeFilter==='alcohol')return e.alcohol_drinks>0;
+      if(histTypeFilter==='weighing')return e.weighing_on_me;
+      if(histTypeFilter==='negthoughts')return e.negative_thoughts;
+      return true;
+    });
   }
 
-  // apply filter
-  const filtered=histFilterDate?all.filter(e=>{
-    const ds=localDateStr(new Date(e._ts));
-    return ds===histFilterDate;
-  }):all;
-
-  if(!filtered.length){
-    el.innerHTML='<div class="empty"><div class="empty-big">◦</div>'+(histFilterDate?'no entries on this day':'no entries yet')+'</div>';
-    return;
-  }
+  if(!filtered.length){el.innerHTML='<div class="empty"><div class="empty-big">◦</div>'+(histFilterDate||histTypeFilter?'no entries match this filter':'no entries yet')+'</div>';return;}
 
   const groups={};
   filtered.forEach(e=>{
     const key=new Date(e._ts).toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
-    if(!groups[key]) groups[key]={ts:e._ts,items:[]};
+    if(!groups[key])groups[key]={ts:e._ts,items:[]};
     groups[key].items.push(e);
   });
+
+  const pencilSVG=`<svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`;
+  const trashSVG=`<svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>`;
 
   let html='';
   Object.entries(groups).forEach(([date,{ts,items}])=>{
@@ -1322,46 +1172,32 @@ function renderHistory() {
     html+=`<div class="day-group"><div class="day-label">${date}${phaseStr}</div>`;
     items.forEach(e=>{
       const time=new Date(e._ts).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+      const iconActions=`<div class="entry-icon-actions">
+        <button class="icon-btn" onclick="editEntry('${e._type}','${e.id}')" title="Edit">${pencilSVG}</button>
+        <button class="icon-btn del" onclick="deleteEntry('${e._type}','${e.id}')" title="Delete">${trashSVG}</button>
+      </div>`;
       if(e._type==='happy'){
-        html+=`<div class="entry-row happy-row">
-          <div class="entry-icon-actions">
-            <button class="icon-btn" onclick="editEntry('happy','${e.id}')" title="Edit">
-              <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-            </button>
-            <button class="icon-btn del" onclick="deleteEntry('happy','${e.id}')" title="Delete">
-              <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
-            </button>
-          </div>
-          <div class="entry-time">${time} · happy moment</div>
-          <div style="font-size:14px;color:var(--text2);line-height:1.4;padding-right:52px">${e.content}</div>
-        </div>`;
-      } else {
+        html+=`<div class="entry-row happy-row">${iconActions}<div class="entry-time">${time} · happy moment</div><div style="font-size:14px;color:var(--text2);line-height:1.4;padding-right:52px">${e.content}</div></div>`;
+      }else{
         const tags=[];
-        if(e.mood_word) tags.push(`<span class="etag ${e.mood_quadrant||''}">${e.mood_word}</span>`);
+        if(e.mood_word)tags.push(`<span class="etag ${e.mood_quadrant||''}">${e.mood_word}</span>`);
         const iL=['nothing bothers me','small things','snapped','explosive'];
-        if(e.irritability!==null&&e.irritability!==undefined) tags.push(`<span class="etag">${iL[parseInt(e.irritability)]||e.irritability}</span>`);
+        if(e.irritability!==null&&e.irritability!==undefined)tags.push(`<span class="etag">${iL[parseInt(e.irritability)]||e.irritability}</span>`);
         const sL=['no sh thoughts','quiet','loud','specific method'];
-        if(e.self_harm!==null&&e.self_harm!==undefined) tags.push(`<span class="etag ${parseInt(e.self_harm)>0?'red':''}">${sL[parseInt(e.self_harm)]||e.self_harm}</span>`);
-        if(e.anxiety) tags.push(`<span class="etag">anxiety ${e.anxiety}/5</span>`);
-        if(e.energy) tags.push(`<span class="etag">energy ${e.energy}/5</span>`);
-        if(e.sleep_hours!=null) tags.push(`<span class="etag">${e.sleep_hours}h sleep</span>`);
-        if(e.weed_amount&&e.weed_amount!=='none') tags.push(`<span class="etag">${e.weed_amount} weed${e.weed_time?' ('+e.weed_time+')':''}</span>`);
-        if(e.alcohol_drinks>0) tags.push(`<span class="etag">${e.alcohol_drinks} drink${e.alcohol_drinks!==1?'s':''}</span>`);
-        if(e.is_period_start) tags.push(`<span class="etag" style="background:#f5ebe9;border-color:#c17f74;color:#7a3d36">period start</span>`);
-        if(!tags.length&&!e.weighing_on_me) return;
-        html+=`<div class="entry-row">
-          <div class="entry-icon-actions">
-            <button class="icon-btn" onclick="editEntry('log','${e.id}')" title="Edit">
-              <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-            </button>
-            <button class="icon-btn del" onclick="deleteEntry('log','${e.id}')" title="Delete">
-              <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
-            </button>
-          </div>
-          <div class="entry-time">${time}</div>
-          ${tags.length?`<div class="entry-tags">${tags.join('')}</div>`:''}
-          ${e.weighing_on_me?`<div class="entry-note">"${e.weighing_on_me}"</div>`:''}
-        </div>`;
+        if(e.self_harm!==null&&e.self_harm!==undefined)tags.push(`<span class="etag ${parseInt(e.self_harm)>0?'red':''}">${sL[parseInt(e.self_harm)]||e.self_harm}</span>`);
+        if(e.anxiety)tags.push(`<span class="etag">anxiety ${e.anxiety}/5</span>`);
+        if(e.energy)tags.push(`<span class="etag">energy ${e.energy}/5</span>`);
+        if(e.sleep_hours!=null)tags.push(`<span class="etag">${e.sleep_hours}h sleep</span>`);
+        if(e.weed_amount&&e.weed_amount!=='none')tags.push(`<span class="etag">${e.weed_amount} weed${e.weed_time?' ('+e.weed_time+')':''}</span>`);
+        if(e.alcohol_drinks>0)tags.push(`<span class="etag">${e.alcohol_drinks} drink${e.alcohol_drinks!==1?'s':''}</span>`);
+        if(e.is_period_start)tags.push(`<span class="etag" style="background:#f5ebe9;border-color:#c17f74;color:#7a3d36">period start</span>`);
+        if(e.negative_thoughts)tags.push(`<span class="etag" style="background:#f0eaf5;border-color:#a07ab5;color:#4a2d5e">negative thoughts</span>`);
+        if(!tags.length&&!e.weighing_on_me&&!e.negative_thoughts)return;
+        html+=`<div class="entry-row">${iconActions}<div class="entry-time">${time}</div>`;
+        if(tags.length)html+=`<div class="entry-tags">${tags.join('')}</div>`;
+        if(e.weighing_on_me)html+=`<div class="entry-note">"${e.weighing_on_me}"</div>`;
+        if(e.negative_thoughts)html+=`<div class="entry-note" style="color:#4a2d5e">"${e.negative_thoughts}"</div>`;
+        html+='</div>';
       }
     });
     html+='</div>';
@@ -1374,27 +1210,18 @@ function goTo(name,btn){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('screen-'+name).classList.add('active');
-  if(btn) btn.classList.add('active');
+  if(btn)btn.classList.add('active');
   closeFab();
   const fw=document.getElementById('fabWrap');
-  if(fw) fw.style.display=name==='settings'?'none':'flex';
-  if(name!=='history') histFilterDate=null;
-  if(name==='history') renderHistory();
-  if(name==='dash') renderDashboard();
+  if(fw)fw.style.display=name==='settings'?'none':'flex';
+  if(name!=='history'){histFilterDate=null;histTypeFilter=null;}
+  if(name==='history')renderHistory();
+  if(name==='dash')renderDashboard();
 }
 function toast(msg){
   const t=document.getElementById('toast');
   t.textContent=msg;t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),2500);
-}
-
-// load Chart.js dynamically
-function ensureChartJS(cb) {
-  if(typeof Chart!=='undefined'){cb();return;}
-  const s=document.createElement('script');
-  s.src='https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js';
-  s.onload=cb;
-  document.head.appendChild(s);
 }
 
 init();
