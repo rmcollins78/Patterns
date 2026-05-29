@@ -33,7 +33,7 @@ h1{font-family:'Lora',serif;font-size:24px;font-weight:400;color:var(--text);mar
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:10px}
 
 /* FAB */
-.fab-wrap{position:fixed;bottom:80px;right:16px;z-index:500;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.fab-wrap{position:fixed;bottom:calc(var(--nav-h)+12px);right:16px;z-index:50;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
 .fab{width:52px;height:52px;border-radius:50%;background:var(--brown);border:none;color:#fff;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(74,55,40,.35);transition:transform .2s;flex-shrink:0}
 .fab.open{transform:rotate(45deg)}
 .fab-actions{display:flex;flex-direction:column;gap:8px;align-items:flex-end;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .2s,transform .2s}
@@ -148,6 +148,7 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
 /* Metric chart popup */
 .metric-popup-bg{position:fixed;inset:0;background:rgba(44,37,32,.5);z-index:300;display:none;align-items:flex-end;justify-content:center}
 .metric-popup-bg.open{display:flex}
+.metric-popup-bg.open{display:flex}
 .metric-popup{background:var(--surface);border-radius:20px 20px 0 0;padding:0 20px 40px;width:100%;max-width:480px;max-height:70vh;overflow:hidden}
 .metric-popup-handle{width:36px;height:4px;background:var(--border2);border-radius:2px;margin:12px auto 16px}
 .metric-popup-title{font-family:'Lora',serif;font-size:18px;font-weight:400;color:var(--text);margin-bottom:4px}
@@ -255,7 +256,7 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
 </div>
 
 <!-- FAB -->
-<div class="fab-wrap" id="fabWrap" style="display:flex">
+<div class="fab-wrap" id="fabWrap">
   <div class="fab-actions" id="fabActions">
     <div class="fab-action" onclick="openSheet('mood')"><span class="fab-action-label">mood</span><span class="fab-action-icon">🎨</span></div>
     <div class="fab-action" onclick="openSheet('irrit')"><span class="fab-action-label">irritability</span><span class="fab-action-icon">🌡</span></div>
@@ -287,8 +288,8 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
 <div class="toast" id="toast"></div>
 
 <script>
-const SUPABASE_URL = 'https://zslmaqrvsebxhtjirqgf.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_Er0_gJ3ZJcSnqDWGgXWsRA_6dEq0Rr5';
+const SUPABASE_URL = 'REPLACE_WITH_YOUR_PROJECT_URL';
+const SUPABASE_KEY = 'REPLACE_WITH_YOUR_ANON_KEY';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {auth:{persistSession:false}});
 
 // ── MOON PHASES (manually compiled 2025-2027) ─────────────────────────
@@ -574,8 +575,8 @@ function openSheet(key) {
   sheetState={};
   document.getElementById('sheetInner').innerHTML=getSheetContent(key);
   document.getElementById('sheetBg').classList.add('open');
-  document.getElementById('fabWrap').style.display='none';
 }
+
 // ── SAVE SHEET ─────────────────────────────────────────────────────────
 async function saveSheet() {
   if(!currentSheet) return;
@@ -619,7 +620,7 @@ async function saveSheet() {
     const dateEl=document.getElementById('entryDate');
     const dateOnly=(dateEl&&dateEl.value)?dateEl.value:localDateStr();
     cycleSettings.start=dateOnly;
-    await sb.from('cycle_settings').upsert({id:1,cycle_start:dateOnly,cycle_length:cycleSettings.length});
+    await sb.from('cycle_settings').upsert({id:1,cycle_start:dateOnly,cycle_length:cycleSettings.length||28});
     updatePhaseChip();
     payload.is_period_start=true;
     payload.logged_at=new Date(dateOnly+'T09:00').toISOString();
@@ -674,8 +675,6 @@ async function saveSheet() {
 function closeSheet() {
   document.getElementById('sheetBg').classList.remove('open');
   currentSheet=null;sheetState={};
-  const fw=document.getElementById('fabWrap');
-  if(fw) fw.style.display='flex';
 }
 function closeSheetOnBg(e) { if(e.target===document.getElementById('sheetBg')) closeSheet(); }
 
@@ -688,6 +687,7 @@ function editEntry(type,id) {
     sheetState={_editId:id,_editType:'happy'};
     document.getElementById('sheetInner').innerHTML=sheetHTML('Edit happy moment ✦',`<textarea id="happyInput" rows="5">${e.content}</textarea>`);
     document.getElementById('sheetBg').classList.add('open');
+    document.getElementById('fabWrap').style.display='none';
     return;
   }
   const e=entries.find(x=>x.id===id);
@@ -972,57 +972,61 @@ function renderCalendarHTML(month) {
 function calPrev() {
   calMonth=new Date(calMonth.getFullYear(),calMonth.getMonth()-1,1);
   const calWrap=document.querySelector('.cal-wrap');
-  if(calWrap) calWrap.outerHTML=renderCalendarHTML(calMonth);
-  else renderDashboard();
+  if(calWrap) {
+    const tmp=document.createElement('div');
+    tmp.innerHTML=renderCalendarHTML(calMonth);
+    calWrap.parentNode.replaceChild(tmp.firstChild,calWrap);
+  } else renderDashboard();
 }
 function calNext() {
   calMonth=new Date(calMonth.getFullYear(),calMonth.getMonth()+1,1);
   const calWrap=document.querySelector('.cal-wrap');
-  if(calWrap) calWrap.outerHTML=renderCalendarHTML(calMonth);
-  else renderDashboard();
+  if(calWrap) {
+    const tmp=document.createElement('div');
+    tmp.innerHTML=renderCalendarHTML(calMonth);
+    calWrap.parentNode.replaceChild(tmp.firstChild,calWrap);
+  } else renderDashboard();
 }
 function calDayTap(dateStr) {
-  // navigate to history filtered to this date
   histFilterDate=dateStr;
-  const btn=document.querySelector('.nav-btn:nth-child(2)');
-  goTo('history',btn);
+  const btns=document.querySelectorAll('.nav-btn');
+  goTo('history', btns[1]||null);
 }
 
 // ── METRIC POPUP ──────────────────────────────────────────────────────
 let metricPopupKey=null;
 let metricSwipeIdx=0;
 
-function openMetricPopup(key) {
-  if(key==='entries') return; // no chart for total entries
-  metricPopupKey=key;
-  metricSwipeIdx=0;
-  const labels={irrit:'Irritability',anxiety:'Anxiety',sleep:'Sleep'};
-  const title=labels[key]||key;
-  const inner=document.getElementById('metricPopupInner');
-  inner.innerHTML=`
-    <div class="metric-popup-title">${title}</div>
-    <div class="metric-popup-sub">swipe between views</div>
-    <div class="chart-swipe-wrap" id="metricSwipeWrap">
-      <div class="chart-slide"><canvas id="metricChart0"></canvas></div>
-      <div class="chart-slide"><canvas id="metricChart1"></canvas></div>
-    </div>
-    <div class="chart-tabs">
-      <button class="chart-tab active" id="metricTab0" onclick="metricTabSwitch(0)">this week</button>
-      <button class="chart-tab" id="metricTab1" onclick="metricTabSwitch(1)">all time</button>
-    </div>
-    <button class="popup-close" onclick="closeMetricPopup()">close</button>`;
-  document.getElementById('metricPopupBg').classList.add('open');
-
-  // set up swipe
-  const wrap=document.getElementById('metricSwipeWrap');
-  let startX=0;
-  wrap.addEventListener('touchstart',e=>{startX=e.touches[0].clientX;},{passive:true});
-  wrap.addEventListener('touchend',e=>{
-    const dx=e.changedTouches[0].clientX-startX;
-    if(Math.abs(dx)>40) metricTabSwitch(dx<0?1:0);
-  },{passive:true});
-
-  setTimeout(()=>drawMetricCharts(key),60);
+function openMetricPopup(key){
+  if(key==='entries') return;
+  ensureChartJS(()=>{
+    metricPopupKey=key;
+    metricSwipeIdx=0;
+    const labels={irrit:'Irritability',anxiety:'Anxiety',sleep:'Sleep'};
+    const title=labels[key]||key;
+    const inner=document.getElementById('metricPopupInner');
+    inner.innerHTML=`
+      <div class="metric-popup-title">${title}</div>
+      <div class="metric-popup-sub">swipe between views</div>
+      <div class="chart-swipe-wrap" id="metricSwipeWrap">
+        <div class="chart-slide"><canvas id="metricChart0"></canvas></div>
+        <div class="chart-slide"><canvas id="metricChart1"></canvas></div>
+      </div>
+      <div class="chart-tabs">
+        <button class="chart-tab active" id="metricTab0" onclick="metricTabSwitch(0)">this week</button>
+        <button class="chart-tab" id="metricTab1" onclick="metricTabSwitch(1)">all time</button>
+      </div>
+      <button class="popup-close" onclick="closeMetricPopup()">close</button>`;
+    document.getElementById('metricPopupBg').classList.add('open');
+    const wrap=document.getElementById('metricSwipeWrap');
+    let startX=0;
+    wrap.addEventListener('touchstart',e=>{startX=e.touches[0].clientX;},{passive:true});
+    wrap.addEventListener('touchend',e=>{
+      const dx=e.changedTouches[0].clientX-startX;
+      if(Math.abs(dx)>40) metricTabSwitch(dx<0?1:0);
+    },{passive:true});
+    setTimeout(()=>drawMetricCharts(key),60);
+  });
 }
 
 function metricTabSwitch(idx) {
@@ -1146,7 +1150,7 @@ Data spans ~${totalDays} days (${sorted.length} entries). Current cycle phase: $
 Entries oldest to newest:
 ${summary}
 
-Write EXACTLY 3 pattern observations. No more. Mix short-term and long-term. Include positive trends alongside concerning ones. Note time-of-day patterns, cycle correlations, substance relationships, and arcs over the full timespan.
+Write 4-6 pattern observations. Mix short-term and long-term. Include positive trends alongside concerning ones. Note time-of-day patterns, cycle correlations, substance relationships, and arcs over the full timespan.
 
 Each insight: bold title, 2-3 sentences, warm and direct, use "you", no raw numbers, note direction (improving/worsening/stable) when visible.
 
@@ -1154,7 +1158,7 @@ Format:
 **Title**
 Observation.
 
-Under 320 words total.`;
+Under 420 words total.`;
 
   try {
     const res=await fetch('/.netlify/functions/ai-insights',{
@@ -1164,7 +1168,6 @@ Under 320 words total.`;
     });
     if(!res.ok) throw new Error(`Server error ${res.status}`);
     const data=await res.json();
-    console.log('API response:', JSON.stringify(data));
     if(data.content&&data.content[0]&&data.content[0].text){
       const rendered=data.content[0].text
         .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
@@ -1375,6 +1378,7 @@ function goTo(name,btn){
   closeFab();
   const fw=document.getElementById('fabWrap');
   if(fw) fw.style.display=name==='settings'?'none':'flex';
+  if(name!=='history') histFilterDate=null;
   if(name==='history') renderHistory();
   if(name==='dash') renderDashboard();
 }
@@ -1384,17 +1388,13 @@ function toast(msg){
   setTimeout(()=>t.classList.remove('show'),2500);
 }
 
-// load Chart.js dynamically (not needed for calendar, only for metric popup)
+// load Chart.js dynamically
 function ensureChartJS(cb) {
   if(typeof Chart!=='undefined'){cb();return;}
   const s=document.createElement('script');
   s.src='https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js';
   s.onload=cb;
   document.head.appendChild(s);
-}
-const _openMetricPopup=openMetricPopup;
-function openMetricPopup(key){
-  ensureChartJS(()=>_openMetricPopup(key));
 }
 
 init();
