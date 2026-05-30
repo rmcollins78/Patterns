@@ -60,15 +60,10 @@ h1{font-family:'Lora',serif;font-size:24px;font-weight:400;color:var(--text);mar
 .date-row label{font-size:12px;color:var(--text3);white-space:nowrap}
 .date-input{flex:1;padding:9px 10px;border-radius:var(--rs);border:1px solid var(--border);background:var(--surface2);font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif}
 .date-input:focus{outline:none;border-color:var(--brown-light)}
-/* Pills & scales */
+/* Pills */
 .pill-row{display:flex;flex-wrap:wrap;gap:7px}
 .pill{padding:9px 16px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);font-size:14px;color:var(--text2);cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
 .pill.sel{background:var(--brown);border-color:var(--brown);color:#fff;font-weight:500}
-.scale-wrap{display:flex;flex-direction:column;gap:14px}
-.scale-lbl-row{display:flex;justify-content:space-between;font-size:11px;color:var(--text3);margin-bottom:6px}
-.scale-btns{display:flex;gap:6px}
-.scale-btn{flex:1;padding:11px 4px;border-radius:var(--rs);border:1px solid var(--border);background:var(--surface2);font-size:13px;color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;text-align:center;transition:all .15s}
-.scale-btn.sel{background:var(--brown);border-color:var(--brown);color:#fff;font-weight:500}
 textarea{width:100%;padding:12px;border-radius:var(--rs);border:1px solid var(--border);background:var(--surface2);font-size:14px;color:var(--text);font-family:'DM Sans',sans-serif;resize:none;line-height:1.5}
 textarea:focus{outline:none;border-color:var(--brown-light)}
 textarea::placeholder{color:var(--text3)}
@@ -180,10 +175,6 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
 .icon-btn:active{opacity:.6}
 .happy-row{border-left:3px solid #c9a84c}
 /* Settings */
-.field-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--border)}
-.field-row:last-child{border-bottom:none;padding-bottom:0}
-.field-row:first-child{padding-top:0}
-.field-name{font-size:14px;color:var(--text)}
 .btn-primary{width:100%;padding:14px;border-radius:var(--r);border:none;background:var(--brown);color:#fff;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:12px}
 .btn-danger{width:100%;padding:14px;border-radius:var(--r);border:1px solid #c17f74;background:var(--surface);color:#c17f74;font-size:15px;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:8px}
 /* Misc */
@@ -218,10 +209,10 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
       <button class="hist-type-btn" onclick="setTypeFilter('mood',this)">mood</button>
       <button class="hist-type-btn" onclick="setTypeFilter('irrit',this)">irritability</button>
       <button class="hist-type-btn" onclick="setTypeFilter('sh',this)">self-harm</button>
-      <button class="hist-type-btn" onclick="setTypeFilter('energy',this)">energy</button>
       <button class="hist-type-btn" onclick="setTypeFilter('sleep',this)">sleep</button>
       <button class="hist-type-btn" onclick="setTypeFilter('weed',this)">marijuana</button>
       <button class="hist-type-btn" onclick="setTypeFilter('alcohol',this)">alcohol</button>
+      <button class="hist-type-btn" onclick="setTypeFilter('social',this)">social</button>
       <button class="hist-type-btn" onclick="setTypeFilter('weighing',this)">weighing</button>
       <button class="hist-type-btn" onclick="setTypeFilter('negthoughts',this)">neg thoughts</button>
       <button class="hist-type-btn" onclick="setTypeFilter('happy',this)">happy</button>
@@ -236,9 +227,7 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
   <div id="screen-settings" class="screen">
     <h1 style="margin-bottom:20px">settings</h1>
     <div class="section-label">AI insights</div>
-    <div class="card">
-      <p style="font-size:13px;color:var(--text2);line-height:1.6">AI insights use your Anthropic API key stored in Netlify environment variables as <code style="font-size:12px;background:var(--surface2);padding:1px 5px;border-radius:4px">ANTHROPIC_API_KEY</code>.</p>
-    </div>
+    <div class="card"><p style="font-size:13px;color:var(--text2);line-height:1.6">AI insights use your Anthropic API key stored in Netlify as <code style="font-size:12px;background:var(--surface2);padding:1px 5px;border-radius:4px">ANTHROPIC_API_KEY</code>.</p></div>
     <div class="section-label" style="margin-top:24px">Data</div>
     <div class="card"><p style="font-size:13px;color:var(--text2);line-height:1.6">Stored in Supabase. Persists indefinitely.</p></div>
     <button class="btn-danger" onclick="confirmClear()">clear all data</button>
@@ -265,10 +254,10 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
     <div class="fab-action" onclick="openSheet('mood')"><span class="fab-action-label">mood</span><span class="fab-action-icon">🎨</span></div>
     <div class="fab-action" onclick="openSheet('irrit')"><span class="fab-action-label">irritability</span><span class="fab-action-icon">🌡</span></div>
     <div class="fab-action" onclick="openSheet('sh')"><span class="fab-action-label">self-harm thoughts</span><span class="fab-action-icon">🌊</span></div>
-    <div class="fab-action" onclick="openSheet('energy')"><span class="fab-action-label">energy / anxiety / social</span><span class="fab-action-icon">⚡</span></div>
     <div class="fab-action" onclick="openSheet('sleep')"><span class="fab-action-label">sleep</span><span class="fab-action-icon">🌙</span></div>
     <div class="fab-action" onclick="openSheet('weed')"><span class="fab-action-label">marijuana</span><span class="fab-action-icon">🌿</span></div>
     <div class="fab-action" onclick="openSheet('alcohol')"><span class="fab-action-label">alcohol</span><span class="fab-action-icon">🥃</span></div>
+    <div class="fab-action" onclick="openSheet('social')"><span class="fab-action-label">social interaction</span><span class="fab-action-icon">🤝</span></div>
     <div class="fab-action" onclick="openSheet('weighing')"><span class="fab-action-label">what's weighing on me</span><span class="fab-action-icon">💭</span></div>
     <div class="fab-action" onclick="openSheet('negthoughts')"><span class="fab-action-label">compulsive negative thoughts</span><span class="fab-action-icon">🌀</span></div>
     <div class="fab-action" onclick="openSheet('period')"><span class="fab-action-label">start of period</span><span class="fab-action-icon">🌸</span></div>
@@ -343,6 +332,8 @@ const MOOD_WORDS = {
   green:  ['serene','peaceful','tranquil','calm','relaxed','fulfilled','nurturing','loving','blessed','grateful','at ease','comfortable','restful','easygoing','balanced','thoughtful','pensive','carefree','satisfied','relieved','content','gentle','still','grounded','present']
 };
 const TOD_OPTIONS = ['morning','afternoon','evening','night'];
+const SOCIAL_TYPES = ['close friend','one-on-one','family','acquaintance','group / event','work / professional'];
+const SOCIAL_ENERGY = ['drained','neutral','energized'];
 
 const PHASE_DETAILS = {
   menstrual:{hormone:'Estrogen and progesterone are at their lowest. The uterine lining sheds.',emotional:'You may feel more introspective, sensitive, or low-energy. Fatigue and physical discomfort are common. This is a natural time to rest and turn inward.',physical:'Cramping, bloating, fatigue, lower back pain, and headaches are typical. Iron-rich foods and gentle movement can help.',tip:'Honor your need for rest. Reduce obligations where you can. Warmth, hydration, and light walks tend to help more than intense exercise.'},
@@ -351,39 +342,46 @@ const PHASE_DETAILS = {
   luteal:{hormone:'Progesterone rises significantly after ovulation then drops sharply before menstruation. Estrogen dips in the second half.',emotional:'Irritability, anxiety, emotional sensitivity, and low mood are common -- especially in the final days. These are driven by real hormonal shifts, not personal weakness.',physical:'Bloating, breast tenderness, fatigue, increased appetite, and disrupted sleep are typical. PMS symptoms peak in the last week.',tip:'Reduce caffeine and alcohol, prioritize sleep, and lower expectations of yourself. Your nervous system is more reactive right now. That context matters for therapy work.'}
 };
 
-let cycleSettings = {start:null,length:28};
-let entries = [];
-let happyEntries = [];
-let fabOpen = false;
-let currentSheet = null;
-let sheetState = {};
-let metricChartInsts = {};
-let storedInsights = '';
-let calMonth = new Date();
-let histFilterDate = null;
-let histTypeFilter = null;
-let histCalOpen = false;
-let histCalMonth = new Date();
-let phaseCardExpanded = false;
+let cycleSettings={start:null,length:28};
+let entries=[];
+let happyEntries=[];
+let fabOpen=false;
+let currentSheet=null;
+let sheetState={};
+let sheetOpenedAt=null; // exact time sheet was opened
+let metricChartInsts={};
+let storedInsights='';
+let calMonth=new Date();
+let histFilterDate=null;
+let histTypeFilter=null;
+let histCalOpen=false;
+let histCalMonth=new Date();
+let phaseCardExpanded=false;
 
 // ── DATE HELPERS ──────────────────────────────────────────────────────
-function localDateStr(d) {
+function localDateStr(d){
   const dt=d||new Date();
   return dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');
 }
-function autoTOD() {
+function autoTOD(){
   const h=new Date().getHours();
-  if(h>=5&&h<12) return 'morning';
-  if(h>=12&&h<17) return 'afternoon';
-  if(h>=17&&h<21) return 'evening';
+  if(h>=5&&h<12)return 'morning';
+  if(h>=12&&h<17)return 'afternoon';
+  if(h>=17&&h<21)return 'evening';
   return 'night';
 }
-function buildLoggedAt() {
+function buildLoggedAt(){
   const dateEl=document.getElementById('entryDate');
-  const dateStr=(dateEl&&dateEl.value)?dateEl.value:localDateStr();
+  const today=localDateStr();
+  const selectedDate=(dateEl&&dateEl.value)?dateEl.value:today;
+  // If logging today, use exact time sheet was opened
+  if(selectedDate===today&&sheetOpenedAt){
+    return sheetOpenedAt;
+  }
+  // Backdating: use TOD approximation
   const t=sheetState._tod||autoTOD();
   const hm={morning:'09:00',afternoon:'14:00',evening:'19:00',night:'22:00'};
-  const d=new Date(dateStr+'T'+(hm[t]||'12:00'));
+  const d=new Date(selectedDate+'T'+(hm[t]||'12:00'));
   return isNaN(d.getTime())?new Date().toISOString():d.toISOString();
 }
 function sortTs(e){return new Date(e.logged_at||e.created_at).getTime();}
@@ -391,9 +389,10 @@ function tod(ts){const h=new Date(ts).getHours();if(h>=5&&h<12)return 'morning';
 function avg(arr){return arr.length?arr.reduce((a,b)=>a+b,0)/arr.length:0;}
 function irritNum(v){return(v===null||v===undefined)?null:parseInt(v);}
 function fmtDate(ts){return new Date(ts).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});}
+function fmtTime(ts){return new Date(ts).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});}
 
 // ── INIT ─────────────────────────────────────────────────────────────
-async function init() {
+async function init(){
   try{await loadCycle();}catch(e){console.error('cycle:',e);}
   try{await loadEntries();}catch(e){console.error('entries:',e);}
   updatePhaseChip();
@@ -401,7 +400,7 @@ async function init() {
   document.getElementById('loading').style.display='none';
   document.getElementById('app').style.display='flex';
 }
-async function loadEntries() {
+async function loadEntries(){
   const [{data:logs,error:e1},{data:happy,error:e2}]=await Promise.all([
     sb.from('entries').select('*').order('logged_at',{ascending:false,nullsFirst:false}).order('created_at',{ascending:false}).limit(300),
     sb.from('happy_moments').select('*').order('created_at',{ascending:false}).limit(100)
@@ -411,11 +410,11 @@ async function loadEntries() {
   entries=logs||[];
   happyEntries=happy||[];
 }
-async function loadCycle() {
+async function loadCycle(){
   const{data}=await sb.from('cycle_settings').select('*').eq('id',1).maybeSingle();
   if(data)cycleSettings={start:data.cycle_start,length:data.cycle_length||28};
 }
-async function confirmClear() {
+async function confirmClear(){
   if(!confirm('Delete all entries permanently?'))return;
   await Promise.all([
     sb.from('entries').delete().neq('id','00000000-0000-0000-0000-000000000000'),
@@ -438,14 +437,14 @@ function closeFab(){
 }
 
 // ── CYCLE ─────────────────────────────────────────────────────────────
-function getPhaseForDate(isoStr) {
+function getPhaseForDate(isoStr){
   if(!cycleSettings.start)return null;
   const start=new Date(cycleSettings.start);
   const d=new Date(isoStr);
   const diff=Math.floor((d-start)/86400000);
   const len=cycleSettings.length;
   const day=((diff%len)+len)%len+1;
-  if(day<=5) return{name:'menstrual',day,color:'#c17f74',bg:'#f5ebe9',text:'#7a3d36'};
+  if(day<=5)return{name:'menstrual',day,color:'#c17f74',bg:'#f5ebe9',text:'#7a3d36'};
   if(day<=13)return{name:'follicular',day,color:'#7a9db5',bg:'#e8eff4',text:'#2d5570'};
   if(day<=16)return{name:'ovulation',day,color:'#7a9e7e',bg:'#e8f0e9',text:'#2d5e33'};
   return{name:'luteal',day,color:'#a07ab5',bg:'#f0eaf5',text:'#4a2d5e'};
@@ -507,13 +506,6 @@ function getSheetContent(key,pd,pt){
       <div class="pill" data-val="1" onclick="selPill('sh',this)">quiet</div>
       <div class="pill" data-val="2" onclick="selPill('sh',this)">loud</div>
       <div class="pill" data-val="3" onclick="selPill('sh',this)">specific method</div></div>`),
-    energy:     ()=>sheetHTML('Energy, anxiety & social',`${wp()}<div class="scale-wrap">
-      <div><div class="scale-lbl-row"><span>Energy</span><span>drained → wired</span></div>
-        <div class="scale-btns" id="energyScale">${[1,2,3,4,5].map(v=>`<div class="scale-btn" data-val="${v}" onclick="selScale('energy',this)">${v}</div>`).join('')}</div></div>
-      <div><div class="scale-lbl-row"><span>Anxiety</span><span>calm → spiral</span></div>
-        <div class="scale-btns" id="anxietyScale">${[1,2,3,4,5].map(v=>`<div class="scale-btn" data-val="${v}" onclick="selScale('anxiety',this)">${v}</div>`).join('')}</div></div>
-      <div><div class="scale-lbl-row"><span>Social battery</span><span>hide → connect</span></div>
-        <div class="scale-btns" id="socialScale">${[1,2,3,4,5].map(v=>`<div class="scale-btn" data-val="${v}" onclick="selScale('social',this)">${v}</div>`).join('')}</div></div></div>`),
     sleep:      ()=>sheetHTML('Sleep',`${wp()}<div style="display:flex;align-items:center;gap:16px;justify-content:center;padding:16px 0">
       <input type="number" id="sleepInput" min="0" max="24" step="0.5" placeholder="0" style="width:100px;font-size:28px;text-align:center;padding:12px">
       <span style="font-size:18px;color:var(--text2)">hours</span></div>`),
@@ -528,6 +520,15 @@ function getSheetContent(key,pd,pt){
     alcohol:    ()=>sheetHTML('Alcohol',`${wp()}<div style="display:flex;align-items:center;gap:16px;justify-content:center;padding:16px 0">
       <input type="number" id="alcoholInput" min="0" max="30" step="1" placeholder="0" style="width:100px;font-size:28px;text-align:center;padding:12px">
       <span style="font-size:18px;color:var(--text2)">drinks</span></div>`),
+    social:     ()=>sheetHTML('Social interaction',`${wp()}
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div><div style="font-size:11px;color:var(--text3);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em">Who was it with</div>
+          <div class="pill-row" id="socialTypePills">${SOCIAL_TYPES.map(v=>`<div class="pill" data-val="${v}" onclick="selPill('socialType',this)">${v}</div>`).join('')}</div></div>
+        <div><div style="font-size:11px;color:var(--text3);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em">How did it leave you feeling</div>
+          <div class="pill-row" id="socialEnergyPills">${SOCIAL_ENERGY.map(v=>`<div class="pill" data-val="${v}" onclick="selPill('socialEnergy',this)">${v}</div>`).join('')}</div></div>
+        <div><div style="font-size:11px;color:var(--text3);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em">Note (optional)</div>
+          <textarea id="socialNote" rows="3" placeholder="anything worth noting..."></textarea></div>
+      </div>`),
     weighing:   ()=>sheetHTML("What's weighing on me",`${wp()}<textarea id="weighingInput" rows="5" placeholder="What's on your mind..."></textarea>`),
     negthoughts:()=>sheetHTML('Compulsive negative thoughts',`${wp()}<textarea id="negthoughtsInput" rows="5" placeholder="What kept coming up..."></textarea>`),
     period:     ()=>sheetHTML('Start of period 🌸',`<div class="date-row" style="margin-bottom:16px"><label>date</label>
@@ -540,7 +541,9 @@ function getSheetContent(key,pd,pt){
 
 function openSheet(key){
   closeFab();
-  currentSheet=key;sheetState={};
+  currentSheet=key;
+  sheetState={};
+  sheetOpenedAt=new Date().toISOString(); // record exact open time
   document.getElementById('sheetInner').innerHTML=getSheetContent(key);
   document.getElementById('sheetBg').classList.add('open');
   document.getElementById('fabWrap').style.display='none';
@@ -566,11 +569,6 @@ async function saveSheet(){
   }else if(currentSheet==='sh'){
     if(sheetState.sh===undefined||sheetState.sh===null){toast('Make a selection');return;}
     payload.self_harm=sheetState.sh;
-  }else if(currentSheet==='energy'){
-    if(!sheetState.energy&&!sheetState.anxiety&&!sheetState.social){toast('Make at least one selection');return;}
-    payload.energy=sheetState.energy||null;
-    payload.anxiety=sheetState.anxiety||null;
-    payload.social_battery=sheetState.social||null;
   }else if(currentSheet==='sleep'){
     const hrs=parseFloat(document.getElementById('sleepInput').value);
     if(isNaN(hrs)){toast('Enter hours');return;}
@@ -581,6 +579,11 @@ async function saveSheet(){
     payload.weed_amount=sheetState.weedAmt||null;
   }else if(currentSheet==='alcohol'){
     payload.alcohol_drinks=parseInt(document.getElementById('alcoholInput').value)||0;
+  }else if(currentSheet==='social'){
+    if(!sheetState.socialType&&!sheetState.socialEnergy){toast('Make at least one selection');return;}
+    payload.social_type=sheetState.socialType||null;
+    payload.social_energy=sheetState.socialEnergy||null;
+    payload.social_note=(document.getElementById('socialNote').value||'').trim()||null;
   }else if(currentSheet==='weighing'){
     const text=document.getElementById('weighingInput').value.trim();
     if(!text){toast('Write something first');return;}
@@ -647,7 +650,7 @@ async function saveSheet(){
 
 function closeSheet(){
   document.getElementById('sheetBg').classList.remove('open');
-  currentSheet=null;sheetState={};
+  currentSheet=null;sheetState={};sheetOpenedAt=null;
   const fw=document.getElementById('fabWrap');
   if(fw)fw.style.display='flex';
 }
@@ -660,6 +663,7 @@ function editEntry(type,id){
     if(!e)return;
     currentSheet='happy';
     sheetState={_editId:id,_editType:'happy'};
+    sheetOpenedAt=new Date().toISOString();
     document.getElementById('sheetInner').innerHTML=sheetHTML('Edit happy moment ✦',`<textarea id="happyInput" rows="5">${e.content}</textarea>`);
     document.getElementById('sheetBg').classList.add('open');
     document.getElementById('fabWrap').style.display='none';
@@ -674,15 +678,16 @@ function editEntry(type,id){
   if(e.mood_word)key='mood';
   else if(e.irritability!==null&&e.irritability!==undefined)key='irrit';
   else if(e.self_harm!==null&&e.self_harm!==undefined)key='sh';
-  else if(e.energy||e.anxiety||e.social_battery)key='energy';
   else if(e.sleep_hours!=null)key='sleep';
   else if(e.weed_amount||e.weed_time||e.weed_why)key='weed';
   else if(e.alcohol_drinks!=null)key='alcohol';
+  else if(e.social_type||e.social_energy)key='social';
   else if(e.weighing_on_me)key='weighing';
   else if(e.negative_thoughts)key='negthoughts';
   else if(e.is_period_start)key='period';
   currentSheet=key;
   sheetState={_editId:id,_editType:'log',_tod:pt};
+  sheetOpenedAt=new Date().toISOString();
   document.getElementById('sheetInner').innerHTML=getSheetContent(key,pd,pt);
   document.getElementById('sheetBg').classList.add('open');
   document.getElementById('fabWrap').style.display='none';
@@ -699,11 +704,6 @@ function editEntry(type,id){
       const p=document.querySelector(`#shPills .pill[data-val="${e.self_harm}"]`);
       if(p){p.classList.add('sel');sheetState.sh=String(e.self_harm);}
     }
-    if(key==='energy'){
-      if(e.energy){const b=document.querySelector(`#energyScale .scale-btn[data-val="${e.energy}"]`);if(b){b.classList.add('sel');sheetState.energy=e.energy;}}
-      if(e.anxiety){const b=document.querySelector(`#anxietyScale .scale-btn[data-val="${e.anxiety}"]`);if(b){b.classList.add('sel');sheetState.anxiety=e.anxiety;}}
-      if(e.social_battery){const b=document.querySelector(`#socialScale .scale-btn[data-val="${e.social_battery}"]`);if(b){b.classList.add('sel');sheetState.social=e.social_battery;}}
-    }
     if(key==='sleep'&&e.sleep_hours!=null){const i=document.getElementById('sleepInput');if(i)i.value=e.sleep_hours;}
     if(key==='weed'){
       if(e.weed_time){const p=document.querySelector(`#weedTimePills .pill[data-val="${e.weed_time}"]`);if(p){p.classList.add('sel');sheetState.weedTime=e.weed_time;sheetState._tod=e.weed_time;}}
@@ -711,6 +711,11 @@ function editEntry(type,id){
       if(e.weed_amount){const p=document.querySelector(`#weedAmtPills .pill[data-val="${e.weed_amount}"]`);if(p){p.classList.add('sel');sheetState.weedAmt=e.weed_amount;}}
     }
     if(key==='alcohol'&&e.alcohol_drinks!=null){const i=document.getElementById('alcoholInput');if(i)i.value=e.alcohol_drinks;}
+    if(key==='social'){
+      if(e.social_type){const p=document.querySelector(`#socialTypePills .pill[data-val="${e.social_type}"]`);if(p){p.classList.add('sel');sheetState.socialType=e.social_type;}}
+      if(e.social_energy){const p=document.querySelector(`#socialEnergyPills .pill[data-val="${e.social_energy}"]`);if(p){p.classList.add('sel');sheetState.socialEnergy=e.social_energy;}}
+      if(e.social_note){const ta=document.getElementById('socialNote');if(ta)ta.value=e.social_note;}
+    }
     if(key==='weighing'&&e.weighing_on_me){const ta=document.getElementById('weighingInput');if(ta)ta.value=e.weighing_on_me;}
     if(key==='negthoughts'&&e.negative_thoughts){const ta=document.getElementById('negthoughtsInput');if(ta)ta.value=e.negative_thoughts;}
   });
@@ -752,7 +757,6 @@ function selMood(el,word,quad){
 }
 function selPillWeedTime(el,val){el.closest('.pill-row').querySelectorAll('.pill').forEach(p=>p.classList.remove('sel'));el.classList.add('sel');sheetState.weedTime=val;sheetState._tod=val;}
 function selPill(key,el){el.closest('.pill-row').querySelectorAll('.pill').forEach(p=>p.classList.remove('sel'));el.classList.add('sel');sheetState[key]=el.dataset.val;}
-function selScale(key,el){el.closest('.scale-btns').querySelectorAll('.scale-btn').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');sheetState[key]=parseInt(el.dataset.val);}
 
 // ── DASHBOARD ─────────────────────────────────────────────────────────
 function togglePhaseCard(){
@@ -777,14 +781,14 @@ function renderDashboard(){
     const det=PHASE_DETAILS[phase.name]||{};
     const pd=real.filter(e=>{const p=getPhaseForDate(new Date(e.logged_at||e.created_at).toISOString());return p&&p.name===phase.name;});
     const ai=pd.map(e=>irritNum(e.irritability)).filter(v=>v!==null);
-    const aa=pd.map(e=>e.anxiety).filter(Boolean);
+    const aa=pd.filter(e=>e.mood_quadrant==='red'||e.mood_quadrant==='blue').length;
     html+=`<div class="phase-card" style="background:${phase.bg};border:1px solid ${phase.color}40" onclick="togglePhaseCard()">
       <div style="display:flex;align-items:flex-start;justify-content:space-between">
         <div>
           <div class="phase-name" style="color:${phase.color}">${phase.name}</div>
           <div class="phase-day" style="color:${phase.text}">day ${phase.day} of your cycle</div>
           <div class="phase-desc" style="color:${phase.text}">${det.emotional||''}</div>
-          ${pd.length>=3?`<div style="margin-top:8px;font-size:12px;color:${phase.text};opacity:.7">${pd.length} past entries in this phase · avg irritability ${ai.length?avg(ai).toFixed(1):'—'}/3 · avg anxiety ${aa.length?avg(aa).toFixed(1):'—'}/5</div>`:''}
+          ${pd.length>=3?`<div style="margin-top:8px;font-size:12px;color:${phase.text};opacity:.7">${pd.length} past entries in this phase · avg irritability ${ai.length?avg(ai).toFixed(1):'—'}/3</div>`:''}
         </div>
         <div id="phaseArrow" style="color:${phase.color};font-size:16px;margin-left:8px;flex-shrink:0;transition:transform .2s;${phaseCardExpanded?'transform:rotate(180deg)':''}">▾</div>
       </div>
@@ -803,13 +807,13 @@ function renderDashboard(){
 
   if(week.length>0){
     const ia=week.map(e=>irritNum(e.irritability)).filter(v=>v!==null);
-    const aa=week.map(e=>e.anxiety).filter(Boolean);
     const sa=week.map(e=>e.sleep_hours).filter(v=>v!=null);
+    const socialCount=week.filter(e=>e.social_type||e.social_energy).length;
     html+='<div class="section-label">this week</div><div class="metric-grid">';
-    html+=`<div class="metric-card" onclick="openMetricPopup('entries')"><div class="metric-val">${week.length}</div><div class="metric-lbl">entries</div></div>`;
+    html+=`<div class="metric-card"><div class="metric-val">${week.length}</div><div class="metric-lbl">entries</div></div>`;
     html+=`<div class="metric-card" onclick="openMetricPopup('irrit')"><div class="metric-val">${ia.length?avg(ia).toFixed(1):'—'}</div><div class="metric-lbl">avg irritability ↗</div></div>`;
-    html+=`<div class="metric-card" onclick="openMetricPopup('anxiety')"><div class="metric-val">${aa.length?avg(aa).toFixed(1):'—'}</div><div class="metric-lbl">avg anxiety ↗</div></div>`;
     html+=`<div class="metric-card" onclick="openMetricPopup('sleep')"><div class="metric-val">${sa.length?avg(sa).toFixed(1)+'h':'—'}</div><div class="metric-lbl">avg sleep ↗</div></div>`;
+    html+=`<div class="metric-card"><div class="metric-val">${socialCount}</div><div class="metric-lbl">social interactions</div></div>`;
     html+='</div>';
   }
 
@@ -883,14 +887,14 @@ function renderCalendarHTML(month){
 
 function calPrev(){
   calMonth=new Date(calMonth.getFullYear(),calMonth.getMonth()-1,1);
-  const calWrap=document.querySelector('.cal-wrap');
-  if(calWrap){const tmp=document.createElement('div');tmp.innerHTML=renderCalendarHTML(calMonth);calWrap.parentNode.replaceChild(tmp.firstChild,calWrap);}
+  const cw=document.querySelector('.cal-wrap');
+  if(cw){const tmp=document.createElement('div');tmp.innerHTML=renderCalendarHTML(calMonth);cw.parentNode.replaceChild(tmp.firstChild,cw);}
   else renderDashboard();
 }
 function calNext(){
   calMonth=new Date(calMonth.getFullYear(),calMonth.getMonth()+1,1);
-  const calWrap=document.querySelector('.cal-wrap');
-  if(calWrap){const tmp=document.createElement('div');tmp.innerHTML=renderCalendarHTML(calMonth);calWrap.parentNode.replaceChild(tmp.firstChild,calWrap);}
+  const cw=document.querySelector('.cal-wrap');
+  if(cw){const tmp=document.createElement('div');tmp.innerHTML=renderCalendarHTML(calMonth);cw.parentNode.replaceChild(tmp.firstChild,cw);}
   else renderDashboard();
 }
 function calDayTap(dateStr){
@@ -904,10 +908,10 @@ let metricPopupKey=null;
 let metricSwipeIdx=0;
 
 function openMetricPopup(key){
-  if(key==='entries')return;
+  if(key==='entries'||key==='social')return;
   ensureChartJS(()=>{
     metricPopupKey=key;metricSwipeIdx=0;
-    const labels={irrit:'Irritability',anxiety:'Anxiety',sleep:'Sleep'};
+    const labels={irrit:'Irritability',sleep:'Sleep'};
     const title=labels[key]||key;
     const inner=document.getElementById('metricPopupInner');
     inner.innerHTML=`
@@ -930,35 +934,31 @@ function openMetricPopup(key){
     setTimeout(()=>drawMetricCharts(key),60);
   });
 }
-
 function metricTabSwitch(idx){
   metricSwipeIdx=idx;
   const wrap=document.getElementById('metricSwipeWrap');
   if(wrap)wrap.style.transform=`translateX(${-idx*100}%)`;
   document.querySelectorAll('.chart-tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
 }
-
 function drawMetricCharts(key){
   const real=entries.filter(e=>e.entry_type!=='happy');
   const now=Date.now();
   const week=real.filter(e=>sortTs(e)>now-7*86400000).sort((a,b)=>sortTs(a)-sortTs(b));
   const all=real.filter(e=>{
     if(key==='irrit')return e.irritability!==null&&e.irritability!==undefined;
-    if(key==='anxiety')return e.anxiety!==null&&e.anxiety!==undefined;
     if(key==='sleep')return e.sleep_hours!=null;
     return false;
   }).sort((a,b)=>sortTs(a)-sortTs(b)).slice(-30);
-  function getVal(e){if(key==='irrit')return irritNum(e.irritability);if(key==='anxiety')return e.anxiety;if(key==='sleep')return e.sleep_hours;return null;}
-  function dayLabel(ts){const d=new Date(ts);return(d.getMonth()+1)+'/'+d.getDate();}
-  const colors={irrit:'#c17f74',anxiety:'#a07ab5',sleep:'#7a9db5'};
-  const maxes={irrit:3,anxiety:5,sleep:12};
+  function getVal(e){if(key==='irrit')return irritNum(e.irritability);if(key==='sleep')return e.sleep_hours;return null;}
+  const colors={irrit:'#c17f74',sleep:'#7a9db5'};
+  const maxes={irrit:3,sleep:12};
   const col=colors[key]||'#7c5c45';
   const mx=maxes[key]||5;
   const weekDays={};
   week.forEach(e=>{const v=getVal(e);if(v===null||v===undefined)return;const ds=localDateStr(new Date(sortTs(e)));if(!weekDays[ds])weekDays[ds]=[];weekDays[ds].push(v);});
   const wLabels=Object.keys(weekDays).sort();
   const wData=wLabels.map(d=>parseFloat(avg(weekDays[d]).toFixed(2)));
-  const aLabels=all.map(e=>dayLabel(sortTs(e)));
+  const aLabels=all.map(e=>{const d=new Date(sortTs(e));return(d.getMonth()+1)+'/'+d.getDate();});
   const aData=all.map(e=>getVal(e)).filter(v=>v!==null);
   Object.values(metricChartInsts).forEach(c=>{try{c.destroy();}catch(e){}});
   metricChartInsts={};
@@ -975,7 +975,6 @@ function drawMetricCharts(key){
   makeChart('metricChart0',wDayLabels.length?wDayLabels:['no data'],wData.length?wData:[0]);
   makeChart('metricChart1',aLabels.length?aLabels:['no data'],aData.length?aData:[0]);
 }
-
 function closeMetricPopup(){
   document.getElementById('metricPopupBg').classList.remove('open');
   Object.values(metricChartInsts).forEach(c=>{try{c.destroy();}catch(e){}});
@@ -1008,26 +1007,24 @@ async function loadAIInsights(){
     if(e.mood_word)parts.push(`mood:${e.mood_word}(${e.mood_quadrant})`);
     if(e.irritability!==null&&e.irritability!==undefined)parts.push(`irrit:${['nothing','small','snapped','explosive'][parseInt(e.irritability)]||e.irritability}`);
     if(e.self_harm!==null&&e.self_harm!==undefined)parts.push(`sh:${['none','quiet','loud','specific'][parseInt(e.self_harm)]||e.self_harm}`);
-    if(e.anxiety)parts.push(`anx:${e.anxiety}/5`);
-    if(e.energy)parts.push(`nrg:${e.energy}/5`);
-    if(e.social_battery)parts.push(`soc:${e.social_battery}/5`);
     if(e.sleep_hours)parts.push(`slp:${e.sleep_hours}h`);
     if(e.weed_amount&&e.weed_amount!=='none')parts.push(`weed:${e.weed_amount}${e.weed_time?'('+e.weed_time+')':''}`);
     if(e.alcohol_drinks>0)parts.push(`alc:${e.alcohol_drinks}`);
+    if(e.social_type||e.social_energy)parts.push(`social:${e.social_type||'?'}→felt:${e.social_energy||'?'}`);
     if(ep)parts.push(`phase:${ep.name}`);
     if(e.weighing_on_me)parts.push(`weighing:"${e.weighing_on_me.slice(0,60)}"`);
     if(e.negative_thoughts)parts.push(`negthought:"${e.negative_thoughts.slice(0,60)}"`);
     return parts.length?`${ds} ${ts}: ${parts.join(', ')}`:null;
   }).filter(Boolean).join('\n');
   const totalDays=sorted.length>1?Math.round((sortTs(sorted[sorted.length-1])-sortTs(sorted[0]))/86400000):0;
-  const prompt=`You are helping someone understand their mental health patterns to bring to therapy. They track mood, irritability, self-harm thoughts, anxiety, energy, social battery, sleep, marijuana, alcohol, compulsive negative thoughts, and menstrual cycle phase.
+  const prompt=`You are helping someone understand their mental health patterns to bring to therapy. They track mood words (which reveal anxiety and energy states), irritability, self-harm thoughts, sleep, marijuana, alcohol, social interactions (type + whether they felt drained/neutral/energized after), compulsive negative thoughts, and menstrual cycle phase.
 
 Data spans ~${totalDays} days (${sorted.length} entries). Current cycle phase: ${phase?phase.name+' day '+phase.day:'unknown'}.
 
 Entries oldest to newest:
 ${summary}
 
-Write EXACTLY 3 insights. No more. Each insight: bold title, 2-3 sentences maximum. Include positive trends alongside concerning ones. Note time-of-day patterns, cycle correlations, and arcs over the full timespan. Use "you" language, warm and direct. Total response must be under 200 words.
+Write EXACTLY 3 insights. No more. Each insight: bold title, 2-3 sentences maximum. Look for: timing patterns (mood before vs after social interactions, weed, alcohol), cycle phase correlations, mood word clusters that suggest anxiety or low energy, and longer arcs. Include positive trends. Use "you" language, warm and direct. Total response must be under 200 words.
 
 Format:
 **Title**
@@ -1143,10 +1140,10 @@ function renderHistory(){
       if(histTypeFilter==='mood')return e.mood_word;
       if(histTypeFilter==='irrit')return e.irritability!==null&&e.irritability!==undefined;
       if(histTypeFilter==='sh')return e.self_harm!==null&&e.self_harm!==undefined;
-      if(histTypeFilter==='energy')return e.energy||e.anxiety||e.social_battery;
       if(histTypeFilter==='sleep')return e.sleep_hours!=null;
       if(histTypeFilter==='weed')return e.weed_amount||e.weed_time;
       if(histTypeFilter==='alcohol')return e.alcohol_drinks>0;
+      if(histTypeFilter==='social')return e.social_type||e.social_energy;
       if(histTypeFilter==='weighing')return e.weighing_on_me;
       if(histTypeFilter==='negthoughts')return e.negative_thoughts;
       return true;
@@ -1171,7 +1168,7 @@ function renderHistory(){
     const phaseStr=phase?` <span style="color:${phase.color};font-weight:500">· ${phase.name} day ${phase.day}</span>`:'';
     html+=`<div class="day-group"><div class="day-label">${date}${phaseStr}</div>`;
     items.forEach(e=>{
-      const time=new Date(e._ts).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+      const time=fmtTime(e._ts);
       const iconActions=`<div class="entry-icon-actions">
         <button class="icon-btn" onclick="editEntry('${e._type}','${e.id}')" title="Edit">${pencilSVG}</button>
         <button class="icon-btn del" onclick="deleteEntry('${e._type}','${e.id}')" title="Delete">${trashSVG}</button>
@@ -1185,18 +1182,22 @@ function renderHistory(){
         if(e.irritability!==null&&e.irritability!==undefined)tags.push(`<span class="etag">${iL[parseInt(e.irritability)]||e.irritability}</span>`);
         const sL=['no sh thoughts','quiet','loud','specific method'];
         if(e.self_harm!==null&&e.self_harm!==undefined)tags.push(`<span class="etag ${parseInt(e.self_harm)>0?'red':''}">${sL[parseInt(e.self_harm)]||e.self_harm}</span>`);
-        if(e.anxiety)tags.push(`<span class="etag">anxiety ${e.anxiety}/5</span>`);
-        if(e.energy)tags.push(`<span class="etag">energy ${e.energy}/5</span>`);
         if(e.sleep_hours!=null)tags.push(`<span class="etag">${e.sleep_hours}h sleep</span>`);
         if(e.weed_amount&&e.weed_amount!=='none')tags.push(`<span class="etag">${e.weed_amount} weed${e.weed_time?' ('+e.weed_time+')':''}</span>`);
         if(e.alcohol_drinks>0)tags.push(`<span class="etag">${e.alcohol_drinks} drink${e.alcohol_drinks!==1?'s':''}</span>`);
-        if(e.is_period_start)tags.push(`<span class="etag" style="background:#f5ebe9;border-color:#c17f74;color:#7a3d36">period start</span>`);
+        if(e.social_type||e.social_energy){
+          const sc=e.social_energy==='energized'?'green':e.social_energy==='drained'?'blue':'';
+          tags.push(`<span class="etag ${sc}">${e.social_type||'social'}${e.social_energy?' · '+e.social_energy:''}</span>`);
+        }
+        if(e.weighing_on_me)tags.push(`<span class="etag yellow">weighing</span>`);
         if(e.negative_thoughts)tags.push(`<span class="etag" style="background:#f0eaf5;border-color:#a07ab5;color:#4a2d5e">negative thoughts</span>`);
-        if(!tags.length&&!e.weighing_on_me&&!e.negative_thoughts)return;
+        if(e.is_period_start)tags.push(`<span class="etag" style="background:#f5ebe9;border-color:#c17f74;color:#7a3d36">period start</span>`);
+        if(!tags.length&&!e.weighing_on_me&&!e.negative_thoughts&&!e.social_note)return;
         html+=`<div class="entry-row">${iconActions}<div class="entry-time">${time}</div>`;
         if(tags.length)html+=`<div class="entry-tags">${tags.join('')}</div>`;
         if(e.weighing_on_me)html+=`<div class="entry-note">"${e.weighing_on_me}"</div>`;
         if(e.negative_thoughts)html+=`<div class="entry-note" style="color:#4a2d5e">"${e.negative_thoughts}"</div>`;
+        if(e.social_note)html+=`<div class="entry-note">"${e.social_note}"</div>`;
         html+='</div>';
       }
     });
