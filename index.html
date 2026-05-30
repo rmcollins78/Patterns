@@ -503,7 +503,7 @@ function getSheetContent(key,pd,pt){
       <div class="pill" data-val="3" onclick="selPill('irrit',this)">I feel like I'll explode</div></div>`),
     sh:         ()=>sheetHTML('Self-harm thoughts',`${wp()}<div class="pill-row" id="shPills">
       <div class="pill" data-val="0" onclick="selPill('sh',this)">none</div>
-      <div class="pill" data-val="1" onclick="selPill('sh',this)">quiet</div>
+      <div class="pill" data-val="1" onclick="selPill('sh',this)">soft</div>
       <div class="pill" data-val="2" onclick="selPill('sh',this)">loud</div>
       <div class="pill" data-val="3" onclick="selPill('sh',this)">specific method</div></div>`),
     sleep:      ()=>sheetHTML('Sleep',`${wp()}<div style="display:flex;align-items:center;gap:16px;justify-content:center;padding:16px 0">
@@ -1006,7 +1006,7 @@ async function loadAIInsights(){
     const parts=[];
     if(e.mood_word)parts.push(`mood:${e.mood_word}(${e.mood_quadrant})`);
     if(e.irritability!==null&&e.irritability!==undefined)parts.push(`irrit:${['nothing','small','snapped','explosive'][parseInt(e.irritability)]||e.irritability}`);
-    if(e.self_harm!==null&&e.self_harm!==undefined)parts.push(`sh:${['none','quiet','loud','specific'][parseInt(e.self_harm)]||e.self_harm}`);
+    if(e.self_harm!==null&&e.self_harm!==undefined)parts.push(`sh:${['none','soft','loud','specific'][parseInt(e.self_harm)]||e.self_harm}`);
     if(e.sleep_hours)parts.push(`slp:${e.sleep_hours}h`);
     if(e.weed_amount&&e.weed_amount!=='none')parts.push(`weed:${e.weed_amount}${e.weed_time?'('+e.weed_time+')':''}`);
     if(e.alcohol_drinks>0)parts.push(`alc:${e.alcohol_drinks}`);
@@ -1180,7 +1180,7 @@ function renderHistory(){
         if(e.mood_word)tags.push(`<span class="etag ${e.mood_quadrant||''}">${e.mood_word}</span>`);
         const iL=['nothing bothers me','small things','snapped','explosive'];
         if(e.irritability!==null&&e.irritability!==undefined)tags.push(`<span class="etag">${iL[parseInt(e.irritability)]||e.irritability}</span>`);
-        const sL=['no sh thoughts','quiet','loud','specific method'];
+        const sL=['no sh thoughts','soft','loud','specific method'];
         if(e.self_harm!==null&&e.self_harm!==undefined)tags.push(`<span class="etag ${parseInt(e.self_harm)>0?'red':''}">${sL[parseInt(e.self_harm)]||e.self_harm}</span>`);
         if(e.sleep_hours!=null)tags.push(`<span class="etag">${e.sleep_hours}h sleep</span>`);
         if(e.weed_amount&&e.weed_amount!=='none')tags.push(`<span class="etag">${e.weed_amount} weed${e.weed_time?' ('+e.weed_time+')':''}</span>`);
