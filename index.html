@@ -572,6 +572,18 @@ async function saveSheet(){
   }else if(currentSheet==='sleep'){
     const hrs=parseFloat(document.getElementById('sleepInput').value);
     if(isNaN(hrs)){toast('Enter hours');return;}
+    // find existing sleep entry for today and add to it
+    const todayStr=localDateStr();
+    const existingSleep=entries.find(e=>e.sleep_hours!=null&&localDateStr(new Date(e.logged_at||e.created_at))===todayStr);
+    if(existingSleep&&!isEdit){
+      const newTotal=parseFloat((existingSleep.sleep_hours+hrs).toFixed(1));
+      const{error}=await sb.from('entries').update({sleep_hours:newTotal}).eq('id',existingSleep.id);
+      if(error){toast('Error: '+(error.message||error.code));return;}
+      const i=entries.findIndex(e=>e.id===existingSleep.id);
+      if(i>=0)entries[i]={...entries[i],sleep_hours:newTotal};
+      closeSheet();toast('Sleep updated: '+newTotal+'h total');
+      renderDashboard();renderHistory();return;
+    }
     payload.sleep_hours=hrs;
   }else if(currentSheet==='weed'){
     payload.weed_time=sheetState.weedTime||null;
@@ -973,7 +985,8 @@ function drawMetricCharts(key){
   }
   const wDayLabels=wLabels.map(d=>{const dt=new Date(d);return['Su','Mo','Tu','We','Th','Fr','Sa'][dt.getDay()];});
   makeChart('metricChart0',wDayLabels.length?wDayLabels:['no data'],wData.length?wData:[0]);
-  makeChart('metricChart1',aLabels.length?aLabels:['no data'],aData.length?aData:[0]);
+  // defer second chart so off-screen canvas has dimensions
+  setTimeout(()=>makeChart('metricChart1',aLabels.length?aLabels:['no data'],aData.length?aData:[0]),150);
 }
 function closeMetricPopup(){
   document.getElementById('metricPopupBg').classList.remove('open');
