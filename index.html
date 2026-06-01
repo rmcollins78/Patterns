@@ -212,6 +212,7 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
       <button class="hist-type-btn" onclick="setTypeFilter('sleep',this)">sleep</button>
       <button class="hist-type-btn" onclick="setTypeFilter('weed',this)">marijuana</button>
       <button class="hist-type-btn" onclick="setTypeFilter('alcohol',this)">alcohol</button>
+      <button class="hist-type-btn" onclick="setTypeFilter('caffeine',this)">caffeine</button>
       <button class="hist-type-btn" onclick="setTypeFilter('social',this)">social</button>
       <button class="hist-type-btn" onclick="setTypeFilter('weighing',this)">weighing</button>
       <button class="hist-type-btn" onclick="setTypeFilter('negthoughts',this)">neg thoughts</button>
@@ -258,6 +259,7 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
     <div class="fab-action" onclick="openSheet('weed')"><span class="fab-action-label">marijuana</span><span class="fab-action-icon">🌿</span></div>
     <div class="fab-action" onclick="openSheet('alcohol')"><span class="fab-action-label">alcohol</span><span class="fab-action-icon">🥃</span></div>
     <div class="fab-action" onclick="openSheet('social')"><span class="fab-action-label">social interaction</span><span class="fab-action-icon">🤝</span></div>
+    <div class="fab-action" onclick="openSheet('caffeine')"><span class="fab-action-label">caffeine</span><span class="fab-action-icon">☕</span></div>
     <div class="fab-action" onclick="openSheet('weighing')"><span class="fab-action-label">what's weighing on me</span><span class="fab-action-icon">💭</span></div>
     <div class="fab-action" onclick="openSheet('negthoughts')"><span class="fab-action-label">compulsive negative thoughts</span><span class="fab-action-icon">🌀</span></div>
     <div class="fab-action" onclick="openSheet('period')"><span class="fab-action-label">start of period</span><span class="fab-action-icon">🌸</span></div>
@@ -531,6 +533,24 @@ function getSheetContent(key,pd,pt){
       </div>`),
     weighing:   ()=>sheetHTML("What's weighing on me",`${wp()}<textarea id="weighingInput" rows="5" placeholder="What's on your mind..."></textarea>`),
     negthoughts:()=>sheetHTML('Compulsive negative thoughts',`${wp()}<textarea id="negthoughtsInput" rows="5" placeholder="What kept coming up..."></textarea>`),
+    caffeine:   ()=>sheetHTML('Caffeine',`${wp()}
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div>
+          <div style="font-size:11px;color:var(--text3);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em">Quick add</div>
+          <div class="pill-row" id="caffeinePills">
+            <div class="pill" data-val="95" onclick="selCaffeine(this,95)">☕ coffee · 95mg</div>
+            <div class="pill" data-val="40" onclick="selCaffeine(this,40)">🍵 green tea · 40mg</div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--text3);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em">Or enter mg directly</div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <input type="number" id="caffeineInput" min="0" max="2000" step="1" placeholder="0" style="width:100px;font-size:24px;text-align:center;padding:10px">
+            <span style="font-size:16px;color:var(--text2)">mg</span>
+          </div>
+        </div>
+        <div id="caffeineDailyTotal" style="font-size:13px;color:var(--text3)">${(()=>{const t=entries.filter(e=>e.caffeine_mg&&localDateStr(new Date(e.logged_at||e.created_at))===localDateStr()).reduce((s,e)=>s+e.caffeine_mg,0);return t>0?'Today so far: '+t+'mg':''})()}</div>
+      </div>`),
     period:     ()=>sheetHTML('Start of period 🌸',`<div class="date-row" style="margin-bottom:16px"><label>date</label>
       <input type="date" id="entryDate" class="date-input" value="${p}"></div>
       <p style="font-size:14px;color:var(--text2);line-height:1.6">This marks day 1 of your cycle and updates your phase tracking automatically.</p>`),
@@ -572,19 +592,36 @@ async function saveSheet(){
   }else if(currentSheet==='sleep'){
     const hrs=parseFloat(document.getElementById('sleepInput').value);
     if(isNaN(hrs)){toast('Enter hours');return;}
-    // find existing sleep entry for today and add to it
     const todayStr=localDateStr();
-    const existingSleep=entries.find(e=>e.sleep_hours!=null&&localDateStr(new Date(e.logged_at||e.created_at))===todayStr);
-    if(existingSleep&&!isEdit){
+    const existingSleep=!isEdit&&entries.find(e=>e.sleep_hours!=null&&localDateStr(new Date(e.logged_at||e.created_at))===todayStr);
+    if(existingSleep){
       const newTotal=parseFloat((existingSleep.sleep_hours+hrs).toFixed(1));
       const{error}=await sb.from('entries').update({sleep_hours:newTotal}).eq('id',existingSleep.id);
       if(error){toast('Error: '+(error.message||error.code));return;}
       const i=entries.findIndex(e=>e.id===existingSleep.id);
       if(i>=0)entries[i]={...entries[i],sleep_hours:newTotal};
-      closeSheet();toast('Sleep updated: '+newTotal+'h total');
+      closeSheet();toast('Sleep updated: '+newTotal+'h total today');
       renderDashboard();renderHistory();return;
     }
     payload.sleep_hours=hrs;
+  }else if(currentSheet==='caffeine'){
+    const preset=sheetState.caffeinePreset;
+    const custom=parseInt(document.getElementById('caffeineInput').value)||0;
+    const mg=preset||custom;
+    if(!mg){toast('Enter caffeine amount');return;}
+    // cumulative: add to today's total if entry exists
+    const todayStr=localDateStr();
+    const existingCaf=!isEdit&&entries.find(e=>e.caffeine_mg!=null&&localDateStr(new Date(e.logged_at||e.created_at))===todayStr);
+    if(existingCaf){
+      const newTotal=existingCaf.caffeine_mg+mg;
+      const{error}=await sb.from('entries').update({caffeine_mg:newTotal}).eq('id',existingCaf.id);
+      if(error){toast('Error: '+(error.message||error.code));return;}
+      const i=entries.findIndex(e=>e.id===existingCaf.id);
+      if(i>=0)entries[i]={...entries[i],caffeine_mg:newTotal};
+      closeSheet();toast('Caffeine updated: '+newTotal+'mg today');
+      renderDashboard();renderHistory();return;
+    }
+    payload.caffeine_mg=mg;
   }else if(currentSheet==='weed'){
     payload.weed_time=sheetState.weedTime||null;
     payload.weed_why=sheetState.weedWhy||null;
@@ -696,6 +733,7 @@ function editEntry(type,id){
   else if(e.social_type||e.social_energy)key='social';
   else if(e.weighing_on_me)key='weighing';
   else if(e.negative_thoughts)key='negthoughts';
+  else if(e.caffeine_mg!=null)key='caffeine';
   else if(e.is_period_start)key='period';
   currentSheet=key;
   sheetState={_editId:id,_editType:'log',_tod:pt};
@@ -769,6 +807,13 @@ function selMood(el,word,quad){
 }
 function selPillWeedTime(el,val){el.closest('.pill-row').querySelectorAll('.pill').forEach(p=>p.classList.remove('sel'));el.classList.add('sel');sheetState.weedTime=val;sheetState._tod=val;}
 function selPill(key,el){el.closest('.pill-row').querySelectorAll('.pill').forEach(p=>p.classList.remove('sel'));el.classList.add('sel');sheetState[key]=el.dataset.val;}
+function selCaffeine(el,mg){
+  document.querySelectorAll('#caffeinePills .pill').forEach(p=>p.classList.remove('sel'));
+  el.classList.add('sel');
+  sheetState.caffeinePreset=mg;
+  const input=document.getElementById('caffeineInput');
+  if(input)input.value=mg;
+}
 
 // ── DASHBOARD ─────────────────────────────────────────────────────────
 function togglePhaseCard(){
@@ -985,7 +1030,6 @@ function drawMetricCharts(key){
   }
   const wDayLabels=wLabels.map(d=>{const dt=new Date(d);return['Su','Mo','Tu','We','Th','Fr','Sa'][dt.getDay()];});
   makeChart('metricChart0',wDayLabels.length?wDayLabels:['no data'],wData.length?wData:[0]);
-  // defer second chart so off-screen canvas has dimensions
   setTimeout(()=>makeChart('metricChart1',aLabels.length?aLabels:['no data'],aData.length?aData:[0]),150);
 }
 function closeMetricPopup(){
@@ -1023,6 +1067,7 @@ async function loadAIInsights(){
     if(e.sleep_hours)parts.push(`slp:${e.sleep_hours}h`);
     if(e.weed_amount&&e.weed_amount!=='none')parts.push(`weed:${e.weed_amount}${e.weed_time?'('+e.weed_time+')':''}`);
     if(e.alcohol_drinks>0)parts.push(`alc:${e.alcohol_drinks}`);
+    if(e.caffeine_mg!=null)parts.push(`caf:${e.caffeine_mg}mg`);
     if(e.social_type||e.social_energy)parts.push(`social:${e.social_type||'?'}→felt:${e.social_energy||'?'}`);
     if(ep)parts.push(`phase:${ep.name}`);
     if(e.weighing_on_me)parts.push(`weighing:"${e.weighing_on_me.slice(0,60)}"`);
@@ -1156,6 +1201,7 @@ function renderHistory(){
       if(histTypeFilter==='sleep')return e.sleep_hours!=null;
       if(histTypeFilter==='weed')return e.weed_amount||e.weed_time;
       if(histTypeFilter==='alcohol')return e.alcohol_drinks>0;
+      if(histTypeFilter==='caffeine')return e.caffeine_mg!=null;
       if(histTypeFilter==='social')return e.social_type||e.social_energy;
       if(histTypeFilter==='weighing')return e.weighing_on_me;
       if(histTypeFilter==='negthoughts')return e.negative_thoughts;
@@ -1198,6 +1244,7 @@ function renderHistory(){
         if(e.sleep_hours!=null)tags.push(`<span class="etag">${e.sleep_hours}h sleep</span>`);
         if(e.weed_amount&&e.weed_amount!=='none')tags.push(`<span class="etag">${e.weed_amount} weed${e.weed_time?' ('+e.weed_time+')':''}</span>`);
         if(e.alcohol_drinks>0)tags.push(`<span class="etag">${e.alcohol_drinks} drink${e.alcohol_drinks!==1?'s':''}</span>`);
+        if(e.caffeine_mg!=null)tags.push(`<span class="etag" style="background:#f5f0e0;border-color:#c9a84c;color:#6b5010">☕ ${e.caffeine_mg}mg</span>`);
         if(e.social_type||e.social_energy){
           const sc=e.social_energy==='energized'?'green':e.social_energy==='drained'?'blue':'';
           tags.push(`<span class="etag ${sc}">${e.social_type||'social'}${e.social_energy?' · '+e.social_energy:''}</span>`);
