@@ -135,12 +135,13 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
 /* Metric popup */
 .metric-popup-bg{position:fixed;inset:0;background:rgba(44,37,32,.5);z-index:300;display:none;align-items:flex-end;justify-content:center}
 .metric-popup-bg.open{display:flex}
-.metric-popup{background:var(--surface);border-radius:20px 20px 0 0;padding:0 20px 40px;width:100%;max-width:480px;max-height:70vh;overflow:hidden}
+.metric-popup{background:var(--surface);border-radius:20px 20px 0 0;padding:0 20px 40px;width:100%;max-width:480px;max-height:70vh;overflow-y:auto}
+.chart-outer{overflow:hidden;width:100%}
 .metric-popup-handle{width:36px;height:4px;background:var(--border2);border-radius:2px;margin:12px auto 16px}
 .metric-popup-title{font-family:'Lora',serif;font-size:18px;font-weight:400;color:var(--text);margin-bottom:4px}
 .metric-popup-sub{font-size:12px;color:var(--text3);margin-bottom:16px}
-.chart-swipe-wrap{display:flex;overflow:hidden;width:100%;transition:transform .3s}
-.chart-slide{flex:0 0 100%;position:relative;height:160px}
+.chart-swipe-wrap{display:flex;width:100%;transition:transform .3s;overflow:visible}
+.chart-slide{flex:0 0 100%;position:relative;height:160px;min-width:0}
 .chart-slide canvas{width:100%!important;height:160px!important}
 .chart-tabs{display:flex;gap:8px;margin-top:12px;justify-content:center}
 .chart-tab{padding:6px 16px;border-radius:20px;font-size:12px;cursor:pointer;border:1px solid var(--border);background:var(--surface2);color:var(--text2);font-family:'DM Sans',sans-serif;transition:all .15s}
@@ -280,8 +281,8 @@ input[type=date]:focus{outline:none;border-color:var(--brown-light)}
 </div>
 <div class="toast" id="toast"></div>
 <script>
-const SUPABASE_URL = 'https://zslmaqrvsebxhtjirqgf.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_Er0_gJ3ZJcSnqDWGgXWsRA_6dEq0Rr5';
+const SUPABASE_URL = 'REPLACE_WITH_YOUR_PROJECT_URL';
+const SUPABASE_KEY = 'REPLACE_WITH_YOUR_ANON_KEY';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {auth:{persistSession:false}});
 
 // ── MOON PHASES 2025-2027 ─────────────────────────────────────────────
@@ -974,9 +975,11 @@ function openMetricPopup(key){
     inner.innerHTML=`
       <div class="metric-popup-title">${title}</div>
       <div class="metric-popup-sub">swipe between views</div>
-      <div class="chart-swipe-wrap" id="metricSwipeWrap">
-        <div class="chart-slide"><canvas id="metricChart0"></canvas></div>
-        <div class="chart-slide"><canvas id="metricChart1"></canvas></div>
+      <div class="chart-outer">
+        <div class="chart-swipe-wrap" id="metricSwipeWrap">
+          <div class="chart-slide"><canvas id="metricChart0"></canvas></div>
+          <div class="chart-slide"><canvas id="metricChart1"></canvas></div>
+        </div>
       </div>
       <div class="chart-tabs">
         <button class="chart-tab active" id="metricTab0" onclick="metricTabSwitch(0)">this week</button>
@@ -1001,36 +1004,64 @@ function drawMetricCharts(key){
   const real=entries.filter(e=>e.entry_type!=='happy');
   const now=Date.now();
   const week=real.filter(e=>sortTs(e)>now-7*86400000).sort((a,b)=>sortTs(a)-sortTs(b));
-  const all=real.filter(e=>{
+  const allFiltered=real.filter(e=>{
     if(key==='irrit')return e.irritability!==null&&e.irritability!==undefined;
     if(key==='sleep')return e.sleep_hours!=null;
     return false;
-  }).sort((a,b)=>sortTs(a)-sortTs(b)).slice(-30);
+  }).sort((a,b)=>sortTs(a)-sortTs(b));
   function getVal(e){if(key==='irrit')return irritNum(e.irritability);if(key==='sleep')return e.sleep_hours;return null;}
   const colors={irrit:'#c17f74',sleep:'#7a9db5'};
   const maxes={irrit:3,sleep:12};
   const col=colors[key]||'#7c5c45';
   const mx=maxes[key]||5;
-  const weekDays={};
-  week.forEach(e=>{const v=getVal(e);if(v===null||v===undefined)return;const ds=localDateStr(new Date(sortTs(e)));if(!weekDays[ds])weekDays[ds]=[];weekDays[ds].push(v);});
+
+  // Group by day for both charts (average for irrit, sum for sleep)
+  function groupByDay(data){
+    const days={};
+    data.forEach(e=>{
+      const v=getVal(e);
+      if(v===null||v===undefined)return;
+      const ds=localDateStr(new Date(sortTs(e)));
+      if(!days[ds])days[ds]=[];
+      days[ds].push(v);
+    });
+    return days;
+  }
+  function dayVal(arr){
+    if(!arr||!arr.length)return 0;
+    return key==='sleep'?parseFloat(arr.reduce((a,b)=>a+b,0).toFixed(1)):parseFloat(avg(arr).toFixed(2));
+  }
+
+  const weekDays=groupByDay(week);
   const wLabels=Object.keys(weekDays).sort();
-  const wData=wLabels.map(d=>parseFloat(avg(weekDays[d]).toFixed(2)));
-  const aLabels=all.map(e=>{const d=new Date(sortTs(e));return(d.getMonth()+1)+'/'+d.getDate();});
-  const aData=all.map(e=>getVal(e)).filter(v=>v!==null);
+  const wData=wLabels.map(d=>dayVal(weekDays[d]));
+  const wDayLabels=wLabels.map(d=>{const dt=new Date(d);return['Su','Mo','Tu','We','Th','Fr','Sa'][dt.getDay()];});
+
+  const allDays=groupByDay(allFiltered);
+  const aLabels=Object.keys(allDays).sort().slice(-30);
+  const aData=aLabels.map(d=>dayVal(allDays[d]));
+  const aDisplayLabels=aLabels.map(d=>{const dt=new Date(d);return(dt.getMonth()+1)+'/'+dt.getDate();});
+
   Object.values(metricChartInsts).forEach(c=>{try{c.destroy();}catch(e){}});
   metricChartInsts={};
+
   function makeChart(id,labels,data){
     const ctx=document.getElementById(id);if(!ctx)return;
     if(typeof Chart==='undefined')return;
+    // set explicit pixel dimensions so Chart.js can render even if slide is off-screen
+    ctx.style.width='100%';
+    ctx.style.height='160px';
+    ctx.width=ctx.parentElement.offsetWidth||300;
+    ctx.height=160;
     metricChartInsts[id]=new Chart(ctx,{type:'line',
       data:{labels:labels.length?labels:['no data'],datasets:[{data:data.length?data:[0],borderColor:col,backgroundColor:col+'22',borderWidth:2,pointRadius:3,pointBackgroundColor:col,fill:true,tension:.3}]},
-      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+      options:{responsive:false,maintainAspectRatio:false,plugins:{legend:{display:false}},
         scales:{y:{min:0,max:mx,ticks:{font:{size:10},color:'#9c8f85'},grid:{color:'rgba(224,216,207,.5)'}},
           x:{ticks:{font:{size:9},color:'#9c8f85',maxRotation:0,autoSkip:true,maxTicksLimit:7},grid:{display:false}}}}});
   }
-  const wDayLabels=wLabels.map(d=>{const dt=new Date(d);return['Su','Mo','Tu','We','Th','Fr','Sa'][dt.getDay()];});
+
   makeChart('metricChart0',wDayLabels.length?wDayLabels:['no data'],wData.length?wData:[0]);
-  setTimeout(()=>makeChart('metricChart1',aLabels.length?aLabels:['no data'],aData.length?aData:[0]),150);
+  makeChart('metricChart1',aDisplayLabels.length?aDisplayLabels:['no data'],aData.length?aData:[0]);
 }
 function closeMetricPopup(){
   document.getElementById('metricPopupBg').classList.remove('open');
